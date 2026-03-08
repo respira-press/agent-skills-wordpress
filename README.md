@@ -38,6 +38,13 @@ Store diagnostics: checkout issues, cart problems, payment gateway configuration
 Mobile layout analysis: responsive breakpoints, touch targets, navigation issues.  
 *By Respira Team*
 
+### Performance Skills
+
+**[SEO & AEO Amplifier](./seo-aeo-amplifier/)**  
+Comprehensive on-page SEO and AEO optimization with automated duplicate creation.  
+Scans all content, generates intelligent schema markup, fixes titles/meta/headings.  
+*By Respira Team*
+
 ---
 
 ## Contributing
