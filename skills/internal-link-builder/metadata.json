@@ -1,0 +1,46 @@
+{
+  "name": "Internal Link Builder",
+  "slug": "internal-link-builder",
+  "icon": "🔗",
+  "category": "performance",
+  "description": "Strategic internal link building for WordPress sites. Scans all content, maps topic relationships, identifies linking opportunities between pages, and presents a plan for approval before making changes.",
+  "author": "Respira Team",
+  "author_url": "https://respira.press",
+  "trigger": "build internal links",
+  "requires_respira": true,
+  "requires_woocommerce_addon": false,
+  "requires_accessibility_addon": false,
+  "is_read_only": false,
+  "is_duplicate_first": true,
+  "version": "1.0.0",
+  "last_updated": "2026-03-14",
+  "tools_used": [
+    "wordpress_get_site_context",
+    "wordpress_list_pages",
+    "wordpress_list_posts",
+    "wordpress_read_page",
+    "wordpress_read_post",
+    "wordpress_extract_builder_content",
+    "wordpress_inject_builder_content",
+    "wordpress_create_page_duplicate",
+    "wordpress_create_post_duplicate",
+    "wordpress_update_page",
+    "wordpress_update_post"
+  ],
+  "detects": [
+    "orphaned_pages",
+    "missing_contextual_links",
+    "weak_topic_clusters",
+    "over_linked_pages",
+    "under_linked_pages",
+    "hub_pages_without_spokes",
+    "topic_mentions_without_links"
+  ],
+  "generates": [
+    "internal_link_recommendations",
+    "anchor_text_suggestions",
+    "content_relationship_map",
+    "linking_priority_plan",
+    "optimized_duplicates_with_links"
+  ]
+}
