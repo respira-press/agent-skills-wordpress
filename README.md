@@ -60,6 +60,58 @@ Strategic internal link building: scans content, maps topic relationships, finds
 
 ### Migration Skills
 
+AI-powered page builder migrations. Each skill parses source builder content, maps modules to target equivalents, creates draft duplicates, and writes clean target-format content. Originals are never modified.
+
+**Browse all migrations:** https://www.respira.press/skills/migrations
+
+#### From Elementor
+
+| Target | Skill | Coverage |
+|--------|-------|----------|
+| Gutenberg | [Migrate Elementor to Gutenberg](skills/migrate-elementor-to-gutenberg) | 80-90% of standard widgets |
+| Bricks | [Migrate Elementor to Bricks](skills/migrate-elementor-to-bricks) | 85-95% of standard widgets |
+| Breakdance | [Migrate Elementor to Breakdance](skills/migrate-elementor-to-breakdance) | 80-90% of standard widgets |
+| Oxygen | [Migrate Elementor to Oxygen](skills/migrate-elementor-to-oxygen) | 75-85% of standard widgets |
+
+#### From Divi
+
+| Target | Skill | Coverage |
+|--------|-------|----------|
+| Gutenberg | [Migrate Divi to Gutenberg](skills/migrate-divi-to-gutenberg) | 75-85% of standard modules |
+| Bricks | [Migrate Divi to Bricks](skills/migrate-divi-to-bricks) | 75-85% of standard modules |
+| Breakdance | [Migrate Divi to Breakdance](skills/migrate-divi-to-breakdance) | 75-85% of standard modules |
+
+#### From WPBakery
+
+| Target | Skill | Coverage |
+|--------|-------|----------|
+| Gutenberg | [Migrate WPBakery to Gutenberg](skills/migrate-wpbakery-to-gutenberg) | 70-80% of standard elements |
+| Bricks | [Migrate WPBakery to Bricks](skills/migrate-wpbakery-to-bricks) | 75-85% of standard elements |
+
+#### From Oxygen
+
+| Target | Skill | Coverage |
+|--------|-------|----------|
+| Bricks | [Migrate Oxygen to Bricks](skills/migrate-oxygen-to-bricks) | 80-90% of standard components |
+| Breakdance | [Migrate Oxygen to Breakdance](skills/migrate-oxygen-to-breakdance) | 80-90% of standard components |
+
+#### From Beaver Builder
+
+| Target | Skill | Coverage |
+|--------|-------|----------|
+| Gutenberg | [Migrate Beaver Builder to Gutenberg](skills/migrate-beaver-builder-to-gutenberg) | 75-85% of standard modules |
+| Bricks | [Migrate Beaver Builder to Bricks](skills/migrate-beaver-builder-to-bricks) | 80-90% of standard modules |
+
+#### From Other Builders
+
+| Source | Target | Skill | Coverage |
+|--------|--------|-------|----------|
+| Brizy | Gutenberg | [Migrate Brizy to Gutenberg](skills/migrate-brizy-to-gutenberg) | 70-80% of standard elements |
+| Thrive Architect | Gutenberg | [Migrate Thrive Architect to Gutenberg](skills/migrate-thrive-architect-to-gutenberg) | 65-75% of standard elements |
+| Visual Composer | Gutenberg | [Migrate Visual Composer to Gutenberg](skills/migrate-visual-composer-to-gutenberg) | 70-80% of standard elements |
+
+### Content & Portability
+
 **[Content Portability](skills/content-portability)**  
 Export WordPress content to portable local packages with builder data, media, and markdown previews. Import to another site with smart ID remapping. Auto-backup before AI edits. Diff local exports against live site.  
 *By Respira for WordPress*
