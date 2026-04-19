@@ -170,7 +170,7 @@ Accepted skills get:
 ## Support
 
 **Questions?**
-- Issues: [GitHub Issues](https://github.com/webmyc/claude-skills-wordpress/issues)
+- Issues: [GitHub Issues](https://github.com/respira-press/claude-skills-wordpress/issues)
 - Discord: [Join Respira Discord](https://go.respira.cafe/respira-discord)
 - Email: word@respira.press
 

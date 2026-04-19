@@ -11,8 +11,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/respira-setup-assistant",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/respira-setup-assistant/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/respira-setup-assistant",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/respira-setup-assistant/SKILL.md"
     },
     {
       "slug": "site-onboarding",
@@ -23,8 +23,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/site-onboarding",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/site-onboarding/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/site-onboarding",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/site-onboarding/SKILL.md"
     },
     {
       "slug": "wordpress-site-dna",
@@ -35,8 +35,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/wordpress-site-dna",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/wordpress-site-dna/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/wordpress-site-dna",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/wordpress-site-dna/SKILL.md"
     },
     {
       "slug": "technical-debt-audit",
@@ -47,8 +47,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/technical-debt-audit",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/technical-debt-audit/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/technical-debt-audit",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/technical-debt-audit/SKILL.md"
     },
     {
       "slug": "woocommerce-health-check",
@@ -59,8 +59,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": "woocommerce",
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/woocommerce-health-check",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/woocommerce-health-check/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/woocommerce-health-check",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/woocommerce-health-check/SKILL.md"
     },
     {
       "slug": "mobile-experience-report",
@@ -71,8 +71,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/mobile-experience-report",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/mobile-experience-report/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/mobile-experience-report",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/mobile-experience-report/SKILL.md"
     },
     {
       "slug": "seo-aeo-amplifier",
@@ -83,8 +83,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/seo-aeo-amplifier",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/seo-aeo-amplifier/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/seo-aeo-amplifier",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/seo-aeo-amplifier/SKILL.md"
     },
     {
       "slug": "wordpress-ai-image-optimizer",
@@ -95,8 +95,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/wordpress-ai-image-optimizer",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/wordpress-ai-image-optimizer/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/wordpress-ai-image-optimizer",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/wordpress-ai-image-optimizer/SKILL.md"
     },
     {
       "slug": "internal-link-builder",
@@ -107,8 +107,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/internal-link-builder",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/internal-link-builder/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/internal-link-builder",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/internal-link-builder/SKILL.md"
     },
     {
       "slug": "content-portability",
@@ -119,8 +119,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/content-portability",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/content-portability/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/content-portability",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/content-portability/SKILL.md"
     },
     {
       "slug": "migrate-elementor-to-bricks",
@@ -131,8 +131,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-elementor-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-elementor-to-bricks/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-elementor-to-bricks",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-elementor-to-bricks/SKILL.md"
     },
     {
       "slug": "migrate-elementor-to-gutenberg",
@@ -143,8 +143,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-elementor-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-elementor-to-gutenberg/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-elementor-to-gutenberg",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-elementor-to-gutenberg/SKILL.md"
     },
     {
       "slug": "migrate-elementor-to-breakdance",
@@ -155,8 +155,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-elementor-to-breakdance",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-elementor-to-breakdance/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-elementor-to-breakdance",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-elementor-to-breakdance/SKILL.md"
     },
     {
       "slug": "migrate-elementor-to-oxygen",
@@ -167,8 +167,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-elementor-to-oxygen",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-elementor-to-oxygen/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-elementor-to-oxygen",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-elementor-to-oxygen/SKILL.md"
     },
     {
       "slug": "migrate-divi-to-bricks",
@@ -179,8 +179,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-divi-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-divi-to-bricks/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-divi-to-bricks",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-divi-to-bricks/SKILL.md"
     },
     {
       "slug": "migrate-divi-to-gutenberg",
@@ -191,8 +191,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-divi-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-divi-to-gutenberg/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-divi-to-gutenberg",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-divi-to-gutenberg/SKILL.md"
     },
     {
       "slug": "migrate-divi-to-breakdance",
@@ -203,8 +203,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-divi-to-breakdance",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-divi-to-breakdance/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-divi-to-breakdance",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-divi-to-breakdance/SKILL.md"
     },
     {
       "slug": "migrate-wpbakery-to-gutenberg",
@@ -215,8 +215,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-wpbakery-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-wpbakery-to-gutenberg/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-wpbakery-to-gutenberg",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-wpbakery-to-gutenberg/SKILL.md"
     },
     {
       "slug": "migrate-wpbakery-to-bricks",
@@ -227,8 +227,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-wpbakery-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-wpbakery-to-bricks/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-wpbakery-to-bricks",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-wpbakery-to-bricks/SKILL.md"
     },
     {
       "slug": "migrate-beaver-builder-to-gutenberg",
@@ -239,8 +239,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-beaver-builder-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-beaver-builder-to-gutenberg/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-beaver-builder-to-gutenberg",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-beaver-builder-to-gutenberg/SKILL.md"
     },
     {
       "slug": "migrate-beaver-builder-to-bricks",
@@ -251,8 +251,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-beaver-builder-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-beaver-builder-to-bricks/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-beaver-builder-to-bricks",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-beaver-builder-to-bricks/SKILL.md"
     },
     {
       "slug": "migrate-oxygen-to-bricks",
@@ -263,8 +263,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-oxygen-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-oxygen-to-bricks/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-oxygen-to-bricks",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-oxygen-to-bricks/SKILL.md"
     },
     {
       "slug": "migrate-oxygen-to-breakdance",
@@ -275,8 +275,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-oxygen-to-breakdance",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-oxygen-to-breakdance/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-oxygen-to-breakdance",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-oxygen-to-breakdance/SKILL.md"
     },
     {
       "slug": "migrate-brizy-to-gutenberg",
@@ -287,8 +287,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-brizy-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-brizy-to-gutenberg/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-brizy-to-gutenberg",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-brizy-to-gutenberg/SKILL.md"
     },
     {
       "slug": "migrate-thrive-architect-to-gutenberg",
@@ -299,8 +299,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-thrive-architect-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-thrive-architect-to-gutenberg/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-thrive-architect-to-gutenberg",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-thrive-architect-to-gutenberg/SKILL.md"
     },
     {
       "slug": "migrate-visual-composer-to-gutenberg",
@@ -311,8 +311,8 @@
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
-      "github_url": "https://github.com/webmyc/claude-skills-wordpress/tree/main/skills/migrate-visual-composer-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/webmyc/claude-skills-wordpress/main/skills/migrate-visual-composer-to-gutenberg/SKILL.md"
+      "github_url": "https://github.com/respira-press/claude-skills-wordpress/tree/main/skills/migrate-visual-composer-to-gutenberg",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/claude-skills-wordpress/main/skills/migrate-visual-composer-to-gutenberg/SKILL.md"
     }
   ]
 }
