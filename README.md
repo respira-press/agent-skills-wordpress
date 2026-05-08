@@ -1,8 +1,8 @@
-# Claude Skills for WordPress
+# Agent Skills for WordPress
 
 The community hub for WordPress AI workflows.
 
-Skills that run inside Claude, Codex, Cursor, and any AI agent that supports Skills + MCP to analyze, audit, optimize, and fix WordPress sites.  
+Skills that run inside Claude Code, Codex, Antigravity, Cursor, and any AI agent that supports Skills + MCP to analyze, audit, optimize, and fix WordPress sites.  
 Built by the community. Curated by Respira. Open source.
 
 **Live Directory:** https://www.respira.press/skills
@@ -170,7 +170,7 @@ Accepted skills get:
 ## Support
 
 **Questions?**
-- Issues: [GitHub Issues](https://github.com/respira-press/claude-skills-wordpress/issues)
+- Issues: [GitHub Issues](https://github.com/respira-press/agent-skills-wordpress/issues)
 - Discord: [Join Respira Discord](https://go.respira.cafe/respira-discord)
 - Email: word@respira.press
 
