@@ -12,7 +12,28 @@
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/respira-setup-assistant",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/respira-setup-assistant/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/respira-setup-assistant/SKILL.md",
+      "details": {
+        "hero_subtitle": "Diagnose your MCP connection, walk through first-time setup, and fix common problems. Works even when Respira is broken — it is the skill you run first.",
+        "capabilities": [
+          {
+            "title": "Doctor Diagnostics",
+            "desc": "9 checks in one pass — Node.js version, MCP config, connectivity, plugin version, API negotiation, and npm update availability."
+          },
+          {
+            "title": "Version Compatibility",
+            "desc": "Detects version mismatches between MCP server and plugin. Tells you exactly what to update and why."
+          },
+          {
+            "title": "Guided Setup",
+            "desc": "Walks through first-time connection step by step — plugin install, API key creation, MCP configuration."
+          },
+          {
+            "title": "Troubleshooting",
+            "desc": "Resolves timeouts, 401s, 403s, staging auth issues, and REST API blocks with plain-language instructions."
+          }
+        ]
+      }
     },
     {
       "slug": "site-onboarding",
@@ -24,7 +45,28 @@
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/site-onboarding",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/site-onboarding/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/site-onboarding/SKILL.md",
+      "details": {
+        "hero_subtitle": "First-run primer for AI coding tools. Verify your MCP connection, discover your site architecture, and get a complete briefing on everything your AI agent can do.",
+        "capabilities": [
+          {
+            "title": "Connection Verification",
+            "desc": "Confirms MCP is live, authenticated, and communicating with your WordPress site before doing anything else."
+          },
+          {
+            "title": "Architecture Discovery",
+            "desc": "Maps your theme, page builders, plugins, post types, taxonomies, and menus in a single pass."
+          },
+          {
+            "title": "Capability Mapping",
+            "desc": "Lists every action the AI can take on your specific site based on active plugins and add-ons."
+          },
+          {
+            "title": "Site Briefing",
+            "desc": "Produces a concise reference document with connection status, architecture, and suggested next steps."
+          }
+        ]
+      }
     },
     {
       "slug": "wordpress-site-dna",
@@ -36,43 +78,224 @@
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/wordpress-site-dna",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/wordpress-site-dna/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/wordpress-site-dna/SKILL.md",
+      "details": {
+        "hero_subtitle": "Archaeological analysis of your WordPress installation. Find technical debt, optimization opportunities, and hidden issues — in about 60 seconds.",
+        "capabilities": [
+          {
+            "title": "Core WordPress Health",
+            "desc": "Version, PHP compatibility, debug mode, memory limits"
+          },
+          {
+            "title": "Builder Archaeology",
+            "desc": "Detect all builders: Elementor, Divi, Bricks, WPBakery, and 7 more"
+          },
+          {
+            "title": "Plugin Analysis",
+            "desc": "Active vs dead weight, outdated, security risks, performance hogs"
+          },
+          {
+            "title": "Theme Inspection",
+            "desc": "Active theme, parent/child structure, framework detection"
+          },
+          {
+            "title": "Content Structure",
+            "desc": "Orphaned shortcodes, media library, database bloat"
+          },
+          {
+            "title": "Performance Metrics",
+            "desc": "Page weight, unused assets, image optimization opportunities"
+          },
+          {
+            "title": "Security Posture",
+            "desc": "SSL, admin exposure, file permissions, vulnerability scan"
+          },
+          {
+            "title": "Technical Debt Score",
+            "desc": "Health score 0–100 with category breakdown and trend tracking"
+          }
+        ],
+        "expected_findings": [
+          "3 page builders installed, only actively using 1",
+          "14 plugins you forgot about that slow every page load",
+          "Orphaned shortcodes breaking layout on 8 pages",
+          "PHP 7.4 running end-of-life with known vulnerabilities",
+          " as your WordPress username (a gift to attackers)",
+          "2.3GB of unoptimized images killing Core Web Vitals"
+        ]
+      }
     },
     {
       "slug": "technical-debt-audit",
       "name": "Technical Debt Audit",
-      "description": "Identifies technical debt in WordPress sites \u2014 orphaned shortcodes from deleted plugins, unused plugins, database bloat, unused media, builder data from inactive builders.",
+      "description": "Identifies technical debt in WordPress sites — orphaned shortcodes from deleted plugins, unused plugins, database bloat, unused media, builder data from inactive builders.",
       "category": "audit",
       "author": "Respira for WordPress",
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/technical-debt-audit",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/technical-debt-audit/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/technical-debt-audit/SKILL.md",
+      "details": {
+        "hero_subtitle": "Orphaned shortcodes, forgotten plugins, database bloat, unused media. Technical Debt Audit finds it all and gives you a safe, prioritized cleanup plan.",
+        "capabilities": [
+          {
+            "title": "Orphaned Shortcodes",
+            "desc": "Finds shortcodes in content pointing to deleted or inactive plugins"
+          },
+          {
+            "title": "Plugin Graveyard",
+            "desc": "Identifies plugins installed but never used, activated then abandoned"
+          },
+          {
+            "title": "Builder Archaeology",
+            "desc": "Dormant page builders with zero pages using them, still bloating disk"
+          },
+          {
+            "title": "Database Bloat",
+            "desc": "Revisions, expired transients, orphaned postmeta, spam comment backlog"
+          },
+          {
+            "title": "Unused Media",
+            "desc": "Images uploaded but referenced nowhere — wasted disk and bandwidth"
+          },
+          {
+            "title": "Long Inactive Plugins",
+            "desc": "Plugins deactivated 6+ months ago that are attack surface for nothing"
+          },
+          {
+            "title": "Debt Score 0–100",
+            "desc": "Composite cleanliness score with breakdown by category"
+          },
+          {
+            "title": "Safe Cleanup Roadmap",
+            "desc": "Prioritized week-by-week plan with Respira duplicate-first workflows"
+          }
+        ],
+        "expected_findings": [
+          "23 orphaned shortcodes breaking layout across 8 pages",
+          "14 plugins installed ",
+          " — never activated, never removed",
+          "Elementor and Divi both installed, only one ever used",
+          "2.1GB of database bloat from 8 years of unlimited revisions",
+          "800+ images in the media library, only 200 referenced anywhere",
+          "Deactivated security plugin still sitting there with known CVEs"
+        ]
+      }
     },
     {
       "slug": "woocommerce-health-check",
       "name": "WooCommerce Health Check",
-      "description": "WooCommerce configuration diagnostics \u2014 identifies checkout problems, cart errors, AJAX mismatches, caching issues, payment gateway setup, SSL enforcement. Revenue-impacting diagnostics.",
+      "description": "WooCommerce configuration diagnostics — identifies checkout problems, cart errors, AJAX mismatches, caching issues, payment gateway setup, SSL enforcement. Revenue-impacting diagnostics.",
       "category": "audit",
       "author": "Respira for WordPress",
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": "woocommerce",
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/woocommerce-health-check",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/woocommerce-health-check/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/woocommerce-health-check/SKILL.md",
+      "details": {
+        "hero_subtitle": "URL mismatches, uncached cart pages, broken payment gateways. WooCommerce Health Check finds the exact issues causing cart abandonment — before your next lost order.",
+        "capabilities": [
+          {
+            "title": "URL Mismatch Detection",
+            "desc": "WordPress Address vs Site Address mismatch breaks AJAX on checkout"
+          },
+          {
+            "title": "SSL Verification",
+            "desc": "HTTP store detected — payment gateways require HTTPS"
+          },
+          {
+            "title": "Cart & Checkout Pages",
+            "desc": "Verifies pages exist, are published, and assigned in WooCommerce settings"
+          },
+          {
+            "title": "Caching Exclusions",
+            "desc": "Cart and checkout cached = sessions broken, empty carts, lost orders"
+          },
+          {
+            "title": "Payment Gateways",
+            "desc": "Detects active gateways, flags inactive plugins, SSL requirements"
+          },
+          {
+            "title": "Mobile Checkout",
+            "desc": "Column stacking, tap targets, Place Order button off-screen"
+          },
+          {
+            "title": "Checkout Performance",
+            "desc": "Load time, unnecessary scripts, JS blocking payment forms"
+          },
+          {
+            "title": "Health Score 0–100",
+            "desc": "Store-specific score with immediate action items by revenue impact"
+          }
+        ],
+        "expected_findings": [
+          "WordPress Address and Site Address don\\",
+          "WP Rocket caching cart and checkout — customers lose their cart every page reload",
+          "SSL expired last week — Stripe and PayPal refuse to process payments",
+          "Place Order",
+          "WooCommerce Stripe plugin installed but deactivated — no payment method available",
+          "Checkout page loads 4.2 seconds — 40% of mobile users abandon before it renders"
+        ]
+      }
     },
     {
       "slug": "mobile-experience-report",
       "name": "Mobile Experience Report",
-      "description": "Mobile layout diagnostics \u2014 identifies responsive breakpoint problems, text sizing issues, column stacking failures, element visibility issues, navigation menu behavior. Device-by-device breakdown.",
+      "description": "Mobile layout diagnostics — identifies responsive breakpoint problems, text sizing issues, column stacking failures, element visibility issues, navigation menu behavior. Device-by-device breakdown.",
       "category": "audit",
       "author": "Respira for WordPress",
       "version": "1.0.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/mobile-experience-report",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/mobile-experience-report/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/mobile-experience-report/SKILL.md",
+      "details": {
+        "hero_subtitle": "60% of your visitors are on phones. This skill shows you exactly what they experience — broken columns, squished text, menus that don't work on touch.",
+        "capabilities": [
+          {
+            "title": "Breakpoint Analysis",
+            "desc": "Tests all device sizes from 320px iPhone SE to 1024px tablet landscape"
+          },
+          {
+            "title": "Column Stacking",
+            "desc": "Finds multi-column layouts that squish side-by-side on phones"
+          },
+          {
+            "title": "Typography Scaling",
+            "desc": "Catches 72px headings that eat the entire mobile screen"
+          },
+          {
+            "title": "Horizontal Scroll",
+            "desc": "Detects elements wider than the viewport causing sideways scrolling"
+          },
+          {
+            "title": "Mobile Navigation",
+            "desc": "Verifies hamburger menu, tap targets ≥ 44px, touch-friendly dropdowns"
+          },
+          {
+            "title": "Media Responsiveness",
+            "desc": "Images, videos, maps — flags anything without max-width: 100%"
+          },
+          {
+            "title": "Spacing on Mobile",
+            "desc": "80px desktop padding that wastes the entire phone viewport"
+          },
+          {
+            "title": "Mobile Score 0–100",
+            "desc": "Composite score with per-page breakdown and fix priority roadmap"
+          }
+        ],
+        "expected_findings": [
+          "Three-column hero squished into tiny slivers on every phone",
+          "72px H1 headings that take the full screen on iPhone SE",
+          "Hamburger menu never configured — desktop menu on mobile",
+          "Place Order",
+          "80px section padding eating 160px of mobile viewport real estate",
+          "Videos and embedded maps with no responsive wrappers"
+        ]
+      }
     },
     {
       "slug": "seo-aeo-amplifier",
@@ -84,7 +307,38 @@
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/seo-aeo-amplifier",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/seo-aeo-amplifier/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/seo-aeo-amplifier/SKILL.md",
+      "details": {
+        "hero_subtitle": "Comprehensive on-page SEO and Answer Engine Optimization for WordPress. Scan everything, detect high-impact gaps, and auto-create optimized duplicates for safe review.",
+        "capabilities": [
+          {
+            "title": "Comprehensive SEO Audit",
+            "desc": "Scans all pages and posts for title/meta issues, heading problems, missing alt text, thin content, weak slugs, and internal link gaps."
+          },
+          {
+            "title": "AEO Opportunity Detection",
+            "desc": "Finds answer-engine opportunities including FAQ/HowTo patterns, snippet candidates, and People Also Ask structuring gaps."
+          },
+          {
+            "title": "Schema Markup Generation",
+            "desc": "Builds intelligent JSON-LD for Article, FAQ, HowTo, Product, Event, Video, Review, Breadcrumb, and Organization contexts."
+          },
+          {
+            "title": "Duplicate-First Auto Fixes",
+            "desc": "Creates optimized duplicates, applies fixes safely, and gives before/after comparisons so you approve before publishing."
+          }
+        ],
+        "expected_findings": [
+          "Missing or weak title tags",
+          "Missing or weak meta descriptions",
+          "Multiple H1 tags and skipped heading levels",
+          "Missing image alt text",
+          "Thin content pages",
+          "Broken internal links",
+          "Orphaned pages",
+          "Non-descriptive URL slugs"
+        ]
+      }
     },
     {
       "slug": "wordpress-ai-image-optimizer",
@@ -96,7 +350,38 @@
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/wordpress-ai-image-optimizer",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/wordpress-ai-image-optimizer/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/wordpress-ai-image-optimizer/SKILL.md",
+      "details": {
+        "hero_subtitle": "Optimize your entire image footprint with AI-powered local processing. Compress, convert, resize, rename, and update references in duplicate-first mode.",
+        "capabilities": [
+          {
+            "title": "Comprehensive Image Audit",
+            "desc": "Scans media library, posts, pages, featured images, builders, and WooCommerce product images for optimization opportunities."
+          },
+          {
+            "title": "AI-Powered Local Processing",
+            "desc": "Downloads and processes images locally with ImageMagick, Sharp, or Pillow for compression, conversion, resizing, and renaming."
+          },
+          {
+            "title": "Automated Upload & URL Updates",
+            "desc": "Uploads optimized files as new media entries and updates references across duplicates of affected pages/posts/builders."
+          },
+          {
+            "title": "Safe & Reversible",
+            "desc": "Original files remain intact and flagged as deprecated, enabling low-risk rollout and rollback support."
+          }
+        ],
+        "expected_findings": [
+          "Oversized images (5000px originals where 2000px max is enough)",
+          "Inefficient formats (PNG photos, oversized JPGs)",
+          "Missing or weak alt text",
+          "Non-SEO filenames (IMG_1234.jpg, screenshot.png)",
+          "Missing responsive sizes and srcset gaps",
+          "Suboptimal compression quality settings",
+          "Missing lazy loading or width/height attributes",
+          "Orphaned media not referenced by content"
+        ]
+      }
     },
     {
       "slug": "internal-link-builder",
@@ -108,7 +393,28 @@
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/internal-link-builder",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/internal-link-builder/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/internal-link-builder/SKILL.md",
+      "details": {
+        "hero_subtitle": "Strategic internal link building for WordPress. Scan all content, map topic relationships, find high-value linking opportunities, and apply with plan-first, duplicate-first safety.",
+        "capabilities": [
+          {
+            "title": "Content Relationship Mapping",
+            "desc": "Scans all pages and posts, extracts topics and keywords, and builds a complete map of how your content relates to each other."
+          },
+          {
+            "title": "Opportunity Detection",
+            "desc": "Finds orphaned pages, missing contextual links, weak topic clusters, and hub pages that should link to sub-pages but don\\"
+          },
+          {
+            "title": "Plan-First Approach",
+            "desc": "Presents every recommended link with source, target, anchor text, placement context, and reasoning — then waits for your approval."
+          },
+          {
+            "title": "Duplicate-First Application",
+            "desc": "Creates optimized duplicates with links inserted, respecting your page builder format. Review before publishing."
+          }
+        ]
+      }
     },
     {
       "slug": "content-portability",
@@ -120,7 +426,36 @@
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/content-portability",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/content-portability/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/content-portability/SKILL.md",
+      "details": {
+        "hero_subtitle": "Back up your WordPress content to portable local packages. Migrate to another site with smart ID remapping. Auto-backup before AI edits.",
+        "capabilities": [
+          {
+            "title": "Portable Content Export",
+            "desc": "Export pages, posts, and custom post types with full builder data, meta, and hashes to a structured local package."
+          },
+          {
+            "title": "Smart Import & Migration",
+            "desc": "Import content to another site with automatic ID remapping for media, posts, and builder JSON references."
+          },
+          {
+            "title": "Auto-Backup Before Edits",
+            "desc": "Quick local backup mode saves a timestamped snapshot before any AI edit — zero-friction insurance."
+          },
+          {
+            "title": "Diff Against Live Site",
+            "desc": "Compare local exports against current site state to see exactly what changed since your last backup."
+          }
+        ],
+        "expected_findings": [
+          "Machine-Readable JSON — Full content, builder payload, allowlisted meta, and computed hashes for every page and post.",
+          "Human-Readable Markdown — Browse your backup in any text editor or GitHub — heading structure, text, and image references.",
+          "Optional Media Download — Download referenced images locally for fully portable offline packages.",
+          "Builder Data Preservation — Elementor, Bricks, Divi builder JSON exported alongside standard WordPress content.",
+          "Hash Verification — Content, builder, and meta hashes for every item — verify import fidelity automatically.",
+          "Package Manifest — Complete metadata: source site, WordPress version, content counts, warnings, and skipped items."
+        ]
+      }
     },
     {
       "slug": "migrate-elementor-to-bricks",
