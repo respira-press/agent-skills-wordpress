@@ -1,3 +1,15 @@
+---
+name: migrate-elementor-to-bricks
+description: Converts Elementor-built WordPress pages to Bricks Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its closest Bricks element equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use when user says "migrate Elementor to Bricks", "switch from Elementor to Bricks", or "rebuild Elementor pages in Bricks".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Elementor to Bricks
 
 Converts Elementor-built WordPress pages to Bricks Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its closest Bricks element equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use this skill whenever someone wants to move from Elementor to Bricks, rebuild Elementor pages in Bricks, or switch page builders from Elementor to Bricks.

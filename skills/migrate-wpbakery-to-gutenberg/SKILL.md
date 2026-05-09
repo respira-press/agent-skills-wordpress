@@ -1,3 +1,15 @@
+---
+name: migrate-wpbakery-to-gutenberg
+description: Converts WPBakery Page Builder (formerly Visual Composer) pages to native Gutenberg blocks. Parses WPBakery shortcodes from post_content, maps each element to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use when user says "migrate WPBakery to Gutenberg", "drop WPBakery for native blocks", or "modernize a legacy WPBakery WordPress site".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate WPBakery to Gutenberg
 
 Converts WPBakery Page Builder (formerly Visual Composer) pages to native Gutenberg blocks. Parses WPBakery's shortcode-based content from post_content, maps each element to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use this skill whenever someone wants to move from WPBakery to Gutenberg, eliminate the WPBakery dependency, switch to native blocks, or modernize an older WordPress site still running WPBakery.

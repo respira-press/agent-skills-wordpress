@@ -1,3 +1,15 @@
+---
+name: migrate-divi-to-gutenberg
+description: Converts Divi-built WordPress pages to native Gutenberg blocks. Parses Divi's shortcode tree from post_content, maps each module to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use when user says "migrate Divi to Gutenberg", "switch from Divi to native blocks", "remove Divi dependency", or "rebuild Divi pages in the block editor".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Divi to Gutenberg
 
 Converts Divi-built WordPress pages to native Gutenberg blocks. Parses Divi's shortcode-based content from post_content, maps each module to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use this skill whenever someone wants to move from Divi to Gutenberg, eliminate the Divi dependency, switch to native blocks, or simplify their WordPress stack by removing Elegant Themes' builder.

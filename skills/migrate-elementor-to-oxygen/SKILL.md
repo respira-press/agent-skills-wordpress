@@ -1,3 +1,15 @@
+---
+name: migrate-elementor-to-oxygen
+description: Converts Elementor-built WordPress pages to Oxygen Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its Oxygen component equivalent, generates a migration plan for approval, and writes Oxygen content to the target pages. Use when user says "migrate Elementor to Oxygen", "switch from Elementor to Oxygen", or "rebuild Elementor pages in Oxygen's developer-oriented builder".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Elementor to Oxygen
 
 Converts Elementor-built WordPress pages to Oxygen Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its Oxygen component equivalent, generates a migration plan for approval, and writes Oxygen content to the target pages. Use this skill whenever someone wants to move from Elementor to Oxygen, switch to Oxygen's developer-oriented builder, or rebuild Elementor pages in Oxygen.

@@ -1,3 +1,15 @@
+---
+name: migrate-wpbakery-to-bricks
+description: Converts WPBakery Page Builder pages (the legacy ThemeForest-bundled vc_* shortcode format) to Bricks Builder. Parses WPBakery shortcodes from post_content, maps each element to its Bricks equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use when user says "migrate WPBakery to Bricks", "modernize a WPBakery site with Bricks", or "switch from WPBakery to Bricks".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate WPBakery to Bricks
 
 Converts WPBakery Page Builder pages to Bricks Builder. Parses WPBakery's shortcode-based content from post_content, maps each element to its Bricks equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use this skill whenever someone wants to move from WPBakery to Bricks, modernize an older WPBakery site with Bricks, or switch page builders from WPBakery/Visual Composer to Bricks.

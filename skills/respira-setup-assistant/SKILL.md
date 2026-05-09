@@ -1,3 +1,15 @@
+---
+name: respira-setup-assistant
+description: Diagnoses Respira MCP connections, walks through first-time setup, and resolves the most common errors (timeouts, 401s, 403s, version mismatches, missing API keys, plugin not installed). Use when user says "set up respira", "connect respira", "respira not working", "respira connection failed", or "fix respira".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: onboarding
+---
+
 # Respira Setup Assistant
 
 **Version:** 1.0.0

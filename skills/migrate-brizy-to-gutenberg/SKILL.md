@@ -1,3 +1,15 @@
+---
+name: migrate-brizy-to-gutenberg
+description: Full-site migration from Brizy Builder to the WordPress block editor (Gutenberg). Audits every Brizy-built page, maps components to native block equivalents, builds a migration plan for approval, and converts pages to native block markup via duplicates so the live site stays untouched. Use when user says "migrate Brizy to Gutenberg", "switch from Brizy to blocks", "convert Brizy pages to the block editor", or "move from Brizy to native WordPress".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Brizy to Gutenberg
 
 Full-site migration from Brizy Builder to the WordPress block editor (Gutenberg). Audits every Brizy-built page, maps components to their Gutenberg block equivalents, builds a migration plan for approval, and executes page-by-page conversion into native block markup — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Brizy to Gutenberg, switching from Brizy to blocks, converting Brizy pages to the block editor, or moving away from Brizy to native WordPress.

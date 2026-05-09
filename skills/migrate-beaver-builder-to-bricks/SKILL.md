@@ -1,3 +1,15 @@
+---
+name: migrate-beaver-builder-to-bricks
+description: Full-site migration from Beaver Builder to Bricks Builder. Audits every Beaver Builder page, maps modules to Bricks equivalents, builds a migration plan for approval, and converts pages to Bricks JSON via duplicates so the live site stays untouched. Use when user says "migrate Beaver Builder to Bricks", "switch from BB to Bricks", "convert Beaver Builder pages to Bricks", or "replace Beaver Builder with Bricks".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Beaver Builder to Bricks
 
 Full-site migration from Beaver Builder to Bricks Builder. Audits every Beaver Builder page, maps modules to their Bricks equivalents, builds a migration plan for approval, and executes page-by-page conversion into Bricks' JSON format — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Beaver Builder to Bricks, switching from BB to Bricks, converting Beaver Builder pages to Bricks, or replacing Beaver Builder with Bricks.

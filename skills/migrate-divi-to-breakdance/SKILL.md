@@ -1,3 +1,15 @@
+---
+name: migrate-divi-to-breakdance
+description: Converts Divi-built WordPress pages to Breakdance Builder. Parses Divi's shortcode tree from post_content, maps each module to its Breakdance element equivalent, generates a migration plan for approval, and writes Breakdance content to the target pages. Use when user says "migrate Divi to Breakdance", "switch from Divi to Breakdance", or "rebuild Divi pages in Breakdance".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Divi to Breakdance
 
 Converts Divi-built WordPress pages to Breakdance Builder. Parses Divi's shortcode-based content from post_content, maps each module to its Breakdance element equivalent, generates a migration plan for approval, and writes Breakdance content to the target pages. Use this skill whenever someone wants to move from Divi to Breakdance, switch builders from Divi to Breakdance, or rebuild Divi pages in Breakdance.

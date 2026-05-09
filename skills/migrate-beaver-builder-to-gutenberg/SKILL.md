@@ -1,3 +1,15 @@
+---
+name: migrate-beaver-builder-to-gutenberg
+description: Full-site migration from Beaver Builder to the WordPress block editor (Gutenberg). Audits every Beaver Builder page, maps modules to native block equivalents, builds a migration plan for approval, and converts pages to native block markup via duplicates so the live site stays untouched. Use when user says "migrate Beaver Builder to Gutenberg", "switch from Beaver Builder to blocks", "convert Beaver Builder pages to the block editor", or "move from Beaver Builder to native WordPress".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Beaver Builder to Gutenberg
 
 Full-site migration from Beaver Builder to the WordPress block editor (Gutenberg). Audits every Beaver Builder page, maps modules to their Gutenberg block equivalents, builds a migration plan for approval, and executes page-by-page conversion into native block markup — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Beaver Builder to Gutenberg, switching from Beaver Builder to blocks, converting Beaver Builder pages to the block editor, or moving away from Beaver Builder to native WordPress.

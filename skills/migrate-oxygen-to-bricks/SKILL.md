@@ -1,3 +1,15 @@
+---
+name: migrate-oxygen-to-bricks
+description: Full-site migration from Oxygen Builder to Bricks (both modern, developer-oriented, near 1:1 mental model). Audits every Oxygen page, maps components to Bricks equivalents, builds a migration plan for approval, and converts pages to Bricks JSON via duplicates so the live site stays untouched. Use when user says "migrate Oxygen to Bricks", "switch from Oxygen to Bricks", or "replace Oxygen with Bricks Builder".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Oxygen to Bricks
 
 Full-site migration from Oxygen Builder to Bricks Builder. Audits every Oxygen-built page, maps components to their Bricks equivalents, builds a migration plan for approval, and executes page-by-page conversion into Bricks' JSON format — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Oxygen to Bricks, switching from Oxygen to Bricks, converting Oxygen pages to Bricks, or replacing Oxygen with Bricks Builder.

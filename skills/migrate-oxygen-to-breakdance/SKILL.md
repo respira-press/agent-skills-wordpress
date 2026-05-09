@@ -1,3 +1,15 @@
+---
+name: migrate-oxygen-to-breakdance
+description: Full-site migration from Oxygen Builder to Breakdance (same Soflyy lineage, smoothest possible builder swap). Audits every Oxygen page, maps components to Breakdance equivalents, builds a migration plan for approval, and converts pages via duplicates so the live site stays untouched. Use when user says "migrate Oxygen to Breakdance", "switch from Oxygen to Breakdance", or "replace Oxygen with Breakdance".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Oxygen to Breakdance
 
 Full-site migration from Oxygen Builder to Breakdance. Audits every Oxygen-built page, maps components to their Breakdance equivalents, builds a migration plan for approval, and executes page-by-page conversion — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Oxygen to Breakdance, switching from Oxygen to Breakdance, converting Oxygen pages to Breakdance, or replacing Oxygen with Breakdance.

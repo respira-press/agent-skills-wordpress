@@ -1,3 +1,15 @@
+---
+name: migrate-divi-to-bricks
+description: Converts Divi-built WordPress pages to Bricks Builder. Parses Divi's shortcode tree from post_content, maps each module to its Bricks element equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use when user says "migrate Divi to Bricks", "replace Divi with Bricks", "switch from Divi to Bricks", or "rebuild Divi pages in Bricks".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Divi to Bricks
 
 Converts Divi-built WordPress pages to Bricks Builder. Parses Divi's shortcode-based content from post_content, maps each module to its Bricks element equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use this skill whenever someone wants to move from Divi to Bricks, replace the Divi Builder with Bricks, or rebuild Divi pages in Bricks.

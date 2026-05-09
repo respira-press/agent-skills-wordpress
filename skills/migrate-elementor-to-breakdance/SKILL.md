@@ -1,3 +1,15 @@
+---
+name: migrate-elementor-to-breakdance
+description: Converts Elementor-built WordPress pages to Breakdance Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its Breakdance element equivalent, generates a migration plan for approval, and writes Breakdance content to the target pages. Use when user says "migrate Elementor to Breakdance", "switch from Elementor to Breakdance", or "rebuild Elementor pages in Breakdance".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Elementor to Breakdance
 
 Converts Elementor-built WordPress pages to Breakdance Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its Breakdance element equivalent, generates a migration plan for approval, and writes Breakdance content to the target pages. Use this skill whenever someone wants to move from Elementor to Breakdance, switch builders from Elementor to Breakdance, or rebuild Elementor pages in Breakdance.

@@ -1,3 +1,15 @@
+---
+name: migrate-thrive-architect-to-gutenberg
+description: Full-site migration from Thrive Architect to the WordPress block editor (Gutenberg). Audits every Thrive page, maps elements to native block equivalents, builds a migration plan for approval, and converts pages to native block markup via duplicates so the live site stays untouched. Marketing-only Thrive components (Thrive Leads, Ultimatum, Quiz) are flagged for separate replacement. Use when user says "migrate Thrive Architect to Gutenberg", "switch from Thrive to blocks", or "move from Thrive Architect to native WordPress".
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Thrive Architect to Gutenberg
 
 Full-site migration from Thrive Architect to the WordPress block editor (Gutenberg). Audits every Thrive-built page, maps elements to their Gutenberg block equivalents, builds a migration plan for approval, and executes page-by-page conversion into native block markup — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Thrive Architect to Gutenberg, switching from Thrive to blocks, converting Thrive pages to the block editor, or moving away from Thrive Architect to native WordPress.
