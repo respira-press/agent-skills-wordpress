@@ -1,6 +1,10 @@
 ---
 name: wordpress-mcp-dev
 description: Build and maintain modern WordPress plugins and MCP servers, including hybrid WordPress+MCP products. Use when implementing plugin architecture (PHP, REST API, Gutenberg/admin/page-builder integrations), MCP tooling (TypeScript/Python, stdio/HTTP transport), security hardening, licensing/updates, and delivery workflows from scaffold to distribution.
+metadata:
+  version: 1.1.0
+  updated_at: 2026-05-17
+  status: active
 ---
 
 # WordPress + MCP Development

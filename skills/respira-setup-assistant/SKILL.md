@@ -1,20 +1,10 @@
----
-name: respira-setup-assistant
-description: Diagnoses Respira MCP connections, walks through first-time setup, and resolves the most common errors (timeouts, 401s, 403s, version mismatches, missing API keys, plugin not installed). Use when user says "set up respira", "connect respira", "respira not working", "respira connection failed", or "fix respira".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: onboarding
----
-
 # Respira Setup Assistant
 
-**Version:** 1.0.0
+**Version:** 1.1.0
+**Updated:** 2026-05-17
 **Category:** onboarding
 **Status:** active
+**Freshly updated:** v1.1.0 picks up the v7.1 OAuth setup flow, the new respira_diagnose_connection tool for edge-layer blocks, and the install-skills npm command.
 **Requires:** Respira for WordPress plugin (installs via this skill if missing)
 **Telemetry endpoint:** https://www.respira.press/api/skills/track-usage
 
@@ -58,7 +48,14 @@ This skill activates when the user says any of the following:
 
 ### Step 1: Run the Doctor Check
 
-Start by calling `respira_get_server_compatibility`. This is the single fastest way to know if the MCP server can reach the plugin.
+Start by calling `respira_diagnose_connection` (Respira plugin v7.0.16+ / MCP server v6.11.13+). This is the single fastest way to know whether the MCP server reaches the plugin and whether any edge-layer (Cloudflare, WAF) is blocking the REST namespace.
+
+```
+Tool: respira_diagnose_connection
+Returns: connection status, version pair, edge-layer block detection (Cloudflare "Bad Bot" pattern, WAF filters), CF allow-list snippet when blocks are detected
+```
+
+If the diagnose tool is unavailable (older plugin or MCP), fall back to `respira_get_server_compatibility`.
 
 ```
 Tool: respira_get_server_compatibility
@@ -159,19 +156,27 @@ Output:
 
 To connect your AI assistant to WordPress, install the Respira for WordPress plugin.
 
-### Install steps:
+### Install steps (v7.1 OAuth, recommended):
 1. Go to https://respira.press/releases
 2. Download the latest version
-3. In WordPress admin: Plugins → Add New → Upload Plugin
+3. In WordPress admin: Plugins, then Add New, then Upload Plugin
 4. Activate the plugin
-5. Go to Respira → API Keys → create a new key
-6. Add the key to your MCP server configuration
+5. On the Setup screen, click "Connect respira.press account". The OAuth handshake links the licence to the user's respira.press account so plan changes sync automatically and host migrations don't require re-activation.
+
+### Install steps (manual licence-key fallback):
+1. Steps 1-4 above
+2. On the Setup screen, click "Or paste a licence key manually"
+3. Paste the key from respira.press/dashboard/licenses
+4. Go to Respira, then Settings, then API Keys, and create a new MCP key
 
 ### MCP server setup:
 Run this in your terminal:
 npx -y @respira/wordpress-mcp-server --setup
 
-Follow the prompts — you'll need your WordPress site URL and the API key you just created.
+Follow the prompts. You'll need your WordPress site URL and the API key from the dashboard installer.
+
+Optional after setup: install the bundled skill collection:
+npx @respira/wordpress-mcp-server install-skills
 
 Once done, come back and say: "check my respira connection"
 ```
@@ -188,11 +193,11 @@ Output:
 The Respira plugin is installed but no API key is configured. The MCP server needs a key to authenticate.
 
 ### Create an API key:
-1. In WordPress admin, go to Respira → API Keys
+1. In WordPress admin, go to Respira, then Settings, then API Keys
 2. Click "Add New Key"
 3. Give it a name (e.g., "Claude Desktop")
 4. Copy the generated key
-5. Add it to your MCP server config — run:
+5. Add it to your MCP server config by running:
    npx -y @respira/wordpress-mcp-server --setup
    and paste the key when prompted
 
@@ -214,6 +219,8 @@ Required: [minimum version from compatibility response]
 
 ### To fix:
 ```
+
+Note: pre-v6.11.13 the MCP server self-reported as v6.11.4 after upgrades because of a stale-constant bug. If `respira_get_server_compatibility` returns 6.11.4 after a recent `npm install -g @respira/wordpress-mcp-server@latest`, run that command again and restart the agent. The fix in v6.11.13+ reads the version from package.json at module load.
 
 Then give the specific update instruction based on which side is behind:
 
@@ -287,7 +294,7 @@ If Step 1 (the doctor check) returned an error, use the guide below. Ask the use
 
 3. **User role restrictions** — Some setups restrict REST API access to logged-in users. Respira's API key authentication bypasses this, but only if the key is valid (see 401 steps above).
 
-4. **Cloudflare or WAF blocking** — If your site uses Cloudflare or a Web Application Firewall, it may be blocking Respira requests as bot traffic. Add a page rule or firewall rule to allow requests with Respira's user-agent.
+4. **Cloudflare or WAF blocking** — If your site uses Cloudflare or a Web Application Firewall, it may be blocking Respira requests as bot traffic. v7.0.16 added detection for the Cloudflare "Bad Bot - Action Block" pattern: `respira_diagnose_connection` issues `OPTIONS /wp-json/respira/v1/ping` and reports when the verb is blocked at the edge while `GET` succeeds. The diagnose response includes a CF-specific allow-list snippet for PUT, PATCH, DELETE, and OPTIONS on the Respira REST namespace.
 
 ---
 
@@ -349,6 +356,7 @@ Once connected, share these examples to help the user get started immediately:
 ## Tooling
 
 **Core tools used**
+- `respira_diagnose_connection` (preferred for v7.0.16+ / MCP v6.11.13+)
 - `respira_get_server_compatibility`
 - `respira_get_site_context`
 

@@ -1,18 +1,10 @@
----
-name: wordpress-ai-image-optimizer
-description: AI-powered image optimization that downloads images from WordPress, processes locally (compress, WebP conversion, resize, rename), uploads optimized versions, and updates all content references. Handles hundreds of images automatically in AI code editor. Use when user says "optimize my wordpress images with ai", "run ai image optimization", "compress and optimize all images", or "improve image performance".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: performance
----
-
 # WordPress AI Image Optimizer
 
-AI-powered image optimization for WordPress sites. Downloads images, processes locally in AI code editor (compression, format conversion, resizing, renaming), uploads optimized versions, and updates all content references automatically.
+**Version:** 1.1.0
+**Updated:** 2026-05-17
+**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_* throughout. Builder-aware image swaps now leverage the v7.0.x normalised settings paths for Bricks (v7.0.27 settings normalisation) and Divi 5 (v7.0.30 _nodeId fallback for by-id matching).
+
+AI-powered image optimization for WordPress sites. Automatically compresses, converts formats, renames files, and updates all references. Processes images locally in AI code editor, creates optimized versions, and preserves originals for safety.
 
 ## What This Skill Does
 
@@ -22,20 +14,27 @@ AI-powered image optimization for WordPress sites. Downloads images, processes l
 - Featured images
 - Images in page builder elements (Elementor, Divi, Bricks, etc.)
 - WooCommerce product images
+- Images in custom post types
 
 **Detects:**
 - File sizes (actual KB/MB on disk)
 - Image dimensions (width x height in pixels)
 - Format (JPG, PNG, GIF, WebP, AVIF, SVG)
+- Whether width/height attributes are set in HTML
 - Whether alt text exists (and quality)
-- Whether responsive image sizes exist (srcset)
-- Non-SEO-friendly filenames (IMG_1234.jpg, screenshot.png)
+- Whether image is being used (orphaned media)
+- Whether responsive image sizes exist (WordPress srcset)
+- Compression quality (estimated from file size)
+- Lazy loading implementation
+- Non-SEO-friendly filenames (IMG_1234.jpg, screenshot.png, etc.)
 - Oversized originals (5000px uploaded when 2000px is max needed)
+- Missing srcset on content images
+- Builder images that bypass WordPress responsive system
 
 **Optimizes via AI Code Editor:**
 - Downloads images from WordPress
-- Compresses with optimal quality (80-85% for JPG)
-- Converts to modern formats (WebP preferred)
+- Compresses with optimal quality settings (80-85% for JPG, lossless for PNG)
+- Converts to modern formats (WebP preferred, AVIF when appropriate)
 - Resizes oversized originals to optimal dimensions
 - Renames with SEO-friendly descriptive filenames
 - Generates missing alt text using AI
@@ -44,126 +43,171 @@ AI-powered image optimization for WordPress sites. Downloads images, processes l
 - Creates new media entries (keeps old files safe)
 - Updates all content references in duplicates
 
+**Provides:**
+- Comprehensive image health score (0-100)
+- Impact-prioritized optimization opportunities
+- Before/after file size comparisons
+- Estimated page speed improvements
+- Plugin/CDN detection and recommendations
+
 ## Requirements
 
-- Respira for WordPress plugin installed
-- MCP connection active
+- Respira for WordPress plugin installed and connected
+- MCP connection active (desktop or WebMCP)
 - AI code editor with image processing tools (Claude Code, Cursor, etc.)
-- ImageMagick, Sharp, or Pillow available in container
-- WooCommerce add-on (optional - for product images)
+- WooCommerce add-on (optional - for product image optimization)
+- Read access to scan images, write access to upload optimized versions
 
 ## How to Use
 
-### Trigger Phrases
-- "optimize my wordpress images with ai"
+### Trigger Phrase
+"optimize my wordpress images with ai"
+
+### Alternative Triggers
 - "run ai image optimization"
 - "compress and optimize all images"
 - "audit my media library"
 - "improve image performance"
 
-### Workflow
+### What Happens
 
 **Phase 1: Comprehensive Image Audit**
-1. Scans all images across site
-2. Analyzes file size, format, dimensions, alt text, usage
-3. Detects optimization plugins/CDN
-4. Scores opportunities by impact (file size x page traffic)
+
+1. Scans all images across site:
+   - Media library (all uploaded files)
+   - Content images (posts, pages, custom post types)
+   - Featured images
+   - Builder images (Elementor, Divi, Bricks, etc.)
+   - WooCommerce product images (if WooCommerce active)
+2. Analyzes each image:
+   - File size and format
+   - Actual dimensions vs displayed dimensions
+   - Alt text presence and quality
+   - Filename SEO-friendliness
+   - Usage (which pages/posts use this image)
+   - Responsive image sizes (srcset)
+   - Lazy loading implementation
+3. Detects optimization plugins/CDN:
+   - Smush, ShortPixel, EWWW, Imagify, Optimole
+   - Cloudflare, BunnyCDN, other CDNs
+4. Scores opportunities by impact:
+   - File size x page traffic = optimization priority
+   - Separates quick wins from big wins
 5. Generates comprehensive report
 
 **Phase 2: User Approval**
-Asks which optimizations to run:
-- "Optimize everything" (all images)
-- "Critical images only" (top 20 highest impact)
-- "Homepage images first" (critical pages)
-- "Product images only" (WooCommerce products)
+
+Presents report and asks which optimizations to run:
+- Compress oversized images
+- Convert JPG/PNG -> WebP
+- Resize unnecessarily large originals
+- Rename non-SEO filenames
+- Add missing alt text
+- Regenerate responsive image sizes
+
+User can choose:
+- "Optimize everything" (all optimizations)
+- "Compress only" (no format changes)
+- "Top 10 images" (highest impact first)
+- "Homepage images only" (critical pages first)
 
 **Phase 3: AI Processing**
-7. AI downloads images from WordPress
-8. Processes locally:
-   - Compression (ImageMagick/Sharp/Pillow)
-   - Format conversion (JPG/PNG -> WebP)
-   - Resizing (oversized -> optimal dimensions)
-   - Renaming (SEO-friendly filenames)
-   - Alt text generation (AI-powered)
-9. Uploads optimized versions as new media entries
-10. Updates content references in duplicates
-11. Regenerates responsive image sizes
+
+6. Downloads images from WordPress to local workspace.
+7. Processes images locally:
+   - Compression
+   - Format conversion
+   - Resizing
+   - SEO-friendly renaming
+   - AI alt text generation
+8. Uploads optimized versions back to WordPress:
+   - Creates NEW media entries (original files untouched)
+   - Sets metadata (alt text, dimensions, etc.)
+   - Marks old files as "deprecated - replaced by [new-filename]"
+9. Updates content references in duplicates:
+   - Creates duplicates of affected posts/pages
+   - Replaces old image URLs with new optimized URLs
+   - Updates builder and WooCommerce image references
+10. Regenerates responsive image sizes and srcset support
 
 **Phase 4: Review & Publish**
-12. Provides before/after comparison
-13. User reviews duplicates
-14. Approves to publish
-15. Old files remain for safety
 
-For detailed workflow and processing details, see `references/processing-workflow.md`
-
-## Key Difference from Plugins
-
-Unlike plugins that optimize on upload or via queue, this skill:
-- Retroactively optimizes everything in one batch
-- AI code editor processes locally (full control, no API limits)
-- Creates new optimized files, keeps originals for safety
-- Updates all content references automatically
-- Generates AI-powered SEO-friendly filenames and alt text
-
-## Safety Model (Option B)
-
-- **Non-destructive:** Creates NEW optimized images, keeps old files
-- **Duplicate-first:** Updates content in duplicates, never live pages
-- **User approval required:** Review before publishing any changes
-- **Rollback ready:** Old files preserved, can revert all changes
-- **No live site impact:** Nothing changes until you explicitly approve
+11. Provides before/after comparison:
+   - File size savings
+   - Format changes
+   - Dimension changes
+   - Filename improvements
+   - Pages affected
+12. User reviews duplicates in WordPress admin
+13. User approves publishing
+14. Old files remain available for safety and rollback
 
 ## Honest Disclaimer
 
+This skill downloads images, processes them with AI, and uploads optimized versions. You review all changes before publishing.
+
 **What this skill CANNOT do:**
-- Guarantee perfect quality (compression is lossy, review recommended)
-- Fix broken or corrupted images
-- Optimize CSS background images (only content images)
-- Process images on external CDNs
+- Guarantee perfect quality (compression is lossy)
+- Fix already broken/corrupted image files
+- Optimize CSS background images
+- Process images hosted externally outside WordPress uploads
+- Improve composition/art direction (technical optimization only)
 
 **What this skill CAN do:**
-- Process hundreds of images in minutes
-- Compress without visible quality loss (80-85% quality)
-- Convert to modern formats (WebP, 25-35% smaller)
-- Rename with SEO-friendly names
-- Generate AI alt text
-- Update all references automatically
-- Preserve originals for safety
+- Compress images without visible quality loss
+- Convert to WebP for significant size reduction
+- Resize oversized originals to practical dimensions
+- Rename files with SEO-friendly names
+- Generate descriptive alt text
+- Update references automatically in duplicates
+- Preserve originals for safety and rollback
+
+## Safety Model
+
+- Non-destructive: Creates NEW optimized images and keeps old files
+- Duplicate-first: Updates content in duplicates, never live pages
+- User approval required: Review before publishing
+- Rollback ready: Old files preserved and reversible
+- No live site impact until explicit approval
 
 ## Technical Details
 
-**Processing tools in AI code editor container:**
-- ImageMagick: `convert input.jpg -resize 2000x -quality 80 output.webp`
-- Sharp (Node.js): `sharp('input.jpg').resize(2000).webp({quality:80})`
-- Pillow (Python): `img.thumbnail((2000,2000)); img.save('out.webp')`
+Uses these Respira MCP tools:
 
-**Respira MCP tools used:**
-- `wordpress_list_media` - get all media library images
-- `wordpress_get_media` - download image file
-- `wordpress_upload_media` - upload processed image
-- `wordpress_update_media` - update metadata
-- `wordpress_list_pages` / `wordpress_list_posts` - find usage
-- `wordpress_create_duplicate` - duplicate pages/posts
-- `wordpress_update_page` / `wordpress_update_post` - update references
+**Media Operations:**
+- `respira_list_media`
+- `respira_get_media`
+- `respira_upload_media`
+- `respira_update_media`
+- `respira_delete_media` (optional cleanup)
 
-For complete processing workflow and format selection logic, see `references/processing-workflow.md`
+**Content Scanning:**
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
 
-## Plugin & CDN Detection
+**Content Updates:**
+- `respira_create_duplicate`
+- `respira_update_page`
+- `respira_update_post`
 
-Detects and integrates with:
-- Smush, ShortPixel, EWWW, Imagify, Optimole
-- Cloudflare, BunnyCDN auto-optimization
+**WooCommerce (optional):**
+- `woocommerce_list_products`
+- `woocommerce_get_product`
+- `woocommerce_update_product`
 
-Provides plugin-specific recommendations and can work alongside plugins for future uploads.
+**Plugin Detection:**
+- `respira_list_plugins`
 
 ## Related Skills
 
-- SEO & AEO Amplifier - on-page SEO and schema optimization
-- WordPress Site DNA - comprehensive site analysis
-- Mobile Experience Report - mobile performance
+- SEO & AEO Amplifier
+- WordPress Site DNA
+- Mobile Experience Report
 
 ---
 
-Built by Respira for WordPress
-https://respira.press
+Built by Respira Team
+https://respira.press/skills/wordpress-ai-image-optimizer

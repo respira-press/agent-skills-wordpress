@@ -1,16 +1,8 @@
----
-name: internal-link-builder
-description: Strategic internal link building for WordPress sites. Analyzes all published content, maps topic relationships, identifies high-value linking opportunities, and presents a clear plan for approval before making any changes. Use when user says "build internal links", "fix orphaned pages", "improve internal linking", "topic clusters", "pillar pages", or "improve site interlinking for SEO".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: seo
----
-
 # Internal Link Builder
+
+**Version:** 1.1.0
+**Updated:** 2026-05-17
+**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_* throughout and picks up the new respira_get_page_outline tool (v7.0.31) for faster structural reads.
 
 Strategic internal link building for WordPress sites. Analyzes all published content, maps topic relationships, identifies high-value linking opportunities between pages, and presents a clear plan for approval before making any changes. Use this skill whenever someone mentions internal links, link building, content interlinking, orphaned pages that need links, topic clusters, pillar pages, or wants to improve their site's internal link structure for SEO.
 
@@ -61,12 +53,12 @@ This skill reads every published page and post, builds a content relationship ma
 
 ### Phase 1: Content Inventory & Mapping
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
 2. Fetch all published content:
-   - `wordpress_list_pages` — get all pages
-   - `wordpress_list_posts` — get all posts
+   - `respira_list_pages` — get all pages
+   - `respira_list_posts` — get all posts
 3. For each content item, load full content:
-   - `wordpress_read_page` or `wordpress_read_post`
+   - `respira_read_page` or `respira_read_post`
    - Extract: title, URL/slug, headings, main topics, existing internal links, word count
 4. Build a **content map** — a structured index of:
    - Each page/post's primary topic and subtopics
@@ -146,12 +138,12 @@ Wait for explicit confirmation before proceeding.
 ### Phase 4: Apply Links (Only If Approved)
 
 1. For each page that needs link additions:
-   - Create a duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
+   - Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
 2. On the duplicate, add the approved links:
    - Insert `<a href="...">anchor text</a>` at the recommended placement points
    - Respect the page builder format (Gutenberg blocks, Divi shortcodes, Elementor data, etc.)
-   - Use `wordpress_extract_builder_content` to understand the content structure
-   - Use `wordpress_inject_builder_content` or `wordpress_update_page` / `wordpress_update_post` to apply changes
+   - Use `respira_extract_builder_content` to understand the content structure
+   - Use `respira_inject_builder_content` or `respira_update_page` / `respira_update_post` to apply changes
 3. After all duplicates are created, provide a summary:
    - Number of duplicates created
    - Total links added
@@ -212,17 +204,17 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_update_page`
-- `wordpress_update_post`
+- `respira_get_site_context`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_update_page`
+- `respira_update_post`
 
 ## Telemetry
 
