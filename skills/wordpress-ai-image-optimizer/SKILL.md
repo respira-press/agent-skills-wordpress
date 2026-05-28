@@ -1,8 +1,16 @@
-# WordPress AI Image Optimizer
+---
+name: wordpress-ai-image-optimizer
+description: AI-powered image optimization that downloads images from WordPress, processes locally (compress, WebP conversion, resize, rename), uploads optimized versions, and updates all content references.
+license: MIT
+metadata:
+  author: "Respira for WordPress"
+  author_url: https://respira.press
+  version: 1.1.0
+  mcp-server: respira-wordpress
+  category: performance
+---
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_* throughout. Builder-aware image swaps now leverage the v7.0.x normalised settings paths for Bricks (v7.0.27 settings normalisation) and Divi 5 (v7.0.30 _nodeId fallback for by-id matching).
+# WordPress AI Image Optimizer
 
 AI-powered image optimization for WordPress sites. Automatically compresses, converts formats, renames files, and updates all references. Processes images locally in AI code editor, creates optimized versions, and preserves originals for safety.
 

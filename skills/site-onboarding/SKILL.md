@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.2.0
   mcp-server: respira-wordpress
   category: onboarding
 ---

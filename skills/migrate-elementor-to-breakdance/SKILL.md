@@ -1,11 +1,11 @@
 ---
 name: migrate-elementor-to-breakdance
-description: Converts Elementor-built WordPress pages to Breakdance Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its Breakdance element equivalent, generates a migration plan for approval, and writes Breakdance content to the target pages. Use when user says "migrate Elementor to Breakdance", "switch from Elementor to Breakdance", or "rebuild Elementor pages in Breakdance".
+description: Converts Elementor pages to Breakdance Builder by mapping widgets to Breakdance elements and creating draft duplicates for review.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -99,7 +99,7 @@ Key Elementor specifics:
 - **Page settings** in `_elementor_page_settings`
 - **Global widgets** reference a template via `templateID`
 
-Read Elementor content via `wordpress_extract_builder_content` with `builder=elementor`.
+Read Elementor content via `respira_extract_builder_content` with `builder=elementor`.
 
 ## Target Builder: Breakdance
 
@@ -112,19 +112,19 @@ Key Breakdance specifics:
 - Built-in WooCommerce support, form builder, and popup system
 - Responsive design uses breakpoint-specific settings within element properties
 
-Write Breakdance content via `wordpress_inject_builder_content` with `builder=breakdance`.
+Write Breakdance content via `respira_inject_builder_content` with `builder=breakdance`.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm Elementor is active via `wordpress_list_plugins`.
-3. Confirm Breakdance is installed and active via `wordpress_list_plugins`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm Elementor is active via `respira_list_plugins`.
+3. Confirm Breakdance is installed and active via `respira_list_plugins`.
 4. Scan all content for Elementor usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - For each, check builder via `wordpress_get_builder_info`
-5. For each Elementor page, extract content via `wordpress_extract_builder_content` with `builder=elementor`
+   - `respira_list_pages` and `respira_list_posts`
+   - For each, check builder via `respira_get_builder_info`
+5. For each Elementor page, extract content via `respira_extract_builder_content` with `builder=elementor`
 6. Build an inventory:
    - Total pages/posts using Elementor
    - Widget types used (frequency count)
@@ -180,7 +180,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read full Elementor content via `wordpress_extract_builder_content` with `builder=elementor`
+1. Read full Elementor content via `respira_extract_builder_content` with `builder=elementor`
 2. Walk the Elementor JSON tree and map each widget:
    - Convert Section → Breakdance Section
    - Convert Column → Breakdance Div (with flex layout)
@@ -190,8 +190,8 @@ For each approved page:
    - Resolve global widgets to inline content
    - Flag unmappable widgets with migration notes
 3. Generate valid Breakdance element structure
-4. Create a duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Write Breakdance content to the duplicate via `wordpress_inject_builder_content` with `builder=breakdance`
+4. Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Write Breakdance content to the duplicate via `respira_inject_builder_content` with `builder=breakdance`
 6. Report status before moving to next page
 
 ### Phase 4: Post-Migration Verification
@@ -244,18 +244,18 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
 
 ## Telemetry
 

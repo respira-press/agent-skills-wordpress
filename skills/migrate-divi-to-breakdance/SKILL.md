@@ -1,11 +1,11 @@
 ---
 name: migrate-divi-to-breakdance
-description: Converts Divi-built WordPress pages to Breakdance Builder. Parses Divi's shortcode tree from post_content, maps each module to its Breakdance element equivalent, generates a migration plan for approval, and writes Breakdance content to the target pages. Use when user says "migrate Divi to Breakdance", "switch from Divi to Breakdance", or "rebuild Divi pages in Breakdance".
+description: Converts Divi pages to Breakdance Builder by parsing shortcodes, mapping modules to Breakdance elements, and creating draft duplicates for review.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -106,7 +106,7 @@ Key Divi specifics:
 - **Global modules**: `global_module` attribute referencing `et_pb_layout` post
 - **Section types**: regular, fullwidth, specialty
 
-Read Divi content via `wordpress_extract_builder_content` with `builder=divi`.
+Read Divi content via `respira_extract_builder_content` with `builder=divi`.
 
 ## Target Builder: Breakdance
 
@@ -120,20 +120,20 @@ Key Breakdance specifics:
 - Responsive design through breakpoint-specific settings
 - Created by the Oxygen team — combines Oxygen's clean output with friendlier UX
 
-Write Breakdance content via `wordpress_inject_builder_content` with `builder=breakdance`.
+Write Breakdance content via `respira_inject_builder_content` with `builder=breakdance`.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm Divi is active via `wordpress_list_plugins` and `wordpress_get_site_context`.
-3. Confirm Breakdance is installed and active via `wordpress_list_plugins`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm Divi is active via `respira_list_plugins` and `respira_get_site_context`.
+3. Confirm Breakdance is installed and active via `respira_list_plugins`.
 4. **Important**: If using Divi theme, note the user needs a compatible base theme for Breakdance.
 5. Scan all content for Divi usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - Check builder via `wordpress_get_builder_info`
-6. Extract Divi content via `wordpress_extract_builder_content` with `builder=divi`
+   - `respira_list_pages` and `respira_list_posts`
+   - Check builder via `respira_get_builder_info`
+6. Extract Divi content via `respira_extract_builder_content` with `builder=divi`
 7. Build inventory:
    - Total Divi pages/posts
    - Module types (frequency count)
@@ -193,7 +193,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read Divi content via `wordpress_extract_builder_content` with `builder=divi`
+1. Read Divi content via `respira_extract_builder_content` with `builder=divi`
 2. Parse the shortcode tree:
    - Build section → row → column → module hierarchy
    - Decode encoded content
@@ -211,8 +211,8 @@ For each approved page:
      - `et_pb_tabs` → Tabs element (map tab titles and content)
    - Map colors, spacing, typography to Breakdance settings
    - Flag unmappable modules
-4. Create duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Write Breakdance content via `wordpress_inject_builder_content` with `builder=breakdance`
+4. Create duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Write Breakdance content via `respira_inject_builder_content` with `builder=breakdance`
 6. Report status
 
 ### Phase 4: Post-Migration Verification
@@ -271,18 +271,18 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
 
 ## Telemetry
 

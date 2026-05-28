@@ -1,0 +1,42 @@
+{
+  "name": "Activity Report Composer",
+  "slug": "activity-report-composer",
+  "icon": "📊",
+  "category": "reporting",
+  "description": "Turn the audit log of work done on a WordPress site into a polished written report. Wraps the v7.1 respira_generate_activity_report MCP tool with six framings: agency client report, case study, internal recap, testimonial draft, build-in-public, personal recap.",
+  "author": "Respira Team",
+  "author_url": "https://respira.press",
+  "trigger": "generate a client report",
+  "requires_respira": true,
+  "requires_woocommerce_addon": false,
+  "requires_accessibility_addon": false,
+  "is_read_only": true,
+  "is_duplicate_first": false,
+  "version": "1.0.0",
+  "last_updated": "2026-05-24",
+  "tools_used": [
+    "respira_get_active_site",
+    "respira_generate_activity_report",
+    "respira_create_custom_post"
+  ],
+  "detects": [
+    "audit_log_window",
+    "totals_edits",
+    "totals_pages",
+    "totals_snapshots",
+    "totals_rollbacks",
+    "top_tools_used",
+    "hours_saved",
+    "cost_saved"
+  ],
+  "generates": [
+    "agency_client_report",
+    "case_study_markdown",
+    "internal_recap",
+    "testimonial_draft",
+    "build_in_public_post",
+    "personal_recap",
+    "email_ready_html",
+    "social_shaped_summary"
+  ]
+}

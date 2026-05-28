@@ -1,11 +1,11 @@
 ---
 name: migrate-beaver-builder-to-bricks
-description: Full-site migration from Beaver Builder to Bricks Builder. Audits every Beaver Builder page, maps modules to Bricks equivalents, builds a migration plan for approval, and converts pages to Bricks JSON via duplicates so the live site stays untouched. Use when user says "migrate Beaver Builder to Bricks", "switch from BB to Bricks", "convert Beaver Builder pages to Bricks", or "replace Beaver Builder with Bricks".
+description: Converts Beaver Builder pages to Bricks Builder by reading the flat node map, mapping modules to Bricks elements, and creating draft duplicates for review.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -70,26 +70,26 @@ This skill reads every Beaver Builder page, extracts the module structure, trans
 **Source: Beaver Builder**
 - Content stored in post_meta keys `_fl_builder_data` and `_fl_builder_data_settings`
 - Module-based structure with rows → columns → modules hierarchy
-- Read via `wordpress_extract_builder_content` with `builder=beaver` or `builder=beaver-builder`
+- Read via `respira_extract_builder_content` with `builder=beaver` or `builder=beaver-builder`
 - Module types: `rich-text`, `photo`, `button`, `heading`, `html`, `video`, `icon`, `separator`, `callout`, `cta`, `numbers`, `content-slider`, etc.
 
 **Target: Bricks Builder**
 - Content stored in post_meta key `_bricks_page_content_2` as a JSON array
 - Each element is an object with `id`, `name`, `parent`, `settings`, `children`
-- Write via `wordpress_inject_builder_content` with `builder=bricks`
+- Write via `respira_inject_builder_content` with `builder=bricks`
 - Elements: `section`, `container`, `heading`, `text`, `image`, `button`, `video`, `code`, `divider`, `icon`, etc.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Detect Beaver Builder presence via `wordpress_get_builder_info` or `wordpress_list_plugins`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Detect Beaver Builder presence via `respira_get_builder_info` or `respira_list_plugins`.
 3. Inventory all Beaver Builder content:
-   - `wordpress_list_pages` and `wordpress_list_posts` — identify all content
-   - `wordpress_find_builder_targets` with `builder=beaver` — find BB-managed pages
+   - `respira_list_pages` and `respira_list_posts` — identify all content
+   - `respira_find_builder_targets` with `builder=beaver` — find BB-managed pages
 4. For each BB page, extract content:
-   - `wordpress_extract_builder_content` with `builder=beaver`
+   - `respira_extract_builder_content` with `builder=beaver`
    - Catalog: module types used, row/column structures, custom CSS, third-party modules, saved rows/modules
 5. Produce an **Audit Report**:
    - Total pages/posts using Beaver Builder
@@ -146,7 +146,7 @@ Wait for explicit confirmation before proceeding.
 
 For each approved page:
 
-1. Extract Beaver Builder content via `wordpress_extract_builder_content` with `builder=beaver`
+1. Extract Beaver Builder content via `respira_extract_builder_content` with `builder=beaver`
 2. Map the row/column/module hierarchy to Bricks elements:
    - Rows → Bricks `section` elements
    - Columns → Bricks `container` elements with flex layout settings
@@ -158,8 +158,8 @@ For each approved page:
    - Preserve text content, image URLs, link targets
    - Flag any unmappable modules with comment annotations
 3. Build the Bricks JSON array structure
-4. Create a duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Inject Bricks content via `wordpress_inject_builder_content` with `builder=bricks`
+4. Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Inject Bricks content via `respira_inject_builder_content` with `builder=bricks`
 6. Log the migration result (success, warnings, manual review items)
 
 ### Phase 4: Post-Migration Verification
@@ -209,18 +209,18 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_get_builder_info`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_list_plugins`
-- `wordpress_find_builder_targets`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_read_page`
-- `wordpress_read_post`
+- `respira_get_site_context`
+- `respira_get_builder_info`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_list_plugins`
+- `respira_find_builder_targets`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_read_page`
+- `respira_read_post`
 
 ## Telemetry
 

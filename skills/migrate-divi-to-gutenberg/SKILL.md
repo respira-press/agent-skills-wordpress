@@ -1,11 +1,11 @@
 ---
 name: migrate-divi-to-gutenberg
-description: Converts Divi-built WordPress pages to native Gutenberg blocks. Parses Divi's shortcode tree from post_content, maps each module to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use when user says "migrate Divi to Gutenberg", "switch from Divi to native blocks", "remove Divi dependency", or "rebuild Divi pages in the block editor".
+description: Converts Divi pages to native Gutenberg blocks by parsing shortcodes, mapping modules to core blocks, and creating draft duplicates for review.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -112,7 +112,7 @@ Key Divi specifics:
 - **Global modules**: Referenced via `global_module` attribute pointing to an `et_pb_layout` post
 - **Custom CSS fields**: `custom_css_main_element`, `custom_css_before`, `custom_css_after` attributes
 
-Read Divi content via `wordpress_extract_builder_content` with `builder=divi`.
+Read Divi content via `respira_extract_builder_content` with `builder=divi`.
 
 ## Target: Gutenberg (Block Editor)
 
@@ -138,20 +138,20 @@ Key Gutenberg specifics:
 - Columns use percentage widths
 - Everything lives in `post_content` — no separate meta
 
-Write Gutenberg content via `wordpress_update_page` or `wordpress_update_post` targeting the `content` field.
+Write Gutenberg content via `respira_update_page` or `respira_update_post` targeting the `content` field.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm Divi is active (theme or plugin) via `wordpress_list_plugins` and `wordpress_get_site_context`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm Divi is active (theme or plugin) via `respira_list_plugins` and `respira_get_site_context`.
 3. Check WordPress version (6.0+ required, 6.3+ ideal).
 4. **Important**: If using Divi theme (not just plugin), note that the user will need an alternative theme post-migration.
 5. Scan all content for Divi usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - For each, check builder via `wordpress_get_builder_info`
-6. For each Divi page, extract content via `wordpress_extract_builder_content` with `builder=divi`
+   - `respira_list_pages` and `respira_list_posts`
+   - For each, check builder via `respira_get_builder_info`
+6. For each Divi page, extract content via `respira_extract_builder_content` with `builder=divi`
 7. Build an inventory:
    - Total pages/posts using Divi
    - Module types used (frequency count)
@@ -213,7 +213,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read full Divi content via `wordpress_extract_builder_content` with `builder=divi`
+1. Read full Divi content via `respira_extract_builder_content` with `builder=divi`
 2. Parse the Divi shortcode tree:
    - Identify section/row/column hierarchy
    - Decode any encoded content (HTML entities, percent-encoding)
@@ -229,8 +229,8 @@ For each approved page:
    - Map background colors to Group block style attributes
    - Flag unmappable modules with `<!-- MIGRATION NOTE: ... -->`
 4. Assemble complete block markup
-5. Create duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-6. Write to duplicate via `wordpress_update_page` or `wordpress_update_post`
+5. Create duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+6. Write to duplicate via `respira_update_page` or `respira_update_post`
 7. Report: modules converted, items flagged, layout changes made
 
 ### Phase 4: Post-Migration Verification
@@ -286,19 +286,19 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_update_page`
-- `wordpress_update_post`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_update_page`
+- `respira_update_post`
 
 ## Telemetry
 

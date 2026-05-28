@@ -1,0 +1,39 @@
+{
+  "name": "Custom Post Type Architect",
+  "slug": "custom-post-type-architect",
+  "icon": "🏗️",
+  "category": "content-creation",
+  "description": "Design and create WordPress custom post types end to end — CPT + supporting taxonomies + ACF field group + sample entries + builder-specific single template suggestion. Uses the new v7.1 MCP tools: respira_create_post_type, respira_create_taxonomy, respira_create_acf_field_group.",
+  "author": "Respira Team",
+  "author_url": "https://respira.press",
+  "trigger": "create a custom post type",
+  "requires_respira": true,
+  "requires_woocommerce_addon": false,
+  "requires_accessibility_addon": false,
+  "is_read_only": false,
+  "is_duplicate_first": false,
+  "version": "1.0.0",
+  "last_updated": "2026-05-24",
+  "tools_used": [
+    "respira_get_active_site",
+    "respira_get_builder_info",
+    "respira_create_post_type",
+    "respira_create_taxonomy",
+    "respira_create_acf_field_group",
+    "respira_create_custom_post",
+    "respira_list_custom_posts"
+  ],
+  "detects": [
+    "active_builder",
+    "content_type_intent",
+    "field_requirements",
+    "taxonomy_requirements"
+  ],
+  "generates": [
+    "cpt_shape_proposal",
+    "supporting_taxonomies",
+    "acf_field_group",
+    "sample_entries",
+    "single_template_recommendation"
+  ]
+}

@@ -1,11 +1,11 @@
 ---
 name: migrate-elementor-to-oxygen
-description: Converts Elementor-built WordPress pages to Oxygen Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its Oxygen component equivalent, generates a migration plan for approval, and writes Oxygen content to the target pages. Use when user says "migrate Elementor to Oxygen", "switch from Elementor to Oxygen", or "rebuild Elementor pages in Oxygen's developer-oriented builder".
+description: Converts Elementor pages to Oxygen Builder by mapping widgets to Oxygen components and creating draft duplicates for review.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -99,7 +99,7 @@ Key Elementor specifics:
 - **Page settings** in `_elementor_page_settings`
 - **Global widgets** reference templates via `templateID`
 
-Read Elementor content via `wordpress_extract_builder_content` with `builder=elementor`.
+Read Elementor content via `respira_extract_builder_content` with `builder=elementor`.
 
 ## Target Builder: Oxygen
 
@@ -114,20 +114,20 @@ Key Oxygen specifics:
 - Reusable parts are stored as `ct_template` post type
 - Oxygen disables the theme — it controls all output directly
 
-Write Oxygen content via `wordpress_inject_builder_content` with `builder=oxygen`.
+Write Oxygen content via `respira_inject_builder_content` with `builder=oxygen`.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm Elementor is active via `wordpress_list_plugins`.
-3. Confirm Oxygen is installed and active via `wordpress_list_plugins`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm Elementor is active via `respira_list_plugins`.
+3. Confirm Oxygen is installed and active via `respira_list_plugins`.
 4. **Important**: Note that Oxygen disables the WordPress theme. Verify the user understands this architectural difference.
 5. Scan all content for Elementor usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - For each, check builder via `wordpress_get_builder_info`
-6. For each Elementor page, extract content via `wordpress_extract_builder_content` with `builder=elementor`
+   - `respira_list_pages` and `respira_list_posts`
+   - For each, check builder via `respira_get_builder_info`
+6. For each Elementor page, extract content via `respira_extract_builder_content` with `builder=elementor`
 7. Build an inventory:
    - Total pages/posts using Elementor
    - Widget types used (frequency count)
@@ -187,7 +187,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read full Elementor content via `wordpress_extract_builder_content` with `builder=elementor`
+1. Read full Elementor content via `respira_extract_builder_content` with `builder=elementor`
 2. Walk the Elementor JSON tree and map:
    - Section → `ct_section`
    - Column → `ct_column` within `ct_row`
@@ -200,8 +200,8 @@ For each approved page:
    - Resolve global widgets to inline content
    - Flag unmappable widgets
 3. Generate valid Oxygen component structure
-4. Create a duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Write Oxygen content to the duplicate via `wordpress_inject_builder_content` with `builder=oxygen`
+4. Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Write Oxygen content to the duplicate via `respira_inject_builder_content` with `builder=oxygen`
 6. Report status
 
 ### Phase 4: Post-Migration Verification
@@ -257,18 +257,18 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
 
 ## Telemetry
 

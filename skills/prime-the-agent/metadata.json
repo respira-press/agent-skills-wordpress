@@ -1,0 +1,42 @@
+{
+  "name": "Prime the Agent",
+  "slug": "prime-the-agent",
+  "icon": "🎯",
+  "category": "workflow",
+  "description": "Fast 30-second session-starter. Loads the active site, identifies the page builder, loads inline schemas, and primes the agent on the do-not-write-raw-HTML rule before any work begins. Prevents the single most common failure mode in AI WordPress editing.",
+  "author": "Respira Team",
+  "author_url": "https://respira.press",
+  "trigger": "prime yourself",
+  "requires_respira": true,
+  "requires_woocommerce_addon": false,
+  "requires_accessibility_addon": false,
+  "is_read_only": true,
+  "is_duplicate_first": false,
+  "version": "1.0.0",
+  "last_updated": "2026-05-24",
+  "tools_used": [
+    "respira_get_active_site",
+    "respira_get_site_context",
+    "respira_get_builder_info",
+    "respira_get_builder_inline_schemas",
+    "respira_list_pages",
+    "respira_list_custom_posts",
+    "respira_list_sites"
+  ],
+  "detects": [
+    "active_site",
+    "active_builder",
+    "builder_version",
+    "wordpress_version",
+    "theme",
+    "plugin_count",
+    "multisite",
+    "page_count",
+    "custom_post_count"
+  ],
+  "generates": [
+    "session_briefing",
+    "builder_schema_context",
+    "agent_working_rules"
+  ]
+}

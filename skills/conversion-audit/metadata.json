@@ -1,0 +1,46 @@
+{
+  "name": "Conversion Audit",
+  "slug": "conversion-audit",
+  "icon": "📈",
+  "category": "audit",
+  "description": "Audit a WordPress site for conversion-rate friction across six dimensions: above-the-fold clarity, CTA hierarchy, form length, social proof placement, page speed, and trust signals. Prioritized fixes with expected impact — recommendations, not redesigns.",
+  "author": "Respira Team",
+  "author_url": "https://respira.press",
+  "trigger": "audit my conversion rate",
+  "requires_respira": true,
+  "requires_woocommerce_addon": false,
+  "requires_accessibility_addon": false,
+  "is_read_only": true,
+  "is_duplicate_first": false,
+  "version": "1.0.0",
+  "last_updated": "2026-05-24",
+  "tools_used": [
+    "respira_get_active_site",
+    "respira_list_pages",
+    "respira_list_menus",
+    "respira_list_menu_items",
+    "respira_extract_builder_content",
+    "respira_get_core_web_vitals",
+    "respira_analyze_pagespeed",
+    "respira_find_element"
+  ],
+  "detects": [
+    "above_fold_clarity_score",
+    "cta_hierarchy_score",
+    "form_length_score",
+    "social_proof_placement_score",
+    "page_speed_score",
+    "trust_signals_score",
+    "competing_ctas",
+    "form_field_count",
+    "missing_value_prop",
+    "absent_trust_signals"
+  ],
+  "generates": [
+    "conversion_audit_report",
+    "prioritized_fixes_list",
+    "per_page_scoring_table",
+    "speed_signals_table",
+    "what_is_working_callouts"
+  ]
+}

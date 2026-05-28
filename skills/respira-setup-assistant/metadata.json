@@ -12,8 +12,8 @@
   "requires_accessibility_addon": false,
   "is_read_only": true,
   "is_duplicate_first": false,
-  "version": "1.0.0",
-  "last_updated": "2026-04-03",
+  "version": "1.2.0",
+  "last_updated": "2026-05-24",
   "tools_used": [
     "respira_get_server_compatibility",
     "respira_get_site_context"

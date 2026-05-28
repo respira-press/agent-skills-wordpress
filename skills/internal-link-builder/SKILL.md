@@ -1,8 +1,16 @@
-# Internal Link Builder
+---
+name: internal-link-builder
+description: Strategic internal link building for WordPress sites. Analyzes all published content, maps topic relationships, identifies high-value linking opportunities between pages, and presents a clear plan for approval before making any changes.
+license: MIT
+metadata:
+  author: "Respira for WordPress"
+  author_url: https://respira.press
+  version: 1.1.0
+  mcp-server: respira-wordpress
+  category: performance
+---
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_* throughout and picks up the new respira_get_page_outline tool (v7.0.31) for faster structural reads.
+# Internal Link Builder
 
 Strategic internal link building for WordPress sites. Analyzes all published content, maps topic relationships, identifies high-value linking opportunities between pages, and presents a clear plan for approval before making any changes. Use this skill whenever someone mentions internal links, link building, content interlinking, orphaned pages that need links, topic clusters, pillar pages, or wants to improve their site's internal link structure for SEO.
 

@@ -1,11 +1,11 @@
 ---
 name: migrate-elementor-to-bricks
-description: Converts Elementor-built WordPress pages to Bricks Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its closest Bricks element equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use when user says "migrate Elementor to Bricks", "switch from Elementor to Bricks", or "rebuild Elementor pages in Bricks".
+description: Converts Elementor pages to Bricks Builder by reading Elementor JSON widget data, mapping each widget to its Bricks equivalent, and creating draft duplicates with clean Bricks JSON.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -97,7 +97,7 @@ Key Elementor specifics:
 - **Page settings** in `_elementor_page_settings` (page layout, hide title, etc.)
 - **Global widgets** reference a template via `templateID` — must be resolved before mapping
 
-Read Elementor content via `wordpress_extract_builder_content` with `builder=elementor`.
+Read Elementor content via `respira_extract_builder_content` with `builder=elementor`.
 
 ## Target Builder: Bricks
 
@@ -118,19 +118,19 @@ Key Bricks specifics:
 - Settings keys differ from Elementor (e.g., `tag` not `header_size`, `text` not `title`)
 - Responsive settings use `_breakpoints` key within settings
 
-Write Bricks content via `wordpress_inject_builder_content` with `builder=bricks`.
+Write Bricks content via `respira_inject_builder_content` with `builder=bricks`.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm Elementor is active via `wordpress_list_plugins`.
-3. Confirm Bricks theme is installed via `wordpress_get_site_context`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm Elementor is active via `respira_list_plugins`.
+3. Confirm Bricks theme is installed via `respira_get_site_context`.
 4. Scan all content for Elementor usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - For each, check if built with Elementor via `wordpress_get_builder_info`
-5. For each Elementor page, extract content via `wordpress_extract_builder_content` with `builder=elementor`
+   - `respira_list_pages` and `respira_list_posts`
+   - For each, check if built with Elementor via `respira_get_builder_info`
+5. For each Elementor page, extract content via `respira_extract_builder_content` with `builder=elementor`
 6. Build an inventory:
    - Total pages/posts using Elementor
    - Widget types used across the site (frequency count)
@@ -181,7 +181,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read full Elementor content via `wordpress_extract_builder_content` with `builder=elementor`
+1. Read full Elementor content via `respira_extract_builder_content` with `builder=elementor`
 2. Walk the Elementor JSON tree and map each widget:
    - Convert Section → Bricks `section`
    - Convert Column → Bricks `container` (assign parent)
@@ -191,8 +191,8 @@ For each approved page:
    - Resolve global widgets to inline content
    - Flag unmappable widgets with `<!-- MIGRATION NOTE: ... -->` comments
 3. Generate valid Bricks JSON array with proper `id`, `name`, `parent`, `settings`
-4. Create a duplicate page via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Write Bricks content to the duplicate via `wordpress_inject_builder_content` with `builder=bricks`
+4. Create a duplicate page via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Write Bricks content to the duplicate via `respira_inject_builder_content` with `builder=bricks`
 6. Report status for this page before moving to next
 
 ### Phase 4: Post-Migration Verification
@@ -246,18 +246,18 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
 
 ## Telemetry
 

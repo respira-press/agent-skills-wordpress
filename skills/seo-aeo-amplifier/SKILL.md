@@ -1,8 +1,16 @@
-# SEO & AEO Amplifier
+---
+name: seo-aeo-amplifier
+description: Comprehensive on-page SEO and Answer Engine Optimization audit with automated duplicate creation and intelligent schema markup generation.
+license: MIT
+metadata:
+  author: "Respira for WordPress"
+  author_url: https://respira.press
+  version: 1.2.0
+  mcp-server: respira-wordpress
+  category: performance
+---
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_* throughout, references the canonical Respira analyzer family (respira_analyze_seo, respira_analyze_aeo, respira_analyze_readability, respira_analyze_rankmath, respira_check_structured_data), and notes the Elementor 4 atomic-write surface added in v7.1 for site-wide SEO fixes on v4 pages.
+# SEO & AEO Amplifier
 
 Comprehensive on-page SEO and Answer Engine Optimization (AEO) audit and auto-fix system for WordPress sites. Scans all content, detects issues, generates intelligent schema markup, and creates optimized duplicates for review.
 

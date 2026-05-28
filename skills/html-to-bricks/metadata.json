@@ -1,0 +1,41 @@
+{
+  "name": "HTML to Bricks Builder",
+  "slug": "html-to-bricks",
+  "icon": "🧱",
+  "category": "migration",
+  "description": "Convert raw HTML/CSS into native Bricks Builder elements. Maps colors, typography, and spacing to your design system tokens so the result is drift-resistant. ACSS class mapping when ACSS is installed. Resolves the most-upvoted open feature request.",
+  "author": "Respira Team",
+  "author_url": "https://respira.press",
+  "trigger": "convert this html to bricks",
+  "requires_respira": true,
+  "requires_woocommerce_addon": false,
+  "requires_accessibility_addon": false,
+  "is_read_only": false,
+  "is_duplicate_first": true,
+  "version": "1.0.0",
+  "last_updated": "2026-05-24",
+  "tools_used": [
+    "respira_get_active_site",
+    "respira_get_builder_info",
+    "respira_get_option",
+    "respira_convert_html_to_builder",
+    "respira_build_page",
+    "respira_create_page_duplicate",
+    "respira_inject_builder_content"
+  ],
+  "detects": [
+    "active_bricks_version",
+    "design_system_tokens",
+    "acss_installation",
+    "external_assets",
+    "unmappable_html_elements",
+    "form_elements"
+  ],
+  "generates": [
+    "bricks_element_tree",
+    "design_system_bound_settings",
+    "acss_class_mappings",
+    "external_asset_warnings",
+    "new_or_duplicate_page"
+  ]
+}
