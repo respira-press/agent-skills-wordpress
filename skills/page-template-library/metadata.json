@@ -1,0 +1,44 @@
+{
+  "name": "Page Template Library Bootstrapper",
+  "slug": "page-template-library",
+  "icon": "📐",
+  "category": "workflow",
+  "description": "Capture canonical page patterns (case study, service page, landing page hero + 3-up + CTA) as re-usable playbooks. Uses the new v7.1 MCP tools respira_create_playbook + respira_list_playbooks + respira_update_playbook. Future page-generation skills spawn new pages from playbooks in seconds, on-brand, with the right structure.",
+  "author": "Respira Team",
+  "author_url": "https://respira.press",
+  "trigger": "save this as a template",
+  "requires_respira": true,
+  "requires_woocommerce_addon": false,
+  "requires_accessibility_addon": false,
+  "is_read_only": false,
+  "is_duplicate_first": false,
+  "version": "1.0.0",
+  "last_updated": "2026-05-24",
+  "tools_used": [
+    "respira_get_active_site",
+    "respira_get_builder_info",
+    "respira_list_pages",
+    "respira_list_custom_posts",
+    "respira_extract_builder_content",
+    "respira_get_option",
+    "respira_create_playbook",
+    "respira_list_playbooks",
+    "respira_update_playbook",
+    "respira_get_playbook",
+    "respira_build_page"
+  ],
+  "detects": [
+    "page_section_pattern",
+    "common_structure_across_pages",
+    "variable_content_slots",
+    "design_system_bindings",
+    "builder_specific_modules"
+  ],
+  "generates": [
+    "playbook_definition",
+    "playbook_slot_schema",
+    "section_spine",
+    "design_system_bound_references",
+    "sample_spawned_page"
+  ]
+}

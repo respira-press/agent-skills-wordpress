@@ -1,11 +1,11 @@
 ---
 name: migrate-divi-to-bricks
-description: Converts Divi-built WordPress pages to Bricks Builder. Parses Divi's shortcode tree from post_content, maps each module to its Bricks element equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use when user says "migrate Divi to Bricks", "replace Divi with Bricks", "switch from Divi to Bricks", or "rebuild Divi pages in Bricks".
+description: Converts Divi pages to Bricks Builder by parsing shortcode content, mapping modules to Bricks elements, and generating draft duplicates for review.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -109,7 +109,7 @@ Key Divi specifics:
 - **Global modules**: `global_module` attribute → `et_pb_layout` post type
 - **Custom CSS**: `custom_css_main_element`, `custom_css_before`, `custom_css_after`
 
-Read Divi content via `wordpress_extract_builder_content` with `builder=divi`.
+Read Divi content via `respira_extract_builder_content` with `builder=divi`.
 
 ## Target Builder: Bricks
 
@@ -130,20 +130,20 @@ Key Bricks specifics:
 - Settings use Bricks-specific keys
 - Responsive via `_breakpoints` within settings
 
-Write Bricks content via `wordpress_inject_builder_content` with `builder=bricks`.
+Write Bricks content via `respira_inject_builder_content` with `builder=bricks`.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm Divi is active via `wordpress_list_plugins` and `wordpress_get_site_context`.
-3. Confirm Bricks theme is installed via `wordpress_get_site_context`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm Divi is active via `respira_list_plugins` and `respira_get_site_context`.
+3. Confirm Bricks theme is installed via `respira_get_site_context`.
 4. **Important**: If using Divi theme (not plugin), note this is a full theme switch to Bricks.
 5. Scan all content for Divi usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - Check builder via `wordpress_get_builder_info`
-6. Extract Divi content via `wordpress_extract_builder_content` with `builder=divi`
+   - `respira_list_pages` and `respira_list_posts`
+   - Check builder via `respira_get_builder_info`
+6. Extract Divi content via `respira_extract_builder_content` with `builder=divi`
 7. Build inventory:
    - Total pages/posts using Divi
    - Module types (frequency count)
@@ -203,7 +203,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read Divi content via `wordpress_extract_builder_content` with `builder=divi`
+1. Read Divi content via `respira_extract_builder_content` with `builder=divi`
 2. Parse the shortcode tree:
    - Identify section → row → column → module hierarchy
    - Decode encoded content (HTML entities, percent-encoding)
@@ -221,8 +221,8 @@ For each approved page:
    - Map Divi attributes to Bricks settings (colors, spacing, typography)
    - Generate unique IDs and proper parent references
    - Flag unmappable modules with comments
-4. Create duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Write Bricks JSON via `wordpress_inject_builder_content` with `builder=bricks`
+4. Create duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Write Bricks JSON via `respira_inject_builder_content` with `builder=bricks`
 6. Report status
 
 ### Phase 4: Post-Migration Verification
@@ -280,18 +280,18 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
 
 ## Telemetry
 

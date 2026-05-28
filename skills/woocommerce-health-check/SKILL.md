@@ -1,14 +1,17 @@
+---
+name: woocommerce-health-check
+description: WooCommerce configuration diagnostics — identifies checkout problems, cart errors, AJAX mismatches, caching issues, payment gateway setup, SSL enforcement. Revenue-impacting diagnostics.
+license: MIT
+metadata:
+  author: "Respira for WordPress"
+  author_url: https://respira.press
+  version: 1.1.0
+  mcp-server: respira-wordpress
+  category: audit
+---
+
 # WooCommerce Health Check
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_*, picks up v7.0.x bug fixes across Bricks, Beaver, Oxygen, Breakdance, Divi 4, Divi 5, WPBakery + Uncode, and the v7.1 Elementor 4 atomic-write surface.
-**Category:** audit
-**Status:** active
-**Requires:** Respira for WordPress plugin + MCP server + WooCommerce
-**Telemetry endpoint:** https://www.respira.press/api/skills/track-usage
-
----
 
 ## Description
 

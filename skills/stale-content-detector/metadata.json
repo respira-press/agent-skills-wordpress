@@ -1,0 +1,43 @@
+{
+  "name": "Stale Content Detector",
+  "slug": "stale-content-detector",
+  "icon": "🕰️",
+  "category": "audit",
+  "description": "Find pages and posts that haven't been updated in a long time. Categorize as fresh / aging / stale / archive-candidate. Suggest refresh, redirect, or archive per item — based on age, traffic signal, and internal link count.",
+  "author": "Respira Team",
+  "author_url": "https://respira.press",
+  "trigger": "find old content",
+  "requires_respira": true,
+  "requires_woocommerce_addon": false,
+  "requires_accessibility_addon": false,
+  "is_read_only": true,
+  "is_duplicate_first": false,
+  "version": "1.0.0",
+  "last_updated": "2026-05-24",
+  "tools_used": [
+    "respira_get_active_site",
+    "respira_get_site_context",
+    "respira_list_pages",
+    "respira_list_posts",
+    "respira_list_post_types",
+    "respira_list_custom_posts",
+    "respira_find_element"
+  ],
+  "detects": [
+    "modified_date",
+    "evergreen_pages",
+    "fresh_content",
+    "aging_content",
+    "stale_content",
+    "archive_candidate_content",
+    "orphan_pages",
+    "internal_link_count"
+  ],
+  "generates": [
+    "staleness_bucket_distribution",
+    "stale_items_table",
+    "archive_candidates_table",
+    "refresh_priority_list",
+    "per_item_action_recommendation"
+  ]
+}

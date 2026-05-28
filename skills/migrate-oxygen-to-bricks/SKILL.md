@@ -1,11 +1,11 @@
 ---
 name: migrate-oxygen-to-bricks
-description: Full-site migration from Oxygen Builder to Bricks (both modern, developer-oriented, near 1:1 mental model). Audits every Oxygen page, maps components to Bricks equivalents, builds a migration plan for approval, and converts pages to Bricks JSON via duplicates so the live site stays untouched. Use when user says "migrate Oxygen to Bricks", "switch from Oxygen to Bricks", or "replace Oxygen with Bricks Builder".
+description: Converts Oxygen Builder pages to Bricks by mapping component trees to Bricks JSON elements and creating draft duplicates for review.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -66,26 +66,26 @@ This skill reads every Oxygen page, extracts the builder content, translates eac
 **Source: Oxygen Builder**
 - Content stored in post_meta key `ct_builder_shortcodes`
 - JSON-based structure encoding nested components
-- Read via `wordpress_extract_builder_content` with `builder=oxygen`
+- Read via `respira_extract_builder_content` with `builder=oxygen`
 - Components: `ct_section`, `ct_div`, `ct_headline`, `ct_text_block`, `ct_image`, `ct_link_button`, etc.
 
 **Target: Bricks Builder**
 - Content stored in post_meta key `_bricks_page_content_2` as a JSON array
 - Each element is an object with `id`, `name`, `parent`, `settings`, `children`
-- Write via `wordpress_inject_builder_content` with `builder=bricks`
+- Write via `respira_inject_builder_content` with `builder=bricks`
 - Elements: `section`, `container`, `heading`, `text`, `image`, `button`, etc.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Detect Oxygen presence via `wordpress_get_builder_info` or `wordpress_list_plugins`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Detect Oxygen presence via `respira_get_builder_info` or `respira_list_plugins`.
 3. Inventory all Oxygen-built content:
-   - `wordpress_list_pages` and `wordpress_list_posts` — identify all content
-   - `wordpress_find_builder_targets` with `builder=oxygen` — find Oxygen-managed pages
+   - `respira_list_pages` and `respira_list_posts` — identify all content
+   - `respira_find_builder_targets` with `builder=oxygen` — find Oxygen-managed pages
 4. For each Oxygen page, extract content:
-   - `wordpress_extract_builder_content` with `builder=oxygen`
+   - `respira_extract_builder_content` with `builder=oxygen`
    - Catalog: component types used, nesting depth, custom CSS, dynamic data usage, code blocks
 5. Produce an **Audit Report**:
    - Total pages/posts using Oxygen
@@ -139,7 +139,7 @@ Wait for explicit confirmation before proceeding.
 
 For each approved page:
 
-1. Extract Oxygen content via `wordpress_extract_builder_content` with `builder=oxygen`
+1. Extract Oxygen content via `respira_extract_builder_content` with `builder=oxygen`
 2. Map each Oxygen component to its Bricks equivalent:
    - Translate component types (ct_section → section, ct_div → container, etc.)
    - Convert layout properties (flexbox settings, spacing, sizing)
@@ -147,8 +147,8 @@ For each approved page:
    - Preserve text content, image URLs, link targets
    - Flag any unmappable components (custom PHP, conditions) with inline comments
 3. Build the Bricks JSON array structure
-4. Create a duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Inject Bricks content via `wordpress_inject_builder_content` with `builder=bricks`
+4. Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Inject Bricks content via `respira_inject_builder_content` with `builder=bricks`
 6. Log the migration result (success, warnings, manual review items)
 
 ### Phase 4: Post-Migration Verification
@@ -195,18 +195,18 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_get_builder_info`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_list_plugins`
-- `wordpress_find_builder_targets`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_read_page`
-- `wordpress_read_post`
+- `respira_get_site_context`
+- `respira_get_builder_info`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_list_plugins`
+- `respira_find_builder_targets`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_read_page`
+- `respira_read_post`
 
 ## Telemetry
 

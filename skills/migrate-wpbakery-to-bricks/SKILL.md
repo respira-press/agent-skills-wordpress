@@ -1,11 +1,11 @@
 ---
 name: migrate-wpbakery-to-bricks
-description: Converts WPBakery Page Builder pages (the legacy ThemeForest-bundled vc_* shortcode format) to Bricks Builder. Parses WPBakery shortcodes from post_content, maps each element to its Bricks equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use when user says "migrate WPBakery to Bricks", "modernize a WPBakery site with Bricks", or "switch from WPBakery to Bricks".
+description: Converts WPBakery pages to Bricks Builder by parsing shortcodes, mapping elements to Bricks equivalents, and creating draft duplicates for review.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -114,7 +114,7 @@ Key WPBakery specifics:
 - **el_class / el_id**: Custom CSS class and ID attributes
 - **Image references**: By attachment ID (not URL)
 
-Read WPBakery content via `wordpress_extract_builder_content` with `builder=wpbakery`.
+Read WPBakery content via `respira_extract_builder_content` with `builder=wpbakery`.
 
 ## Target Builder: Bricks
 
@@ -134,20 +134,20 @@ Key Bricks specifics:
 - IDs are short alphanumeric strings
 - Responsive via `_breakpoints`
 
-Write Bricks content via `wordpress_inject_builder_content` with `builder=bricks`.
+Write Bricks content via `respira_inject_builder_content` with `builder=bricks`.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm WPBakery is active via `wordpress_list_plugins`.
-3. Confirm Bricks theme is installed via `wordpress_get_site_context`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm WPBakery is active via `respira_list_plugins`.
+3. Confirm Bricks theme is installed via `respira_get_site_context`.
 4. Identify active theme — note if it bundles WPBakery and adds custom elements.
 5. Scan all content for WPBakery usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - Check builder via `wordpress_get_builder_info`
-6. Extract content via `wordpress_extract_builder_content` with `builder=wpbakery`
+   - `respira_list_pages` and `respira_list_posts`
+   - Check builder via `respira_get_builder_info`
+6. Extract content via `respira_extract_builder_content` with `builder=wpbakery`
 7. Build inventory:
    - Total WPBakery pages/posts
    - Element types (frequency count)
@@ -213,7 +213,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read WPBakery content via `wordpress_extract_builder_content` with `builder=wpbakery`
+1. Read WPBakery content via `respira_extract_builder_content` with `builder=wpbakery`
 2. Parse the shortcode tree:
    - Build vc_row → vc_column → element hierarchy
    - Handle vc_row_inner/vc_column_inner nesting
@@ -236,8 +236,8 @@ For each approved page:
    - Apply el_class → Bricks CSS classes setting
    - Generate unique IDs and proper parent references
    - Flag unmappable elements
-4. Create duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Write Bricks JSON via `wordpress_inject_builder_content` with `builder=bricks`
+4. Create duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Write Bricks JSON via `respira_inject_builder_content` with `builder=bricks`
 6. Report status
 
 ### Phase 4: Post-Migration Verification
@@ -296,18 +296,18 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
 
 ## Telemetry
 

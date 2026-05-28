@@ -1,11 +1,11 @@
 ---
 name: migrate-thrive-architect-to-gutenberg
-description: Full-site migration from Thrive Architect to the WordPress block editor (Gutenberg). Audits every Thrive page, maps elements to native block equivalents, builds a migration plan for approval, and converts pages to native block markup via duplicates so the live site stays untouched. Marketing-only Thrive components (Thrive Leads, Ultimatum, Quiz) are flagged for separate replacement. Use when user says "migrate Thrive Architect to Gutenberg", "switch from Thrive to blocks", or "move from Thrive Architect to native WordPress".
+description: Converts Thrive Architect pages to native Gutenberg blocks by parsing Thrive content, mapping elements to core blocks, and creating draft duplicates for review.
 license: MIT
 metadata:
-  author: Respira for WordPress
+  author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -70,26 +70,26 @@ This skill reads every Thrive Architect page, extracts the builder content, tran
 **Source: Thrive Architect**
 - Content stored via Thrive's custom format in post_meta
 - Conversion-focused component library with marketing elements
-- Read via `wordpress_extract_builder_content` with `builder=thrive`
+- Read via `respira_extract_builder_content` with `builder=thrive`
 - Components: content boxes, columns, text, image, button, video, lead generation, countdown, testimonial, styled list, toggle, tabs, etc.
 
 **Target: Gutenberg (Block Editor)**
 - Content stored in `post_content` as HTML with block comment delimiters
 - Format: `<!-- wp:paragraph --><p>Text</p><!-- /wp:paragraph -->`
-- Write via standard WordPress content tools (`wordpress_update_page` / `wordpress_update_post`)
+- Write via standard WordPress content tools (`respira_update_page` / `respira_update_post`)
 - Core blocks: `paragraph`, `heading`, `image`, `buttons`, `columns`, `group`, `html`, `video`, `separator`, `quote`, `list`, `embed`, etc.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Detect Thrive Architect presence via `wordpress_get_builder_info` or `wordpress_list_plugins`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Detect Thrive Architect presence via `respira_get_builder_info` or `respira_list_plugins`.
 3. Inventory all Thrive-built content:
-   - `wordpress_list_pages` and `wordpress_list_posts` — identify all content
-   - `wordpress_find_builder_targets` with `builder=thrive` — find Thrive-managed pages
+   - `respira_list_pages` and `respira_list_posts` — identify all content
+   - `respira_find_builder_targets` with `builder=thrive` — find Thrive-managed pages
 4. For each Thrive page, extract content:
-   - `wordpress_extract_builder_content` with `builder=thrive`
+   - `respira_extract_builder_content` with `builder=thrive`
    - Catalog: element types used, marketing components (forms, countdowns, testimonials), A/B test variants, custom CSS
 5. Produce an **Audit Report**:
    - Total pages/posts using Thrive Architect
@@ -149,7 +149,7 @@ Wait for explicit confirmation before proceeding.
 
 For each approved page:
 
-1. Extract Thrive content via `wordpress_extract_builder_content` with `builder=thrive`
+1. Extract Thrive content via `respira_extract_builder_content` with `builder=thrive`
 2. Map each Thrive element to Gutenberg blocks:
    - Content Boxes → `<!-- wp:group -->` blocks
    - Columns → `<!-- wp:columns -->` with `<!-- wp:column -->` children
@@ -164,8 +164,8 @@ For each approved page:
    - Preserve text content, image URLs, link targets
    - Flag marketing components with `<!-- wp:paragraph --><p>[MIGRATION NOTE: Thrive Lead Gen form was here — replace with form plugin shortcode]</p><!-- /wp:paragraph -->`
 3. Assemble the complete Gutenberg block markup
-4. Create a duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Update the duplicate's `post_content` with the Gutenberg markup via `wordpress_update_page` or `wordpress_update_post`
+4. Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Update the duplicate's `post_content` with the Gutenberg markup via `respira_update_page` or `respira_update_post`
 6. Log the migration result (success, warnings, manual review items)
 
 ### Phase 4: Post-Migration Verification
@@ -216,19 +216,19 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_get_builder_info`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_list_plugins`
-- `wordpress_find_builder_targets`
-- `wordpress_extract_builder_content`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_update_page`
-- `wordpress_update_post`
-- `wordpress_read_page`
-- `wordpress_read_post`
+- `respira_get_site_context`
+- `respira_get_builder_info`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_list_plugins`
+- `respira_find_builder_targets`
+- `respira_extract_builder_content`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_update_page`
+- `respira_update_post`
+- `respira_read_page`
+- `respira_read_post`
 
 ## Telemetry
 

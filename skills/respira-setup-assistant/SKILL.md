@@ -1,14 +1,17 @@
+---
+name: respira-setup-assistant
+description: Diagnose your Respira MCP connection, walk through first-time setup, and fix common connection problems (timeouts, 401s, 403s, version mismatches).
+license: MIT
+metadata:
+  author: "Respira for WordPress"
+  author_url: https://respira.press
+  version: 1.2.0
+  mcp-server: respira-wordpress
+  category: onboarding
+---
+
 # Respira Setup Assistant
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Category:** onboarding
-**Status:** active
-**Freshly updated:** v1.1.0 picks up the v7.1 OAuth setup flow, the new respira_diagnose_connection tool for edge-layer blocks, and the install-skills npm command.
-**Requires:** Respira for WordPress plugin (installs via this skill if missing)
-**Telemetry endpoint:** https://www.respira.press/api/skills/track-usage
-
----
 
 ## Description
 

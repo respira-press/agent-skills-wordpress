@@ -1,0 +1,46 @@
+{
+  "name": "Brand Voice Synthesizer",
+  "slug": "brand-voice-synthesizer",
+  "icon": "🗣️",
+  "category": "intelligence",
+  "description": "Read 5-10 published posts and extract the brand voice — tone, lexicon, sentence patterns, person used, formality, signature phrases, phrases the site never uses. Persist it so every future content-writing skill produces copy that sounds like the brand, not like generic AI.",
+  "author": "Respira Team",
+  "author_url": "https://respira.press",
+  "trigger": "extract my brand voice",
+  "requires_respira": true,
+  "requires_woocommerce_addon": false,
+  "requires_accessibility_addon": false,
+  "is_read_only": false,
+  "is_duplicate_first": false,
+  "version": "1.0.0",
+  "last_updated": "2026-05-24",
+  "tools_used": [
+    "respira_get_active_site",
+    "respira_get_site_context",
+    "respira_list_posts",
+    "respira_read_post",
+    "respira_extract_builder_content",
+    "respira_get_option",
+    "respira_update_option"
+  ],
+  "detects": [
+    "person_used",
+    "formality_level",
+    "sentence_length_distribution",
+    "paragraph_length",
+    "reading_grade",
+    "tone_descriptors",
+    "signature_phrases",
+    "preferred_lexicon",
+    "avoided_lexicon",
+    "punctuation_patterns",
+    "structural_patterns"
+  ],
+  "generates": [
+    "brand_voice_json",
+    "brand_voice_summary_markdown",
+    "good_paragraph_example",
+    "bad_paragraph_counter_example",
+    "persisted_site_option"
+  ]
+}
