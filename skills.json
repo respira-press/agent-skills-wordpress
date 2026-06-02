@@ -1,6 +1,6 @@
 {
-  "version": "1.3.0",
-  "updated_at": "2026-05-17",
+  "version": "1.4.0",
+  "updated_at": "2026-06-02",
   "skills": [
     {
       "slug": "respira-setup-assistant",
@@ -14,11 +14,11 @@
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/respira-setup-assistant",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/respira-setup-assistant/SKILL.md",
       "details": {
-        "hero_subtitle": "Diagnose your MCP connection, walk through first-time setup, and fix common problems. Works even when Respira is broken \u2014 it is the skill you run first.",
+        "hero_subtitle": "Diagnose your MCP connection, walk through first-time setup, and fix common problems. Works even when Respira is broken — it is the skill you run first.",
         "capabilities": [
           {
             "title": "Doctor Diagnostics",
-            "desc": "9 checks in one pass \u2014 Node.js version, MCP config, connectivity, plugin version, API negotiation, and npm update availability."
+            "desc": "9 checks in one pass — Node.js version, MCP config, connectivity, plugin version, API negotiation, and npm update availability."
           },
           {
             "title": "Version Compatibility",
@@ -26,7 +26,7 @@
           },
           {
             "title": "Guided Setup",
-            "desc": "Walks through first-time connection step by step \u2014 plugin install, API key creation, MCP configuration."
+            "desc": "Walks through first-time connection step by step — plugin install, API key creation, MCP configuration."
           },
           {
             "title": "Troubleshooting",
@@ -82,7 +82,7 @@
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/wordpress-site-dna",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/wordpress-site-dna/SKILL.md",
       "details": {
-        "hero_subtitle": "Archaeological analysis of your WordPress installation. Find technical debt, optimization opportunities, and hidden issues \u2014 in about 60 seconds.",
+        "hero_subtitle": "Archaeological analysis of your WordPress installation. Find technical debt, optimization opportunities, and hidden issues — in about 60 seconds.",
         "capabilities": [
           {
             "title": "Core WordPress Health",
@@ -114,7 +114,7 @@
           },
           {
             "title": "Technical Debt Score",
-            "desc": "Health score 0\u2013100 with category breakdown and trend tracking"
+            "desc": "Health score 0–100 with category breakdown and trend tracking"
           }
         ],
         "expected_findings": [
@@ -132,7 +132,7 @@
     {
       "slug": "technical-debt-audit",
       "name": "Technical Debt Audit",
-      "description": "Identifies technical debt in WordPress sites \u2014 orphaned shortcodes from deleted plugins, unused plugins, database bloat, unused media, builder data from inactive builders.",
+      "description": "Identifies technical debt in WordPress sites — orphaned shortcodes from deleted plugins, unused plugins, database bloat, unused media, builder data from inactive builders.",
       "category": "audit",
       "author": "Respira for WordPress",
       "version": "1.1.0",
@@ -161,14 +161,14 @@
           },
           {
             "title": "Unused Media",
-            "desc": "Images uploaded but referenced nowhere \u2014 wasted disk and bandwidth"
+            "desc": "Images uploaded but referenced nowhere — wasted disk and bandwidth"
           },
           {
             "title": "Long Inactive Plugins",
             "desc": "Plugins deactivated 6+ months ago that are attack surface for nothing"
           },
           {
-            "title": "Debt Score 0\u2013100",
+            "title": "Debt Score 0–100",
             "desc": "Composite cleanliness score with breakdown by category"
           },
           {
@@ -179,7 +179,7 @@
         "expected_findings": [
           "23 orphaned shortcodes breaking layout across 8 pages",
           "14 plugins installed ",
-          " \u2014 never activated, never removed",
+          " — never activated, never removed",
           "Elementor and Divi both installed, only one ever used",
           "2.1GB of database bloat from 8 years of unlimited revisions",
           "800+ images in the media library, only 200 referenced anywhere",
@@ -192,7 +192,7 @@
     {
       "slug": "woocommerce-health-check",
       "name": "WooCommerce Health Check",
-      "description": "WooCommerce configuration diagnostics \u2014 identifies checkout problems, cart errors, AJAX mismatches, caching issues, payment gateway setup, SSL enforcement. Revenue-impacting diagnostics.",
+      "description": "WooCommerce configuration diagnostics — identifies checkout problems, cart errors, AJAX mismatches, caching issues, payment gateway setup, SSL enforcement. Revenue-impacting diagnostics.",
       "category": "audit",
       "author": "Respira for WordPress",
       "version": "1.1.0",
@@ -201,7 +201,7 @@
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/woocommerce-health-check",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/woocommerce-health-check/SKILL.md",
       "details": {
-        "hero_subtitle": "URL mismatches, uncached cart pages, broken payment gateways. WooCommerce Health Check finds the exact issues causing cart abandonment \u2014 before your next lost order.",
+        "hero_subtitle": "URL mismatches, uncached cart pages, broken payment gateways. WooCommerce Health Check finds the exact issues causing cart abandonment — before your next lost order.",
         "capabilities": [
           {
             "title": "URL Mismatch Detection",
@@ -209,7 +209,7 @@
           },
           {
             "title": "SSL Verification",
-            "desc": "HTTP store detected \u2014 payment gateways require HTTPS"
+            "desc": "HTTP store detected — payment gateways require HTTPS"
           },
           {
             "title": "Cart & Checkout Pages",
@@ -232,17 +232,17 @@
             "desc": "Load time, unnecessary scripts, JS blocking payment forms"
           },
           {
-            "title": "Health Score 0\u2013100",
+            "title": "Health Score 0–100",
             "desc": "Store-specific score with immediate action items by revenue impact"
           }
         ],
         "expected_findings": [
           "WordPress Address and Site Address don\\",
-          "WP Rocket caching cart and checkout \u2014 customers lose their cart every page reload",
-          "SSL expired last week \u2014 Stripe and PayPal refuse to process payments",
+          "WP Rocket caching cart and checkout — customers lose their cart every page reload",
+          "SSL expired last week — Stripe and PayPal refuse to process payments",
           "Place Order",
-          "WooCommerce Stripe plugin installed but deactivated \u2014 no payment method available",
-          "Checkout page loads 4.2 seconds \u2014 40% of mobile users abandon before it renders"
+          "WooCommerce Stripe plugin installed but deactivated — no payment method available",
+          "Checkout page loads 4.2 seconds — 40% of mobile users abandon before it renders"
         ],
         "freshly_updated_until": "2026-05-31",
         "v1_1_0_changes": "Swapped deprecated wordpress_* tool names to respira_*. Picked up v7.0.x backend fixes (Bricks settings normalisation, Beaver Box mappings + font-field stdClass + column size default, Oxygen Classic root wrapper + try/catch, Breakdance content path nesting + append unwrap, Divi 4 multi-tool bundle, Divi 5 _nodeId fallback + children-aliases fold, WPBakery + Uncode adapter pack). v7.1 Elementor 4 atomic-write surface referenced where relevant."
@@ -251,7 +251,7 @@
     {
       "slug": "mobile-experience-report",
       "name": "Mobile Experience Report",
-      "description": "Mobile layout diagnostics \u2014 identifies responsive breakpoint problems, text sizing issues, column stacking failures, element visibility issues, navigation menu behavior. Device-by-device breakdown.",
+      "description": "Mobile layout diagnostics — identifies responsive breakpoint problems, text sizing issues, column stacking failures, element visibility issues, navigation menu behavior. Device-by-device breakdown.",
       "category": "audit",
       "author": "Respira for WordPress",
       "version": "1.1.0",
@@ -260,7 +260,7 @@
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/mobile-experience-report",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/mobile-experience-report/SKILL.md",
       "details": {
-        "hero_subtitle": "60% of your visitors are on phones. This skill shows you exactly what they experience \u2014 broken columns, squished text, menus that don't work on touch.",
+        "hero_subtitle": "60% of your visitors are on phones. This skill shows you exactly what they experience — broken columns, squished text, menus that don't work on touch.",
         "capabilities": [
           {
             "title": "Breakpoint Analysis",
@@ -280,25 +280,25 @@
           },
           {
             "title": "Mobile Navigation",
-            "desc": "Verifies hamburger menu, tap targets \u2265 44px, touch-friendly dropdowns"
+            "desc": "Verifies hamburger menu, tap targets ≥ 44px, touch-friendly dropdowns"
           },
           {
             "title": "Media Responsiveness",
-            "desc": "Images, videos, maps \u2014 flags anything without max-width: 100%"
+            "desc": "Images, videos, maps — flags anything without max-width: 100%"
           },
           {
             "title": "Spacing on Mobile",
             "desc": "80px desktop padding that wastes the entire phone viewport"
           },
           {
-            "title": "Mobile Score 0\u2013100",
+            "title": "Mobile Score 0–100",
             "desc": "Composite score with per-page breakdown and fix priority roadmap"
           }
         ],
         "expected_findings": [
           "Three-column hero squished into tiny slivers on every phone",
           "72px H1 headings that take the full screen on iPhone SE",
-          "Hamburger menu never configured \u2014 desktop menu on mobile",
+          "Hamburger menu never configured — desktop menu on mobile",
           "Place Order",
           "80px section padding eating 160px of mobile viewport real estate",
           "Videos and embedded maps with no responsive wrappers"
@@ -421,7 +421,7 @@
           },
           {
             "title": "Plan-First Approach",
-            "desc": "Presents every recommended link with source, target, anchor text, placement context, and reasoning \u2014 then waits for your approval."
+            "desc": "Presents every recommended link with source, target, anchor text, placement context, and reasoning — then waits for your approval."
           },
           {
             "title": "Duplicate-First Application",
@@ -456,7 +456,7 @@
           },
           {
             "title": "Auto-Backup Before Edits",
-            "desc": "Quick local backup mode saves a timestamped snapshot before any AI edit \u2014 zero-friction insurance."
+            "desc": "Quick local backup mode saves a timestamped snapshot before any AI edit — zero-friction insurance."
           },
           {
             "title": "Diff Against Live Site",
@@ -464,12 +464,12 @@
           }
         ],
         "expected_findings": [
-          "Machine-Readable JSON \u2014 Full content, builder payload, allowlisted meta, and computed hashes for every page and post.",
-          "Human-Readable Markdown \u2014 Browse your backup in any text editor or GitHub \u2014 heading structure, text, and image references.",
-          "Optional Media Download \u2014 Download referenced images locally for fully portable offline packages.",
-          "Builder Data Preservation \u2014 Elementor, Bricks, Divi builder JSON exported alongside standard WordPress content.",
-          "Hash Verification \u2014 Content, builder, and meta hashes for every item \u2014 verify import fidelity automatically.",
-          "Package Manifest \u2014 Complete metadata: source site, WordPress version, content counts, warnings, and skipped items."
+          "Machine-Readable JSON — Full content, builder payload, allowlisted meta, and computed hashes for every page and post.",
+          "Human-Readable Markdown — Browse your backup in any text editor or GitHub — heading structure, text, and image references.",
+          "Optional Media Download — Download referenced images locally for fully portable offline packages.",
+          "Builder Data Preservation — Elementor, Bricks, Divi builder JSON exported alongside standard WordPress content.",
+          "Hash Verification — Content, builder, and meta hashes for every item — verify import fidelity automatically.",
+          "Package Manifest — Complete metadata: source site, WordPress version, content counts, warnings, and skipped items."
         ]
       }
     },
@@ -664,6 +664,330 @@
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-visual-composer-to-gutenberg",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-visual-composer-to-gutenberg/SKILL.md"
+    },
+    {
+      "slug": "activity-report-composer",
+      "name": "Activity Report Composer",
+      "description": "Turn the audit log of work done on a WordPress site into a polished written report. Wraps the v7.1 respira_generate_activity_report MCP tool with six framings: agency client report, case study, internal recap, testimonial draft, build-in-public, personal recap.",
+      "category": "reporting",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/activity-report-composer",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/activity-report-composer/SKILL.md",
+      "details": {
+        "hero_subtitle": "End-of-month client reports, case studies, build-in-public posts, testimonials — all written from the same audit log of work that actually shipped. No invented numbers, no marketing varnish.",
+        "capabilities": [
+          {
+            "title": "Six framings",
+            "desc": "Agency client report, case study (with anonymize toggle), internal recap, testimonial draft, build-in-public, personal recap. One audit log, six narratives."
+          },
+          {
+            "title": "Real hours saved + cost saved",
+            "desc": "Numbers come from respira_generate_activity_report — totals.edits, totals.snapshots, hoursSaved, costSaved at the operator's stated rate. Never invented."
+          },
+          {
+            "title": "Three output formats",
+            "desc": "Markdown for Notion/docs, email-ready HTML for direct sending, social-shaped for LinkedIn / X."
+          },
+          {
+            "title": "Anonymize for case studies",
+            "desc": "Replaces client name with industry descriptor, redacts URLs and named team members, keeps the numbers exact."
+          }
+        ],
+        "freshly_updated_until": "2026-06-30",
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Wraps the new respira_generate_activity_report MCP tool — the headline tool of Roots — with six prompting framings and three output formats."
+      }
+    },
+    {
+      "slug": "brand-voice-synthesizer",
+      "name": "Brand Voice Synthesizer",
+      "description": "Read 5-10 published posts and extract the brand voice — tone, lexicon, sentence patterns, person used, formality, signature phrases, phrases the site never uses. Persist it so every future content-writing skill produces copy that sounds like the brand, not like generic AI.",
+      "category": "intelligence",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/brand-voice-synthesizer",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/brand-voice-synthesizer/SKILL.md",
+      "details": {
+        "hero_subtitle": "Every blog post Claude writes, in your voice — not generic AI voice. The verbal counterpart to the Design System Synthesizer.",
+        "capabilities": [
+          {
+            "title": "Voice signal extraction",
+            "desc": "Person used (I / we / you), formality, sentence length (avg / median / p90), paragraph length, reading grade, tone descriptors."
+          },
+          {
+            "title": "Lexicon mapping",
+            "desc": "Preferred words the site reaches for, signature multi-word phrases used repeatedly, and the AVOIDED lexicon — words conspicuously absent that competitor sites would use."
+          },
+          {
+            "title": "Punctuation + structural patterns",
+            "desc": "Em dash usage, exclamation marks, oxford comma, opens-with-question habits, ends-with-CTA habits, bullet list and code block usage patterns."
+          },
+          {
+            "title": "Real-corpus examples",
+            "desc": "A 'this is your voice' paragraph quoted verbatim from your own corpus, plus a constructed counter-example showing what your voice is NOT."
+          }
+        ],
+        "freshly_updated_until": "2026-06-30",
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Part of the brand-foundation trio: Design System Synthesizer, Brand Voice Synthesizer, Page Template Library Bootstrapper."
+      }
+    },
+    {
+      "slug": "conversion-audit",
+      "name": "Conversion Audit",
+      "description": "Audit a WordPress site for conversion-rate friction across six dimensions: above-the-fold clarity, CTA hierarchy, form length, social proof placement, page speed, and trust signals. Prioritized fixes with expected impact — recommendations, not redesigns.",
+      "category": "audit",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/conversion-audit",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/conversion-audit/SKILL.md",
+      "details": {
+        "hero_subtitle": "A CRO check, not a redesign. Prioritized fixes — each with what to change, why, and expected impact.",
+        "capabilities": [
+          {
+            "title": "Six-dimension scoring",
+            "desc": "Above-the-fold clarity, CTA hierarchy, form length, social proof placement, page speed (from SpeedScan), trust signals. Each scored 0–3 per page."
+          },
+          {
+            "title": "Prioritized fix list",
+            "desc": "Top 5–8 fixes ranked by expected impact. Each one names the current state, the change to make, and why."
+          },
+          {
+            "title": "What's working callouts",
+            "desc": "Tells you what NOT to change. Strong patterns get highlighted so the rebuild doesn't drop the parts already converting."
+          },
+          {
+            "title": "Native form parsing",
+            "desc": "For Gravity Forms, WPForms, Contact Form 7 — parses the form definition (not the rendered HTML) so the field count is accurate."
+          }
+        ],
+        "freshly_updated_until": "2026-06-30",
+        "v1_0_0_changes": "Initial release in v7.1 Roots."
+      }
+    },
+    {
+      "slug": "custom-post-type-architect",
+      "name": "Custom Post Type Architect",
+      "description": "Design and create WordPress custom post types end to end — CPT + supporting taxonomies + ACF field group + sample entries + builder-specific single template suggestion. Uses new v7.1 MCP tools: respira_create_post_type, respira_create_taxonomy, respira_create_acf_field_group.",
+      "category": "content-creation",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/custom-post-type-architect",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/custom-post-type-architect/SKILL.md",
+      "details": {
+        "hero_subtitle": "Give the agent a brief — 'a portfolio with case studies' — and it designs the post type, picks the right taxonomies, defines the ACF field group, creates two sample entries, and suggests a single template for your active page builder.",
+        "capabilities": [
+          {
+            "title": "End-to-end CPT scaffolding",
+            "desc": "CPT shape (labels, supports, public/private, has_archive, REST exposure) + taxonomies + ACF field group + sample entries, all in one workflow."
+          },
+          {
+            "title": "Sensible defaults per content type",
+            "desc": "Knows the right field set for case studies, team members, events, podcast episodes, properties, recipes, FAQs, testimonials, courses, lessons. You override at the review step."
+          },
+          {
+            "title": "Builder-aware template suggestions",
+            "desc": "After creating the CPT, suggests where to build the single template — Bricks Templates, Elementor Theme Builder, Divi Theme Builder, Gutenberg/FSE, Oxygen, Breakdance."
+          },
+          {
+            "title": "Review-before-create gate",
+            "desc": "Outputs the proposed CPT shape, taxonomies, and ACF fields for your review before any create call. CPTs are forever — get it right the first time."
+          }
+        ],
+        "freshly_updated_until": "2026-06-30",
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Wraps the new respira_create_post_type, respira_create_taxonomy, and respira_create_acf_field_group MCP tools — content-architecture tools that didn't exist before v7.1."
+      }
+    },
+    {
+      "slug": "design-system-synthesizer",
+      "name": "Design System Synthesizer",
+      "description": "Read your site's representative pages, theme files, and media library to extract a complete reusable design system — logo, colors, typography, spacing scale, component patterns. Persist it as machine data AND generate a visible style-guide page on your site that renders the tokens visually.",
+      "category": "intelligence",
+      "author": "Respira for WordPress",
+      "version": "1.1.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/design-system-synthesizer",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/design-system-synthesizer/SKILL.md",
+      "details": {
+        "hero_subtitle": "Every page you build, automatically on brand. Tell Respira your design system, and every new page Claude generates matches your logo, colors, fonts, and component patterns.",
+        "capabilities": [
+          {
+            "title": "Brand identity capture",
+            "desc": "Logo, dark logo, favicon, social card, wordmark — extracted from the media library and site identity settings."
+          },
+          {
+            "title": "Color palette synthesis",
+            "desc": "Primary, secondary, accent, 9-step neutral scale, and semantic colors (link / success / warning / error) — extracted from CSS variables, theme.json, and per-page observation."
+          },
+          {
+            "title": "Typography + spacing scales",
+            "desc": "Heading family + weights + sizes (H1–H6), body family + weight + line-height, mono family, spacing scale, section padding norms, container max width."
+          },
+          {
+            "title": "Component patterns",
+            "desc": "Button styles, card styles, hero patterns, section patterns — captured as named patterns future skills can reference."
+          },
+          {
+            "title": "Visible style-guide page (new in v1.1)",
+            "desc": "Renders the synthesized design system as a real page on your site (private by default) — color swatches with hex codes, typography samples in actual styles, spacing scale blocks, component previews. Built with your active page builder, editable like any other page."
+          },
+          {
+            "title": "Persistent — pairs with every content skill",
+            "desc": "Saved at the site level. Every Respira content-creation skill from that point on references the system, so new pages snap to your brand instead of guessing."
+          }
+        ],
+        "freshly_updated_until": "2026-06-30",
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Flagship skill of the v7.1 brand-foundation suite (Design System + Brand Voice + Page Template Library). Together they form the explicit foundation that every future content-generation skill stands on.",
+        "v1_1_0_changes": "v1.1.0 adds the visible style-guide page output. The synthesizer now builds a real WordPress page on the site (private draft by default) that renders the synthesized tokens visually: color swatches with hex codes, typography samples in actual styles, spacing scale blocks, component previews. Built with the active page builder so it's editable in the user's normal workflow. Solves the 'where do I see the design system' question."
+      }
+    },
+    {
+      "slug": "html-to-bricks",
+      "name": "HTML to Bricks Builder",
+      "description": "Convert raw HTML/CSS into native Bricks Builder elements. Maps colors, typography, and spacing to your design system tokens so the result is drift-resistant. ACSS class mapping when ACSS is installed.",
+      "category": "migration",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/html-to-bricks",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/html-to-bricks/SKILL.md",
+      "details": {
+        "hero_subtitle": "Designer hands you HTML from a Webflow or Figma export? Convert it into native Bricks elements — design system bound, ACSS aware, never inline HTML.",
+        "capabilities": [
+          {
+            "title": "Bricks-native conversion",
+            "desc": "Output is a tree of native Bricks elements (section, block, container, heading, text-basic, button, image) — never inline HTML."
+          },
+          {
+            "title": "Design system mapping",
+            "desc": "Raw CSS hex values map to your design system color tokens. Raw font sizes map to your typography scale. The converted page stays in sync when the design system updates."
+          },
+          {
+            "title": "ACSS class mapping",
+            "desc": "If ACSS is installed, common CSS patterns map to ACSS utility classes instead of inline settings."
+          },
+          {
+            "title": "Three input modes",
+            "desc": "Paste HTML, give a URL (external images flagged not silently mirrored), or reference a file."
+          }
+        ],
+        "freshly_updated_until": "2026-06-30",
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Resolves the most-upvoted open feature request on the Respira board."
+      }
+    },
+    {
+      "slug": "page-template-library",
+      "name": "Page Template Library Bootstrapper",
+      "description": "Capture canonical page patterns (case study, service page, landing page hero + 3-up + CTA) as re-usable playbooks. Uses new v7.1 MCP tools respira_create_playbook + respira_list_playbooks + respira_update_playbook. Future page-generation skills spawn new pages from playbooks in seconds.",
+      "category": "workflow",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/page-template-library",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/page-template-library/SKILL.md",
+      "details": {
+        "hero_subtitle": "Build the case study layout once. Spawn 50 case studies from it, on-brand, in seconds.",
+        "capabilities": [
+          {
+            "title": "Two capture modes",
+            "desc": "From an existing page ('save this as a template') or from a pattern across multiple pages ('all our case studies follow this pattern — capture it')."
+          },
+          {
+            "title": "Section spine + slots",
+            "desc": "Identifies which parts of the page are structural (kept) vs which are variable content (turned into slots the user fills when spawning a new page from the playbook)."
+          },
+          {
+            "title": "Design system bound",
+            "desc": "Playbooks reference design system tokens (primary color, heading typography) by name — not by hex value — so they stay drift-resistant when the design system updates."
+          },
+          {
+            "title": "Builder-locked",
+            "desc": "Each playbook is locked to the builder it was captured from. A Bricks playbook won't accidentally be applied to an Elementor page and produce a broken result."
+          }
+        ],
+        "freshly_updated_until": "2026-06-30",
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Uses the new respira_create_playbook + respira_list_playbooks + respira_update_playbook MCP tools introduced in 7.1."
+      }
+    },
+    {
+      "slug": "prime-the-agent",
+      "name": "Prime the Agent",
+      "description": "Fast 30-second session-starter. Loads the active site, identifies the page builder, loads inline schemas, and primes the agent on the do-not-write-raw-HTML rule before any work begins. Prevents the single most common failure mode in AI WordPress editing.",
+      "category": "workflow",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/prime-the-agent",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/prime-the-agent/SKILL.md",
+      "details": {
+        "hero_subtitle": "Run this at the top of any session before any editing. Identifies the active site, the page builder, and the working rules — so your agent stops writing raw HTML and starts using your builder's native modules.",
+        "capabilities": [
+          {
+            "title": "Site identification",
+            "desc": "Calls respira_get_active_site + respira_get_site_context to load WordPress version, PHP version, active theme, plugin count, multisite status."
+          },
+          {
+            "title": "Builder detection",
+            "desc": "Calls respira_get_builder_info to identify which of the 16 supported page builders is active (Elementor, Bricks, Divi 5, Gutenberg, Oxygen, Breakdance, Beaver, Brizy, WPBakery, Visual Composer, Thrive, Flatsome, Spectra, Kadence, GenerateBlocks, SeedProd)."
+          },
+          {
+            "title": "Schema preload",
+            "desc": "Loads respira_get_builder_inline_schemas so the agent has the active builder's module attribute shapes in working memory before any write."
+          },
+          {
+            "title": "Working rules briefing",
+            "desc": "Outputs the do-not-write-raw-HTML rule, the SafeEdit duplicate-before-edit rule, and the builder-native tool stack — so every subsequent edit goes through the right surface."
+          }
+        ],
+        "freshly_updated_until": "2026-06-30",
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Promotes the canonical session-starter preamble (previously a copy-paste snippet shared in customer support) to a first-class triggerable skill. Designed to be run before any other skill or work in a new conversation about a WordPress site."
+      }
+    },
+    {
+      "slug": "stale-content-detector",
+      "name": "Stale Content Detector",
+      "description": "Find pages and posts that haven't been updated in a long time. Categorize as fresh / aging / stale / archive-candidate. Suggest refresh, redirect, or archive per item — based on age, traffic signal, and internal link count.",
+      "category": "audit",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/stale-content-detector",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/stale-content-detector/SKILL.md",
+      "details": {
+        "hero_subtitle": "Find the content drag on your site in 30 seconds. What to refresh, what to redirect, what to archive — based on age, traffic, and internal link equity.",
+        "capabilities": [
+          {
+            "title": "Four-bucket categorization",
+            "desc": "Fresh (<6mo, leave alone) · Aging (6–12mo, review headline + opener) · Stale (12–24mo, refresh meaningfully) · Archive-candidate (24+mo, action depends on traffic + links)."
+          },
+          {
+            "title": "Evergreen pages skipped",
+            "desc": "About, contact, pricing, privacy, terms, legal, imprint, FAQ, support — opinionated default list, overridable."
+          },
+          {
+            "title": "Top-5 refresh priority",
+            "desc": "Ranked by traffic + internal link equity, so you know where to start. Not 'all old content equally' — 'this one will move the needle if you refresh it.'"
+          },
+          {
+            "title": "Never deletes",
+            "desc": "Archive-candidates get a recommendation, not a deletion. You decide. Pairs with the SEO & AEO Amplifier when you choose 'refresh'."
+          }
+        ],
+        "freshly_updated_until": "2026-06-30",
+        "v1_0_0_changes": "Initial release in v7.1 Roots."
+      }
     }
   ]
 }

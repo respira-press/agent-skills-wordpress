@@ -1,8 +1,8 @@
 {
   "name": "respira-wordpress-skills",
   "displayName": "Respira WordPress Skills Library",
-  "version": "1.0.0",
-  "description": "26 specialised WordPress skills covering page-builder migrations (12 paths including Divi to Gutenberg, Elementor to Bricks, WPBakery to Gutenberg), site audits (technical debt, mobile experience, WooCommerce health), content workflows (internal linking, content portability, SEO/AEO), and onboarding. Auto-activates relevant skills as you describe what you want to do. Companion to Respira for WordPress Claude Co-work plugin.",
+  "version": "1.1.0",
+  "description": "35 specialised WordPress skills covering page-builder migrations (12 paths including Divi to Gutenberg, Elementor to Bricks, WPBakery to Gutenberg), site audits (technical debt, mobile experience, WooCommerce health), content workflows (internal linking, content portability, SEO/AEO), and onboarding. Auto-activates relevant skills as you describe what you want to do. Companion to Respira for WordPress Claude Co-work plugin.",
   "author": {
     "name": "respira.press",
     "url": "https://respira.press"
