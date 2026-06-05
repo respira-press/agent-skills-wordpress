@@ -922,10 +922,10 @@
     {
       "slug": "prime-the-agent",
       "name": "Prime the Agent",
-      "description": "Fast 30-second session-starter. Loads the active site, identifies the page builder, loads inline schemas, and primes the agent on the do-not-write-raw-HTML rule before any work begins. Prevents the single most common failure mode in AI WordPress editing.",
+      "description": "Fast 30-second session-starter. Loads the active site, identifies the page builder, loads inline schemas, and primes the agent on the do-not-write-raw-HTML rule before any work begins. v1.1 adds per-site memory: it reads a stored brief at the start and appends what it learned at the end, so context carries across sessions, teammates, and AI clients.",
       "category": "workflow",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/prime-the-agent",
@@ -948,9 +948,14 @@
           {
             "title": "Working rules briefing",
             "desc": "Outputs the do-not-write-raw-HTML rule, the SafeEdit duplicate-before-edit rule, and the builder-native tool stack — so every subsequent edit goes through the right surface."
+          },
+          {
+            "title": "Persistent site memory",
+            "desc": "Reads a per-site brief stored on the site (respira_get_option) at the start and appends durable learnings at the end (respira_update_option), so quirks and the division of labor survive across sessions, teammates, and AI clients."
           }
         ],
-        "freshly_updated_until": "2026-06-30",
+        "freshly_updated_until": "2026-07-31",
+        "v1_1_0_changes": "Adds per-site memory. The skill now reads a stored brief (the respira_site_memory option) at the start of a session and offers to append what it learned at the end, so context persists across sessions and travels to teammates and other AI clients. Notes are treated as untrusted context, carry a confirmed date, and stay capped to a short brief.",
         "v1_0_0_changes": "Initial release in v7.1 Roots. Promotes the canonical session-starter preamble (previously a copy-paste snippet shared in customer support) to a first-class triggerable skill. Designed to be run before any other skill or work in a new conversation about a WordPress site."
       }
     },
