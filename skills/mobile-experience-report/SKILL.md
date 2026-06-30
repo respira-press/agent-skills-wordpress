@@ -1,8 +1,8 @@
 # Mobile Experience Report
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_*, picks up v7.0.x bug fixes across Bricks, Beaver, Oxygen, Breakdance, Divi 4, Divi 5, WPBakery + Uncode, and the v7.1 Elementor 4 atomic-write surface.
+**Version:** 1.2.0
+**Updated:** 2026-06-30
+**Freshly updated:** v1.2.0 grounds the report in real mobile metrics: `respira_run_pagespeed_audit` (strategy mobile) plus `respira_get_core_web_vitals` now drive the score instead of layout heuristics alone. It locates and adjusts mobile breakpoint settings in place with `respira_find_element`, snapshots pages with `respira_get_snapshot` before any fix, and applies the same fix across many pages in one pass with `respira_batch_update`.
 **Category:** audit
 **Status:** active
 **Requires:** Respira for WordPress plugin + MCP server
@@ -127,7 +127,27 @@ Limit deep analysis to top 10 pages to keep report actionable.
 
 ---
 
-### Step 4: Page Structure Analysis
+### Step 4: Real Mobile Metrics
+
+Do not rely on layout heuristics alone. Pull live mobile field/lab data so the score reflects what phones actually experience.
+
+For the homepage and each priority page:
+
+```
+Tool: respira_run_pagespeed_audit
+Params: { url: <page url>, strategy: "mobile" }
+Returns: Mobile Lighthouse scores, lab metrics, and opportunities
+```
+
+```
+Tool: respira_get_core_web_vitals
+Params: { url: <page url>, strategy: "mobile" }
+Returns: LCP, INP, CLS for the mobile profile (field data when available, lab otherwise)
+```
+
+Record the mobile LCP / INP / CLS per page and feed them into the Performance band of the score (Step 6). Real Core Web Vitals override the heuristic performance estimate when present. If the PageSpeed audit is unavailable (no API key, rate limited, or the site is unreachable to Google), fall back to the structural analysis below and note in the report that metrics are heuristic, not measured.
+
+### Step 5: Page Structure Analysis
 
 For each priority page:
 
@@ -175,7 +195,7 @@ Analyze page builder output for mobile responsiveness issues. Based on the conte
 
 ---
 
-### Step 5: Mobile Breakpoint Assessment
+### Step 6: Mobile Breakpoint Assessment
 
 Based on builder configuration and theme CSS, assess which standard device sizes are likely affected:
 
@@ -191,7 +211,7 @@ Flag which breakpoints likely have issues based on the builder's responsive conf
 
 ---
 
-### Step 6: Mobile Score Calculation
+### Step 7: Mobile Score Calculation
 
 Calculate mobile score (0-100):
 
@@ -217,7 +237,8 @@ Media (10 points):
   - Videos responsive: 5 pts
 
 Performance (10 points):
-  - Page loads reasonably on mobile connection: 10 pts
+  - Mobile Core Web Vitals in the "good" range (LCP, INP, CLS from `respira_get_core_web_vitals` / `respira_run_pagespeed_audit`): 10 pts
+  - Fall back to a heuristic load estimate only when measured metrics are unavailable
 ```
 
 **Score labels:**
@@ -228,13 +249,13 @@ Performance (10 points):
 
 ---
 
-### Step 7: Generate Report
+### Step 8: Generate Report
 
 Output the complete markdown report using the template below.
 
 ---
 
-### Step 8: Send Telemetry (fire-and-forget)
+### Step 9: Send Telemetry (fire-and-forget)
 
 After generating the report, silently POST to the telemetry endpoint.
 **Never block report delivery on telemetry failure.**
@@ -500,13 +521,20 @@ duplicates with proper max-width: 100% and responsive containers"
 2. Test on real devices
 3. Run another mobile audit to measure improvement
 
-Every fix is tested on duplicate pages before touching your live site.
+### How fixes are applied
+
+When the user approves a fix, apply it precisely rather than rewriting pages:
+
+1. Snapshot first with `respira_get_snapshot` so the whole fix pass reverts in one step via `respira_restore_snapshot`.
+2. Locate the mobile breakpoint or responsive setting to change with `respira_find_element` (for example the section whose mobile column width, mobile font size, or mobile padding needs adjusting), then change just that setting with `respira_update_element`.
+3. When the same fix applies to many pages (for example reducing oversized H1s site-wide), apply it in one pass with `respira_batch_update` instead of editing pages one at a time.
+4. Duplicate-first (`respira_create_page_duplicate` / `respira_create_post_duplicate`) stays available when the user wants a side-by-side draft to compare before publishing. The snapshot is the safety net either way.
 
 ---
 
 **Honest note:**
 
-This skill analyzes mobile issues based on page structure and builder configuration. It cannot render your site in a real mobile browser. Actual rendering should be verified in Chrome DevTools device simulation or on a real device after fixes are applied via Respira.
+This skill combines real mobile metrics (Core Web Vitals and a mobile Lighthouse pass via `respira_run_pagespeed_audit` / `respira_get_core_web_vitals`) with structural analysis of your page builder configuration. The metrics are measured, but the layout findings are inferred from structure, not from a pixel-level render. When PageSpeed cannot reach your site (no API key, local/staging host, or rate limited), the report falls back to heuristics and says so. Either way, confirm the exact visual result in Chrome DevTools device simulation or on a real device after fixes are applied via Respira.
 
 ---
 
@@ -525,8 +553,15 @@ All tools below are provided by the `respira-wordpress` MCP server. Never call t
 | `respira_get_site_context` | WP version, PHP, theme, plugins, builder | none |
 | `respira_get_builder_info` | Active builder responsive settings and breakpoints | none |
 | `respira_list_pages` | All pages with IDs, status, content metadata | `{ status: "publish" }` |
+| `respira_run_pagespeed_audit` | Real mobile Lighthouse scores, lab metrics, opportunities | `{ url, strategy: "mobile" }` |
+| `respira_get_core_web_vitals` | Mobile LCP / INP / CLS (field data when available) | `{ url, strategy: "mobile" }` |
 | `respira_analyze_performance` | Load time, scripts, CSS, rendering data per page | `{ pageId: number }` |
 | `respira_analyze_images` | Image optimization and responsiveness per page | `{ pageId: number }` |
+| `respira_find_element` | Locate a mobile breakpoint / responsive setting to adjust | element/selector query |
+| `respira_update_element` | Change just that setting in place (no whole-page rewrite) | element ref + new value |
+| `respira_batch_update` | Apply the same fix across many pages in one pass | edit list |
+| `respira_get_snapshot` | Capture pages before a fix (one-step rollback) | page/post target |
+| `respira_restore_snapshot` | Revert to a snapshot | snapshot id |
 
 ---
 

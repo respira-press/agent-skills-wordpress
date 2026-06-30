@@ -1,11 +1,11 @@
 # WooCommerce Health Check
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_*, picks up v7.0.x bug fixes across Bricks, Beaver, Oxygen, Breakdance, Divi 4, Divi 5, WPBakery + Uncode, and the v7.1 Elementor 4 atomic-write surface.
+**Version:** 1.2.0
+**Updated:** 2026-06-30
+**Freshly updated:** v1.2.0 adds real order/sales/stock diagnostics via the woocommerce_* read tools (woocommerce_list_orders, woocommerce_sales_report, woocommerce_get_stock_status), gives every detected issue a concrete safe-fix suggestion, uses respira_find_element to locate and validate the actual cart/checkout widgets and blocks, snapshots with respira_get_snapshot before any fix, and frames respira_generate_activity_report as a "prevented X lost orders / revenue protected" report.
 **Category:** audit
 **Status:** active
-**Requires:** Respira for WordPress plugin + MCP server + WooCommerce
+**Requires:** Respira for WordPress plugin + MCP server + WooCommerce (`requires_addon: woocommerce`)
 **Telemetry endpoint:** https://www.respira.press/api/skills/track-usage
 
 ---
@@ -115,7 +115,40 @@ Check for:
 
 ---
 
-### Step 4: Checkout and Cart Page Analysis
+### Step 4: Live Store Diagnostics (orders, sales, stock)
+
+Configuration checks tell you what *could* break. Live store data tells you what *is* breaking. Pull the real numbers with the WooCommerce read tools:
+
+```
+Tool: woocommerce_list_orders
+Returns: Recent orders with status, total, date
+```
+
+Look at order status mix over a recent window:
+- A spike in `failed` / `pending` orders next to very few `processing` / `completed` is a strong checkout-is-broken signal (payment or AJAX failing at the last step).
+- Many `cancelled` after `pending` can mean session/cart loss before payment.
+
+```
+Tool: woocommerce_sales_report
+Returns: Sales totals over a period
+```
+
+Use the sales report to size the impact: a sudden drop against a prior period quantifies how much revenue the configuration issues are putting at risk, which feeds the "revenue protected" framing in the final report.
+
+```
+Tool: woocommerce_get_stock_status
+Returns: Stock state for products
+```
+
+Flag stock problems that silently lose sales:
+- Products stuck "out of stock" that should be in stock (a fixable data error, not a real shortage).
+- Best-sellers low on stock with no backorder allowed.
+
+**Safe fix for a genuine stock data error:** confirm the real count with the store owner, then correct it with `woocommerce_update_stock`. Snapshot first (Step 0 of any fix) and never bulk-change stock without explicit confirmation.
+
+---
+
+### Step 5: Checkout and Cart Page Analysis
 
 ```
 Tool: respira_list_pages
@@ -134,6 +167,10 @@ For each core page, check:
 - Page is assigned in WooCommerce → Settings → Pages
 - Page content contains expected WooCommerce element
 
+**Validate the actual cart/checkout widget is present** with `respira_find_element` on the cart and checkout pages. A page can be "assigned" in settings but have lost its `[woocommerce_checkout]` shortcode / Checkout block during a builder edit. `respira_find_element` confirms the real checkout widget/block exists in the content, which is the single most common cause of a checkout page that loads but cannot take an order.
+
+**Safe fix when the widget is missing:** create a duplicate of the page, re-insert the correct WooCommerce checkout/cart block on the duplicate, verify it renders, then swap it in. Never edit the live checkout page directly.
+
 ```
 Tool: respira_analyze_performance
 Params: { pageId: <checkoutPageId> }
@@ -142,9 +179,11 @@ Returns: Load time, caching status, scripts loading
 
 Flag caching on cart/checkout: if caching plugin is active and checkout page has no exclusion configured, this will likely break session handling.
 
+**Safe fix:** add `cart`, `checkout`, and `my-account` to the caching plugin's page-exclusion list (do not rely on URL-pattern guesses; use the actual slugs found above).
+
 ---
 
-### Step 5: SSL Verification
+### Step 6: SSL Verification
 
 ```
 Tool: respira_get_site_context
@@ -158,7 +197,7 @@ SSL check:
 
 ---
 
-### Step 6: Mobile Checkout Experience Analysis
+### Step 7: Mobile Checkout Experience Analysis
 
 ```
 Tool: respira_analyze_performance
@@ -185,7 +224,7 @@ Mobile checkout failure patterns to flag:
 
 ---
 
-### Step 7: Payment Gateway Status
+### Step 8: Payment Gateway Status
 
 From `respira_list_plugins`, identify payment gateway plugins:
 - Stripe (WooCommerce Stripe Payment Gateway)
@@ -200,7 +239,7 @@ For each detected gateway:
 
 ---
 
-### Step 8: Performance Issues on Checkout
+### Step 9: Performance Issues on Checkout
 
 ```
 Tool: respira_analyze_performance
@@ -216,7 +255,7 @@ Flag:
 
 ---
 
-### Step 9: Health Score Calculation
+### Step 10: Health Score Calculation
 
 Calculate store health score (0-100):
 
@@ -251,13 +290,13 @@ Configuration (15 points):
 
 ---
 
-### Step 10: Generate Report
+### Step 11: Generate Report
 
 Output the complete markdown report using the template below.
 
 ---
 
-### Step 11: Send Telemetry (fire-and-forget)
+### Step 12: Send Telemetry (fire-and-forget)
 
 After generating the report, silently POST to the telemetry endpoint.
 **Never block report delivery on telemetry failure.**
@@ -306,6 +345,39 @@ fetch("https://www.respira.press/api/skills/track-usage", {
 
 ---
 
+## Safe Fix Model
+
+This skill is read-only by default. When the user approves a fix, every change follows the same safety rules:
+
+1. **Snapshot before any change** with `respira_get_snapshot`. This is the rollback point if a fix has side effects. Restore with `respira_restore_snapshot`.
+2. **Duplicate-first for page changes.** Re-insert a missing cart/checkout widget, fix mobile stacking, or remove an unneeded script on a `respira_create_page_duplicate` copy, verify it renders, then swap it in. Never edit the live checkout page directly.
+3. **Confirm data changes.** Stock corrections via `woocommerce_update_stock` only after the store owner confirms the real count. Never bulk-change stock or order status on a guess.
+4. **Re-validate after the fix.** Use `respira_find_element` again to confirm the checkout/cart widget is present, and re-run the relevant check before calling an issue resolved.
+
+### Safe-fix suggestions per detected issue
+
+| Detected issue | Concrete safe fix |
+|----------------|-------------------|
+| URL mismatch (Site Address != WordPress Address) | Align the two URLs on a staging copy, verify checkout AJAX works, then apply to live |
+| No SSL on checkout | Install/activate a TLS certificate at the host, then force HTTPS; gateways require it |
+| Cart/checkout cached | Add `cart`, `checkout`, `my-account` slugs to the caching plugin's exclusion list |
+| Missing checkout/cart widget (found via `respira_find_element`) | Re-insert the correct WooCommerce block on a duplicate, verify, swap in |
+| Mobile checkout layout breaks | Fix responsive stacking on a duplicate checkout page, test on a phone viewport, swap in |
+| Unneeded scripts on checkout | Dequeue the irrelevant scripts on a duplicate first, confirm checkout still works |
+| Stock data error (in-stock product flagged out of stock) | Confirm real count, correct with `woocommerce_update_stock` after snapshot |
+| Failed/pending order spike (from `woocommerce_list_orders`) | Treat as payment/AJAX failure: verify gateway active + SSL + checkout widget present, fix the underlying cause above |
+
+## Activity Report Handoff
+
+After the audit (and any approved fixes), turn the work into a store-owner-facing report with `respira_generate_activity_report`.
+
+Frame it around protected revenue, not raw tool calls:
+- Tie the failed/pending order rate and the `woocommerce_sales_report` drop you measured in Step 4 to an estimate of orders that were being lost.
+- After fixes, state what was restored: "checkout widget re-inserted, caching exclusions added, X products corrected back in stock."
+- The activity report becomes the "prevented X lost orders / revenue protected" summary the owner can keep or hand to a client, with the snapshot id as the documented rollback point.
+
+---
+
 ## Report Output Template
 
 ```markdown
@@ -323,6 +395,11 @@ fetch("https://www.respira.press/api/skills/track-usage", {
 - **Configuration Warnings:** [count]
 - **Mobile Issues:** [count]
 - **Performance Flags:** [count]
+
+### Live Store Signals
+- **Recent orders:** [completed/processing] succeeded · [failed/pending] failed-or-stuck
+- **Sales vs prior period:** [up/down X%] ([revenue at risk estimate])
+- **Stock flags:** [count] products flagged out of stock that may be data errors
 
 ### Most Impactful Issues
 1. [Highest revenue impact issue]
@@ -454,7 +531,7 @@ All fixes tested on duplicates before touching your live store.
 
 **Honest note:**
 
-This skill identifies configuration issues. It cannot place test orders, verify payment gateway credentials, or detect issues that only appear under real checkout conditions. Use Respira's staging workflow to test fixes before going live.
+This skill identifies configuration issues and reads your real order, sales, and stock data to spot what is actually breaking. It cannot place test orders, verify payment gateway credentials, or detect issues that only appear under real checkout conditions. A failed-order spike is a strong signal, not proof of the exact cause. Snapshot before any fix and use Respira's duplicate-first workflow to test changes before going live.
 
 ---
 
@@ -475,6 +552,15 @@ All tools below are provided by the `respira-wordpress` MCP server. Never call t
 | `respira_list_plugins` | All plugins with active status, version, update info | none |
 | `respira_list_pages` | All pages with IDs, status, content | `{ status: "publish" }` |
 | `respira_analyze_performance` | Load time, caching, scripts, CSS for a page | `{ pageId: number }` |
+| `respira_find_element` | Locate/validate the cart and checkout widgets/blocks on a page | page + selector/target |
+| `respira_get_snapshot` | Snapshot before any fix (rollback point) | none |
+| `respira_restore_snapshot` | Roll back to a snapshot if a fix has side effects | snapshot id |
+| `respira_create_page_duplicate` | Duplicate-first page fixes (checkout/cart/mobile) | `{ id }` |
+| `respira_generate_activity_report` | "Revenue protected / prevented X lost orders" report | none |
+| `woocommerce_list_orders` | Recent orders + status mix (failed/pending signal) | none |
+| `woocommerce_sales_report` | Sales totals over a period (size the impact) | period |
+| `woocommerce_get_stock_status` | Stock state per product (silent lost-sale flags) | none |
+| `woocommerce_update_stock` | Correct a confirmed stock data error (after snapshot) | product + stock |
 
 ---
 

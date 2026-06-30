@@ -1,20 +1,8 @@
----
-name: design-system-synthesizer
-description: "Read your site's representative pages, theme files, and media library to extract a complete reusable design system — logo, colors, typography, spacing scale, component patterns. Persist it as machine data AND generate a visible style-guide page on your site that renders the tokens visually."
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.1.0
-  mcp-server: respira-wordpress
-  category: intelligence
----
-
 # Design System Synthesizer
 
-**Version:** 1.1.0
-**Updated:** 2026-05-24
-**Freshly updated:** v1.1.0 adds Step 9 — generates a visible style-guide page inside the user's WordPress site (private draft by default, optional public publish). Renders the synthesized tokens visually: color swatches with hex codes, typography samples in actual styles, spacing scale blocks, component previews. Page is built with the active builder so it's editable in the user's normal workflow. Solves the "where do I see the design system" question — it's a page, not JSON.
+**Version:** 1.2.0
+**Updated:** 2026-06-30
+**Freshly updated:** v1.2.0 makes the synthesis safe and source-traceable end to end. Reads tokens from the actual builder content (`respira_extract_builder_content`) and theme files (`respira_read_theme_file` on style.css / theme.json) rather than guessing. Persists the design_system JSON via `respira_get_option` (diff first) + `respira_update_option`, and takes a `respira_get_snapshot` checkpoint before building the visible style-guide page with `respira_build_page` so the write is explicitly reversible (restore the snapshot, delete the draft). Applying tokens to a builder's global colors and typography is described in plain words since there is no confirmed MCP tool name for that path yet.
 **Category:** intelligence
 **Status:** stable
 **Requires:** Respira for WordPress plugin 7.1+ + MCP server
@@ -35,7 +23,7 @@ A structured `design_system` artifact stored at the site level. Schema:
 
 ```json
 {
-  "version": "1.0.0",
+  "version": "1.2.0",
   "synthesized_at": "2026-05-24T14:30:00Z",
   "synthesized_from": ["/", "/about/", "/services/web-design/", "/blog/sample-post/", "/contact/"],
   "brand": {
@@ -231,6 +219,22 @@ After confirmation, call `respira_update_option('respira_design_system', <json>)
 
 The JSON in `wp_options` is the machine source of truth, but it's invisible to humans. Step 9 builds a real WordPress page on the site that **renders the synthesized tokens visually** — so the user can see their design system, send a link to teammates, and edit it like any other page.
 
+#### Snapshot before writing (required)
+
+Building the style-guide page is the first write this skill makes to the live site. Take a checkpoint first so it's explicitly reversible:
+
+```
+Tool: respira_get_snapshot
+Note the returned snapshot_id — that's the rollback handle.
+```
+
+If anything looks wrong after the build, roll back cleanly:
+
+- `respira_restore_snapshot(snapshot_id)` to undo site-level changes, and
+- delete the draft style-guide page you created (`respira_delete_page(page_id)`).
+
+The persisted `respira_design_system` option is not destructive (Step 8 already diffed before overwriting), so the snapshot here is about the page build, not the option.
+
 #### Page settings
 
 - **Title:** "Design System" (overridable)
@@ -317,6 +321,8 @@ After page creation, output:
 **Promote to public:** call `respira_update_page(id={page_id}, status='publish')` if you want this visible on your site as a /design-system/ landing.
 
 **Re-sync any time:** run this skill again. Existing data is diffed and the page is regenerated (with the option to keep customizations).
+
+**Roll back this build:** `respira_restore_snapshot({snapshot_id})` then `respira_delete_page({page_id})`.
 ```
 
 ---
@@ -330,6 +336,16 @@ Once persisted, future skills (Page Template Library, Brand Voice Synthesizer, f
 - Match spacing when laying out sections (use the spacing scale, not arbitrary pixel values)
 - Match component patterns when generating heros, cards, buttons (reference button_primary etc.)
 
+### Applying tokens to the builder's own global colors / typography
+
+Some builders (Bricks, Elementor, Divi, Oxygen) keep their own global color palette and global typography settings, separate from the page-level styles. Pushing the synthesized tokens into those global settings means future hand-edits in the builder also snap to the brand.
+
+There is **no confirmed MCP tool name** for writing a builder's global palette today, so do not invent one (e.g. do not assume a `respira_*` design-system tool exists). The real path is the plugin's design-token import layer on the WordPress side (`includes/bricks-intelligence/class-design-token-import.php` and the design-system REST handler in `includes/class-respira-bricks-tools.php`), reached through the site, not a named MCP tool. In practice:
+
+- Persist the `respira_design_system` option (Step 8) — that is the canonical, tool-confirmed write.
+- Build the visible style-guide page (Step 9) so the tokens are visible and editable.
+- For pushing tokens into a builder's *global* palette/typography, describe the change to the user in plain words and let them apply it (or trigger the plugin's design-token import). Only reference a builder-token tool by name once you have grepped `includes/` and confirmed the exact registered name.
+
 This is the foundation. Every other content skill stands on it.
 
 ---
@@ -341,6 +357,28 @@ This is the foundation. Every other content skill stands on it.
 - The logo URL must be an absolute URL. Use `wp_get_attachment_url()` semantics, not a relative path.
 - Color values must be hex (`#RRGGBB`). Convert `rgb()`, `rgba()`, named colors to hex.
 - Font families preserve the full font-stack as written in CSS (with fallbacks), not just the primary family name.
+
+---
+
+## Tooling
+
+**Reading the brand (source of truth)**
+- `respira_get_active_site`
+- `respira_get_site_context`
+- `respira_list_pages`
+- `respira_list_media`
+- `respira_get_option` — read `site_icon` / `custom_logo`, and check for an existing `respira_design_system`
+- `respira_extract_builder_content` — per-page tokens from the builder-native structure
+- `respira_read_theme_file` — `style.css` `:root` custom properties and `theme.json` (FSE)
+
+**Persisting + rendering**
+- `respira_update_option` — write `respira_design_system` (diff first via `respira_get_option`)
+- `respira_get_builder_inline_schemas` — confirm available modules before building
+- `respira_get_snapshot` — checkpoint before the page build (rollback handle)
+- `respira_build_page` — render the visible style-guide page in the active builder
+- `respira_restore_snapshot` + `respira_delete_page` — explicit rollback of the build
+
+Applying tokens to a builder's *global* colors/typography has **no confirmed MCP tool name** — describe it in plain words (see "Applying tokens to the builder's own global colors / typography" above). Never invent a builder-token tool name.
 
 ---
 

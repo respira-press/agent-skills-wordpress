@@ -1,19 +1,8 @@
----
-name: brand-voice-synthesizer
-description: "Read 5-10 published posts and extract the brand voice — tone, lexicon, sentence patterns, person used, formality, signature phrases, phrases the site never uses. Persist it so every future content-writing skill produces copy that sounds like the brand, not like generic AI."
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: intelligence
----
-
 # Brand Voice Synthesizer
 
-**Version:** 1.0.0
-**Updated:** 2026-05-24
+**Version:** 1.1.0
+**Updated:** 2026-06-30
+**Freshly updated:** v1.1.0 wires the voice profile into the rest of the brand system. The extracted profile now persists to per-site memory via `respira_get_option` (diff first) + `respira_update_option`, cross-links explicitly with the Page Template Library and Design System Synthesizer skills so copy and layout share one brand foundation, and adds a brand-consistency report built from `respira_generate_activity_report` so you can see how on-voice recent content actually is.
 **Category:** intelligence
 **Status:** stable
 **Requires:** Respira for WordPress plugin 7.1+ + MCP server
@@ -34,7 +23,7 @@ A structured `brand_voice` artifact stored at the site level. Schema:
 
 ```json
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "synthesized_at": "2026-05-24T14:30:00Z",
   "synthesized_from": ["/blog/post-a/", "/blog/post-b/", "..."],
   "n_samples": 8,
@@ -190,11 +179,24 @@ Based on {n_samples} published posts ({total_words_sampled:,} words sampled, mos
 
 Ask the user: *"Does this match how you'd describe your voice? Anything to add or correct?"*
 
-### Step 6 — Persist
+### Step 6 — Persist to per-site memory
 
-After confirmation, call `respira_update_option('respira_brand_voice', <json>)`. Confirm with `respira_get_option('respira_brand_voice')`.
+The `respira_brand_voice` option is the site's voice memory: it survives across sessions and every future content skill reads it. Persist it carefully.
 
-Output: *"Brand voice saved. Every Respira content-writing skill from this point forward will reference this voice. The avoided-words list is the strongest signal — the agent will refuse to use those words even if the prompt suggests them."*
+1. **Diff first.** Read `respira_get_option('respira_brand_voice')`. If a profile already exists, show the user what changed (person, tone, added/removed lexicon) before overwriting — never clobber an existing voice silently.
+2. **Write.** After confirmation, `respira_update_option('respira_brand_voice', <json>)`.
+3. **Verify.** Read it back with `respira_get_option('respira_brand_voice')` and confirm it round-tripped.
+
+Output: *"Brand voice saved to this site's memory. Every Respira content-writing skill from this point forward will reference it. The avoided-words list is the strongest signal — the agent will refuse to use those words even if the prompt suggests them."*
+
+### Step 7 — Brand-consistency report (optional)
+
+The voice profile is also a yardstick: it tells you whether content *already on the site* sounds on-brand. Pull the recent work log with `respira_generate_activity_report` (it returns what was published/edited and when), then sample those pages/posts and score them against the saved profile:
+
+- **On-voice:** matches person, sentence length, and reaches for the preferred lexicon.
+- **Off-voice:** uses avoided words, wrong person, or marketing-superlative drift.
+
+Report it plainly: *"Of the last 12 published posts, 9 are on-voice. 3 drift toward the avoided lexicon ('revolutionary', 'best-in-class') — likely the templated launch posts. Want me to rewrite those to match?"* This turns the voice profile from a passive artifact into an active consistency check, and pairs naturally with the rewrite skills.
 
 ---
 
@@ -211,6 +213,15 @@ Once persisted, future content-writing skills (page generators, blog post drafte
 
 The **avoided lexicon** is the strongest signal. When the agent is about to write "revolutionary" or "best-in-class," the voice artifact says *"this site never uses that word"* and the agent picks a more honest verb.
 
+### Pairs with
+
+The brand voice is one half of the brand foundation. It works best alongside two sibling skills:
+
+- **[Design System Synthesizer](https://respira.press/skills/design-system-synthesizer)** — the visual half (colors, typography, spacing, components, stored as `respira_design_system`). Voice covers *how the words read*; the design system covers *how the page looks*. Run both so generated content is on-brand top to bottom. The Design System Synthesizer's style-guide page even links back here for the full voice.
+- **Page Template Library** — when it assembles a page from a saved template, it should read `respira_brand_voice` so the placeholder copy it drops in already sounds like the site, not like lorem-ipsum or generic AI. Voice supplies the words; the template supplies the layout.
+
+If only one of the two artifacts exists, content skills should still use what's there — but flag to the user that running the missing synthesizer would tighten the result.
+
 ---
 
 ## Hard rules
@@ -220,6 +231,24 @@ The **avoided lexicon** is the strongest signal. When the agent is about to writ
 - The "good paragraph" example must be a real paragraph from the corpus, quoted verbatim. The "bad paragraph" example is a constructed counter-example using the avoided lexicon.
 - Never overwrite an existing brand voice silently. Show the diff before saving.
 - If the corpus is mixed-author (multiple writers' voices), say so honestly: *"This site has 3 distinct voices in the sampled posts. Pick one author to synthesize from, or capture all 3 as separate voices."*
+
+---
+
+## Tooling
+
+**Reading the corpus (source of truth)**
+- `respira_get_active_site`
+- `respira_get_site_context`
+- `respira_list_posts`
+- `respira_read_post`
+- `respira_extract_builder_content`
+
+**Persisting + reporting**
+- `respira_get_option` — diff an existing `respira_brand_voice` before overwriting
+- `respira_update_option` — write the voice profile to per-site memory
+- `respira_generate_activity_report` — recent published/edited work for the brand-consistency check
+
+Pairs with the Design System Synthesizer (`respira_design_system` via `respira_get_option`) and the Page Template Library. Use only `respira-wordpress` MCP tools; never invent a tool name.
 
 ---
 

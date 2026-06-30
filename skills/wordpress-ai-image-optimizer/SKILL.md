@@ -1,8 +1,8 @@
 # WordPress AI Image Optimizer
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_* throughout. Builder-aware image swaps now leverage the v7.0.x normalised settings paths for Bricks (v7.0.27 settings normalisation) and Divi 5 (v7.0.30 _nodeId fallback for by-id matching).
+**Version:** 1.2.0
+**Updated:** 2026-06-30
+**Freshly updated:** v1.2.0 replaces per-image `respira_update_media` loops with a single `respira_update_media_batch` pass (up to ~50 items at once), snapshots the media library with `respira_get_snapshot` before the batch so the whole run is one-step reversible, runs the audit through `respira_analyze_images`, surfaces optional stock replacements via `respira_search_stock_images` + `respira_sideload_image`, and closes with a `respira_generate_activity_report` summary (e.g. "optimized 47 images, saved 1.2GB").
 
 AI-powered image optimization for WordPress sites. Automatically compresses, converts formats, renames files, and updates all references. Processes images locally in AI code editor, creates optimized versions, and preserves originals for safety.
 
@@ -79,7 +79,7 @@ AI-powered image optimization for WordPress sites. Automatically compresses, con
    - Featured images
    - Builder images (Elementor, Divi, Bricks, etc.)
    - WooCommerce product images (if WooCommerce active)
-2. Analyzes each image:
+2. Analyzes each image (use `respira_analyze_images` to drive the audit; it returns per-image findings in one call):
    - File size and format
    - Actual dimensions vs displayed dimensions
    - Alt text presence and quality
@@ -113,34 +113,37 @@ User can choose:
 
 **Phase 3: AI Processing**
 
-6. Downloads images from WordPress to local workspace.
-7. Processes images locally:
+6. Snapshot the media library before any writes with `respira_get_snapshot` so the entire batch is reversible in one step (`respira_restore_snapshot`). Take this once, before the batch — not per image.
+7. Downloads images from WordPress to local workspace.
+8. Processes images locally:
    - Compression
    - Format conversion
    - Resizing
    - SEO-friendly renaming
    - AI alt text generation
-8. Uploads optimized versions back to WordPress:
+   - Optional: when an image is low quality or simply wrong for the page, find a replacement with `respira_search_stock_images` and pull it in with `respira_sideload_image` instead of re-optimizing the original
+9. Uploads optimized versions back to WordPress:
    - Creates NEW media entries (original files untouched)
-   - Sets metadata (alt text, dimensions, etc.)
+   - Applies metadata in one pass with `respira_update_media_batch` rather than one `respira_update_media` call per image. The batch accepts up to ~50 items, so a typical library is updated in a single call (alt text, title, caption, description). Fall back to single `respira_update_media` only for one-off corrections.
    - Marks old files as "deprecated - replaced by [new-filename]"
-9. Updates content references in duplicates:
+10. Updates content references in duplicates:
    - Creates duplicates of affected posts/pages
    - Replaces old image URLs with new optimized URLs
    - Updates builder and WooCommerce image references
-10. Regenerates responsive image sizes and srcset support
+11. Regenerates responsive image sizes and srcset support
 
 **Phase 4: Review & Publish**
 
-11. Provides before/after comparison:
+12. Provides before/after comparison:
    - File size savings
    - Format changes
    - Dimension changes
    - Filename improvements
    - Pages affected
-12. User reviews duplicates in WordPress admin
-13. User approves publishing
-14. Old files remain available for safety and rollback
+13. User reviews duplicates in WordPress admin
+14. User approves publishing
+15. Old files remain available for safety and rollback
+16. Generate a run summary with `respira_generate_activity_report` so the work is auditable in one line (e.g. "optimized 47 images, saved 1.2GB, added alt text to 31"). This reads from the change log Respira already recorded for the batch.
 
 ## Honest Disclaimer
 
@@ -174,12 +177,27 @@ This skill downloads images, processes them with AI, and uploads optimized versi
 
 Uses these Respira MCP tools:
 
+**Audit:**
+- `respira_analyze_images` (drives the Phase 1 audit; per-image findings in one call)
+
 **Media Operations:**
 - `respira_list_media`
 - `respira_get_media`
 - `respira_upload_media`
-- `respira_update_media`
+- `respira_update_media_batch` (primary metadata writer — up to ~50 items per call)
+- `respira_update_media` (single-item fallback / one-off corrections)
 - `respira_delete_media` (optional cleanup)
+
+**Stock Replacements (optional):**
+- `respira_search_stock_images`
+- `respira_sideload_image`
+
+**Snapshot & Rollback:**
+- `respira_get_snapshot` (capture before the batch)
+- `respira_restore_snapshot` (one-step revert)
+
+**Reporting:**
+- `respira_generate_activity_report` (run summary: images optimized, space saved, alt text added)
 
 **Content Scanning:**
 - `respira_list_pages`
@@ -189,7 +207,8 @@ Uses these Respira MCP tools:
 - `respira_get_builder_info`
 
 **Content Updates:**
-- `respira_create_duplicate`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
 - `respira_update_page`
 - `respira_update_post`
 

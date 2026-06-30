@@ -1,8 +1,8 @@
 # Technical Debt Audit
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_*, picks up v7.0.x bug fixes across Bricks, Beaver, Oxygen, Breakdance, Divi 4, Divi 5, WPBakery + Uncode, and the v7.1 Elementor 4 atomic-write surface.
+**Version:** 1.2.0
+**Updated:** 2026-06-30
+**Freshly updated:** v1.2.0 turns the audit into safe, reversible cleanup. Every debt type now has a per-type cleanup playbook that opens with a `respira_get_snapshot` checkpoint and ends with an explicit `respira_restore_snapshot` rollback. Orphaned-shortcode findings are validated with `respira_find_element` before any edit. The per-site debt score is persisted via `respira_get_option` / `respira_update_option` so re-runs show the trend. The cleanup narrative is generated with `respira_generate_activity_report`. Builder archaeology now covers the newer block builders (Spectra, Kadence Blocks, GenerateBlocks, SeedProd) alongside the classic 16.
 **Category:** audit
 **Status:** active
 **Requires:** Respira for WordPress plugin + MCP server
@@ -132,6 +132,8 @@ Build a table:
 - Likely source plugin
 - Plugin current status (deleted/inactive/unknown)
 
+**Validate before claiming an orphan is safe to remove.** A raw text match on `[shortcode]` can be a false positive (the string may appear inside a code block, an escaped example, or a builder field that renders it inert). Before recommending removal on a builder page, confirm the shortcode is actually a live element with `respira_find_element` on the affected page. If `respira_find_element` can't locate it as a rendered element, downgrade the finding to "needs manual review" rather than "orphaned." This keeps the audit honest and the cleanup safe.
+
 ---
 
 ### Step 5: Builder Archaeology
@@ -148,6 +150,14 @@ Cross-reference installed builders (from plugin list) against actual content usa
 - Divi: ~100-500MB for full install with unused builder data
 - WPBakery: ~20-50MB
 - Beaver Builder: ~30-80MB
+- Bricks: ~20-60MB (JSON in postmeta, light on disk but heavy in `wp_postmeta` rows)
+- Oxygen / Breakdance: ~30-90MB
+- Spectra (UAG): ~10-40MB, plus per-block dynamic CSS in `wp_options`
+- Kadence Blocks: ~10-40MB, dynamic CSS cache can bloat `wp_options`
+- GenerateBlocks: ~5-30MB, inline/dynamic CSS
+- SeedProd: ~15-50MB (landing pages stored as its own post type; orphaned templates linger)
+
+Block builders (Spectra, Kadence Blocks, GenerateBlocks) leave their cost mostly in `wp_options` (dynamic-CSS caches) and `wp_postmeta`, not as large files. Flag a block builder as dormant only after confirming zero pages/posts use its blocks — these register as core blocks, so check content, not just the active-plugin list.
 
 ---
 
@@ -219,6 +229,36 @@ Content Hygiene (15 points):
 - 60-84: 🟡 Some Debt
 - 40-59: 🟠 Significant Debt
 - 0-39: 🔴 Critical Debt
+
+#### Persist the score (trend over time)
+
+Store the score on the site so each re-run shows whether debt is going up or down.
+
+1. Read the prior record: `respira_get_option('respira_debt_score')`. If present, it holds the last score + timestamp.
+2. Write the new record: `respira_update_option('respira_debt_score', <json>)` with the shape:
+
+```json
+{
+  "version": "1.0.0",
+  "scored_at": "2026-06-30T14:30:00Z",
+  "score": 72,
+  "label": "Some Debt",
+  "breakdown": {
+    "shortcode_health": 15,
+    "plugin_hygiene": 18,
+    "builder_cleanliness": 20,
+    "database_cleanliness": 11,
+    "content_hygiene": 8
+  },
+  "findings": {
+    "orphaned_shortcodes": 4,
+    "inactive_plugins": 3,
+    "dormant_builders": 1
+  }
+}
+```
+
+3. In the report, if a prior record existed, show the delta: *"Debt score 72 (▲ +9 since {prior scored_at} — three plugins removed, one builder still dormant)."* This is the single most motivating line in the report; surface it near the top.
 
 ---
 
@@ -438,6 +478,61 @@ This skill identifies technical debt. Cleanup is manual and intentional. Respira
 
 ---
 
+## Cleanup Playbooks (snapshot-gated)
+
+The audit is read-only. Cleanup is not — so every cleanup acts behind a snapshot and has an explicit rollback. The pattern is identical for each debt type:
+
+1. **Snapshot.** `respira_get_snapshot` → keep the `snapshot_id`. This is the rollback handle.
+2. **Act on a duplicate first** where the change is structural (pages), or on the live object where the change is a reversible toggle (plugin deactivate).
+3. **Verify** the site still renders and the target content is intact.
+4. **Roll back if anything is off:** `respira_restore_snapshot(snapshot_id)`, then delete any draft duplicates created during the attempt.
+
+Run one debt type at a time. Never batch unrelated cleanups under a single snapshot — a tight snapshot scope is what makes rollback trustworthy.
+
+### Orphaned shortcodes
+
+1. `respira_get_snapshot` → `snapshot_id`.
+2. For each affected page, `respira_find_element` to confirm the shortcode is a live element (skip false positives from code blocks / escaped examples).
+3. `respira_create_page_duplicate` (or `respira_create_post_duplicate`) so the live page is untouched.
+4. On the duplicate, remove the orphaned shortcode (`respira_find_element` → `respira_remove_element`, or `respira_batch_update` for many at once).
+5. Verify the duplicate renders, then publish over the original only on approval.
+6. **Rollback:** `respira_restore_snapshot(snapshot_id)` + delete the draft duplicates.
+
+### Unused plugins
+
+1. `respira_get_snapshot` → `snapshot_id`.
+2. `respira_deactivate_plugin` one plugin at a time (never bulk).
+3. Reload the homepage and one key page; confirm nothing broke.
+4. Only after a clean check, `respira_delete_plugin` for the confirmed-safe ones.
+5. **Rollback:** if a page breaks, `respira_restore_snapshot(snapshot_id)` and reactivate the plugin (`respira_activate_plugin`).
+
+### Database bloat (revisions / transients / spam)
+
+1. `respira_get_snapshot` → `snapshot_id`.
+2. Start with always-safe wins: expired transients, then capping post revisions going forward (`respira_get_option` / `respira_update_option` on the revisions setting).
+3. Clear the spam comment queue last, in batches, after eyeballing a sample.
+4. **Rollback:** `respira_restore_snapshot(snapshot_id)`. Note: hard comment deletion may not be fully reversible by snapshot, so review the spam sample before deleting.
+
+### Unused media
+
+1. `respira_get_snapshot` → `snapshot_id`.
+2. Build the "not referenced anywhere" list, then move (not delete) candidates to a holding state for a 30-day safety window.
+3. Only delete after the window with no missing-image reports.
+4. **Rollback:** `respira_restore_snapshot(snapshot_id)` while still inside the window.
+
+### Dormant builders
+
+1. `respira_get_snapshot` → `snapshot_id`.
+2. Re-confirm zero usage: `respira_get_builder_info` + a content scan (for block builders, check rendered blocks, not just the plugin list).
+3. `respira_deactivate_plugin`, verify the site, then `respira_delete_plugin`.
+4. **Rollback:** `respira_restore_snapshot(snapshot_id)` + `respira_activate_plugin`.
+
+### Cleanup narrative (after the work)
+
+Once cleanups are done, generate a written record of what changed with `respira_generate_activity_report`. It returns structured totals (actions taken, tools used, time saved) that you turn into the closing narrative for the audit: *"This pass removed 3 plugins, cleared 1,240 expired transients, and archived 84 unused media files. Debt score moved 63 → 72."* Pair this with the persisted `respira_debt_score` delta so the user sees both the story and the number.
+
+---
+
 ## MCP Tools Reference
 
 All tools below are provided by the `respira-wordpress` MCP server. Never call tools that are not in this list.
@@ -450,6 +545,14 @@ All tools below are provided by the `respira-wordpress` MCP server. Never call t
 | `respira_list_pages` | All pages with IDs, status, content | `{ status: "any" }` |
 | `respira_list_posts` | All posts with IDs, status, content | `{ status: "any" }` |
 | `respira_analyze_performance` | Load time, caching, CSS/JS bloat for a page | `{ pageId: number }` |
+| `respira_get_option` | Read prior debt score + revisions setting | `{ key: string }` |
+| `respira_update_option` | Persist the per-site debt score (trend) | `{ key, value }` |
+| `respira_find_element` | Validate an orphaned shortcode is a live element | `{ pageId, ... }` |
+| `respira_get_snapshot` | Checkpoint before any cleanup (rollback handle) | none |
+| `respira_restore_snapshot` | Roll a cleanup back to the checkpoint | `{ snapshot_id }` |
+| `respira_generate_activity_report` | Structured totals for the cleanup narrative | none |
+
+> Cleanup tools used inside the playbooks above — `respira_create_page_duplicate`, `respira_create_post_duplicate`, `respira_remove_element`, `respira_batch_update`, `respira_deactivate_plugin`, `respira_activate_plugin`, `respira_delete_plugin` — are also `respira-wordpress` MCP tools. Use only tools from this server; never invent a tool name.
 
 ---
 

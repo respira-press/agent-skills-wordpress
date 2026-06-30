@@ -1,8 +1,8 @@
 # SEO & AEO Amplifier
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_* throughout, references the canonical Respira analyzer family (respira_analyze_seo, respira_analyze_aeo, respira_analyze_readability, respira_analyze_rankmath, respira_check_structured_data), and notes the Elementor 4 atomic-write surface added in v7.1 for site-wide SEO fixes on v4 pages.
+**Version:** 1.3.0
+**Updated:** 2026-06-30
+**Freshly updated:** v1.3.0 takes a snapshot with respira_get_snapshot before any edit so every change is one-click reversible, switches from full extract/inject to surgical respira_find_element + respira_update_element edits for meta titles, descriptions and H1s, applies schema and meta across many pages in a single safe pass with respira_batch_update, and wires respira_generate_activity_report into the "SEO work done -> client report" handoff. Also leans on the real SEO analysis tools (respira_analyze_seo, respira_analyze_aeo, respira_analyze_rankmath, respira_check_seo_issues, respira_check_structured_data) instead of hand-rolled scoring.
 
 Comprehensive on-page SEO and Answer Engine Optimization (AEO) audit and auto-fix system for WordPress sites. Scans all content, detects issues, generates intelligent schema markup, and creates optimized duplicates for review.
 
@@ -74,15 +74,14 @@ Comprehensive on-page SEO and Answer Engine Optimization (AEO) audit and auto-fi
 4. For each content item, load content and metadata:
    - `respira_read_page` or `respira_read_post`
    - `respira_get_builder_info` when needed
-5. Analyze on-page SEO:
-   - Title quality (length, uniqueness, keyword coverage)
-   - Meta description quality (presence, length, CTR intent)
-   - Heading hierarchy (single H1, no level skips)
-   - Image alt text coverage (`respira_list_media` + in-content image checks)
-   - Content depth (word count, readability proxy)
-   - Internal links and orphaned pages
-   - URL slug descriptiveness
-6. Analyze AEO opportunities:
+5. Analyze on-page SEO. Prefer the real analysis tools over hand-rolled checks:
+   - `respira_analyze_seo` for the on-page SEO pass (title, meta, headings, content depth, links)
+   - `respira_check_seo_issues` for the prioritized issue list per page
+   - `respira_analyze_rankmath` when Rank Math is detected (reads its score and recommendations)
+   - `respira_check_structured_data` to see which schema types already exist vs are missing
+   - Supplement with `respira_list_media` + in-content image checks for alt text coverage
+   - Cross-checks the tools cover: title quality, meta description quality, heading hierarchy (single H1, no level skips), content depth, internal links / orphaned pages, URL slug descriptiveness
+6. Analyze AEO opportunities with `respira_analyze_aeo` (answer-engine readiness), plus `respira_check_structured_data`:
    - FAQ potential (question patterns)
    - HowTo potential (step-by-step patterns)
    - Featured snippet opportunities
@@ -107,9 +106,11 @@ If user declines, stop after delivering recommendations.
 
 ### Phase 3: Auto-Fix on Duplicates (Only If Approved)
 
-1. For each selected page/post:
-   - Create duplicate with `respira_create_duplicate`
-2. Apply fixes on duplicate only:
+1. **Snapshot first.** Before touching anything, take a snapshot with `respira_get_snapshot` so the whole pass is one-click reversible via `respira_restore_snapshot` if a fix looks wrong.
+2. For each selected page/post:
+   - Create the review copy with `respira_create_page_duplicate` (pages) or `respira_create_post_duplicate` (posts)
+3. Apply fixes on the duplicate only. Use surgical edits, not full extract/inject:
+   - **Locate the exact node first** with `respira_find_element` (find the meta title, meta description, and the H1 / heading elements), then change only that node with `respira_update_element`. This avoids re-writing the whole page and keeps the builder's structure intact.
    - Optimize title tags (target < 60 chars)
    - Generate/rewrite meta descriptions (target 150-160 chars)
    - Fix heading structure (single H1, logical hierarchy)
@@ -118,12 +119,14 @@ If user declines, stop after delivering recommendations.
    - Restructure Q&A blocks for FAQ readiness
    - Generate and inject JSON-LD schema markup
    - Improve URL slug when safe and requested
-3. Save duplicate:
-   - `respira_update_page` / `respira_update_post`
-4. Produce before/after comparison snapshots for representative pages
-5. Summarize totals:
+4. **Apply the same fix across many pages in one safe pass** with `respira_batch_update` (for example, the same Organization/WebSite schema or a meta pattern across a set of duplicates) instead of looping one slow update at a time.
+5. Save remaining page-level changes with `respira_update_page` / `respira_update_post`.
+6. Verify with `respira_check_seo_issues` / `respira_check_structured_data` on a sample of the fixed duplicates to confirm the issues actually cleared.
+7. Produce before/after comparison snapshots for representative pages.
+8. Summarize totals:
    - Duplicates created
    - Titles/meta/schema/alt/headings fixed
+   - Snapshot id (so the user knows the rollback point)
 
 ## Plugin Integration Behavior
 
@@ -180,11 +183,20 @@ If auto-fix is run, also include:
 ## Safety Model
 
 - Read-only audit first
+- Snapshot via `respira_get_snapshot` before any write, restore with `respira_restore_snapshot`
 - Explicit user confirmation before changes
 - Duplicate-first changes only
 - Never auto-publish
 - Provide rollback guidance
 - Preserve live content unless user explicitly approves publishing workflow
+
+## Client Report Handoff
+
+When the audit and (optional) fixes are done, turn the SEO work into a deliverable the customer can hand to a client or keep for their own records:
+
+- Call `respira_generate_activity_report` to pull the actual edits made in this session (titles, meta, schema, alt text, headings) into a structured "SEO work done" report.
+- Pair it with the before/after samples and the snapshot id from Phase 3 so the report shows what changed and how to roll it back.
+- Good fit for monthly retainers: run the audit, apply approved fixes on duplicates, then export the activity report as the month's SEO summary.
 
 ## Honest Disclaimer
 
@@ -212,9 +224,27 @@ It can:
 - `respira_get_builder_info`
 - `respira_list_media`
 - `respira_list_plugins`
-- `respira_create_duplicate`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
 - `respira_update_page`
 - `respira_update_post`
+
+**SEO / AEO analysis tools**
+- `respira_analyze_seo`
+- `respira_analyze_aeo`
+- `respira_analyze_rankmath`
+- `respira_check_seo_issues`
+- `respira_check_structured_data`
+
+**Precision edit + safety tools**
+- `respira_find_element` (locate meta title / description / H1 nodes)
+- `respira_update_element` (change only that node)
+- `respira_batch_update` (apply schema/meta across many pages in one pass)
+- `respira_get_snapshot` (snapshot before edits)
+- `respira_restore_snapshot` (one-click rollback)
+
+**Reporting**
+- `respira_generate_activity_report` (SEO work done -> client report)
 
 **WooCommerce tools (optional)**
 - `woocommerce_list_products`

@@ -1,8 +1,8 @@
 # Internal Link Builder
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_* throughout and picks up the new respira_get_page_outline tool (v7.0.31) for faster structural reads.
+**Version:** 1.2.0
+**Updated:** 2026-06-30
+**Freshly updated:** v1.2.0 snapshots every page with `respira_get_snapshot` before touching links, locates the exact target paragraph with `respira_find_element` and inserts contextual links there with `respira_update_element` instead of rewriting whole pages, applies links across many pages in one pass with `respira_batch_update`, and persists the per-site linking strategy (anchor-text rules, clusters already built, do-not-link pairs) via `respira_get_option` / `respira_update_option` so repeat runs build on prior work.
 
 Strategic internal link building for WordPress sites. Analyzes all published content, maps topic relationships, identifies high-value linking opportunities between pages, and presents a clear plan for approval before making any changes. Use this skill whenever someone mentions internal links, link building, content interlinking, orphaned pages that need links, topic clusters, pillar pages, or wants to improve their site's internal link structure for SEO.
 
@@ -54,13 +54,14 @@ This skill reads every published page and post, builds a content relationship ma
 ### Phase 1: Content Inventory & Mapping
 
 1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
-2. Fetch all published content:
+2. Load any saved linking strategy for this site via `respira_get_option` (key `respira_internal_link_strategy`). If present, it carries the anchor-text conventions, topic clusters already built, and do-not-link pairs from previous runs. Use it so a repeat run extends prior work instead of re-proposing the same links. If absent, start fresh and write it back in Phase 4.
+3. Fetch all published content:
    - `respira_list_pages` — get all pages
    - `respira_list_posts` — get all posts
-3. For each content item, load full content:
+4. For each content item, load full content:
    - `respira_read_page` or `respira_read_post`
    - Extract: title, URL/slug, headings, main topics, existing internal links, word count
-4. Build a **content map** — a structured index of:
+5. Build a **content map** — a structured index of:
    - Each page/post's primary topic and subtopics
    - Keywords and phrases each piece targets
    - Existing internal links (source → target pairs)
@@ -137,17 +138,17 @@ Wait for explicit confirmation before proceeding.
 
 ### Phase 4: Apply Links (Only If Approved)
 
-1. For each page that needs link additions:
-   - Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
-2. On the duplicate, add the approved links:
-   - Insert `<a href="...">anchor text</a>` at the recommended placement points
-   - Respect the page builder format (Gutenberg blocks, Divi shortcodes, Elementor data, etc.)
-   - Use `respira_extract_builder_content` to understand the content structure
-   - Use `respira_inject_builder_content` or `respira_update_page` / `respira_update_post` to apply changes
-3. After all duplicates are created, provide a summary:
-   - Number of duplicates created
+1. Before any edits, snapshot the pages you're about to touch with `respira_get_snapshot`. One snapshot covers the run and makes the whole pass reversible in one step via `respira_restore_snapshot`. This replaces the older duplicate-first dance for the common case: you edit in place, but the snapshot is the safety net. (Duplicate-first via `respira_create_page_duplicate` / `respira_create_post_duplicate` remains an option when the user explicitly wants a side-by-side draft to review before publishing.)
+2. For each approved link, find the exact insertion point rather than rewriting the page:
+   - Use `respira_find_element` to locate the target paragraph or block where the link belongs (match on the surrounding text or heading recorded in the plan's Placement note)
+   - Apply the link to just that element with `respira_update_element`, inserting `<a href="...">anchor text</a>` inline in the matched text. This leaves the rest of the page byte-for-byte unchanged.
+   - Respect the page builder format (Gutenberg blocks, Divi shortcodes, Elementor data, etc.). For deep structural cases use `respira_extract_builder_content` to understand the node tree first.
+3. When many pages get links in the same run, apply them in one pass with `respira_batch_update` instead of a separate write per page. Build the edit list (page/post id + element target + new markup) from the approved plan and submit it together. Fall back to individual `respira_update_element` / `respira_update_page` / `respira_update_post` calls only for one-off insertions.
+4. After all edits are applied, provide a summary:
+   - Number of pages modified
    - Total links added
-   - List of pages modified with links to review them in WordPress admin
+   - The snapshot id for rollback, plus links to review the modified pages in WordPress admin
+5. Persist the updated linking strategy with `respira_update_option` (key `respira_internal_link_strategy`): record the clusters now built, the anchor-text conventions used, and any do-not-link pairs, so the next run starts from this state.
 
 ## Link Quality Rules
 
@@ -173,16 +174,17 @@ Always include:
 
 If changes are applied, also include:
 
-6. **Change summary** (duplicates created, links added)
-7. **Review instructions** (where to find and review duplicates in WordPress)
+6. **Change summary** (pages modified, links added, snapshot id)
+7. **Review instructions** (which pages to review in WordPress, and how to roll back)
 
 ## Safety Model
 
 - Read-only analysis first — full content scan before any changes
-- Explicit user confirmation before creating any duplicates
-- Duplicate-first only — never modifies live/published content
-- Never auto-publish duplicates
-- Provides rollback guidance (delete duplicates if not wanted)
+- Explicit user confirmation before any edits
+- Snapshot before writing — `respira_get_snapshot` captures the pages first, so the whole run reverts in one step via `respira_restore_snapshot`
+- Targeted edits — `respira_find_element` + `respira_update_element` change only the matched paragraph, leaving the rest of the page untouched (no whole-page rewrite)
+- Duplicate-first remains available when the user wants a side-by-side draft instead of an in-place edit
+- Provides rollback guidance (restore the snapshot if not wanted)
 - Preserves all existing content and links — only adds, never removes
 
 ## Honest Disclaimer
@@ -215,6 +217,19 @@ It can:
 - `respira_create_post_duplicate`
 - `respira_update_page`
 - `respira_update_post`
+
+**Targeted insertion (preferred for link edits)**
+- `respira_find_element` — locate the exact target paragraph/block for contextual insertion
+- `respira_update_element` — insert the link into just that element, no whole-page rewrite
+- `respira_batch_update` — apply links across many pages in one pass
+
+**Snapshot & rollback**
+- `respira_get_snapshot` — capture pages before editing
+- `respira_restore_snapshot` — one-step revert
+
+**Per-site strategy persistence**
+- `respira_get_option` — load the saved linking strategy (`respira_internal_link_strategy`)
+- `respira_update_option` — persist clusters built, anchor-text rules, and do-not-link pairs
 
 ## Telemetry
 
