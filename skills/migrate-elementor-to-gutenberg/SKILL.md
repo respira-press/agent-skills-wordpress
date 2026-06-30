@@ -1,16 +1,8 @@
----
-name: migrate-elementor-to-gutenberg
-description: Converts Elementor-built WordPress pages to native Gutenberg blocks. Reads Elementor's JSON widget tree from post meta, maps each widget to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use when user says "migrate Elementor to Gutenberg", "drop Elementor", "switch to native blocks", or "rebuild Elementor pages in the block editor".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: migration
----
-
 # Migrate Elementor to Gutenberg
+
+**Version:** 2.0.0
+**Updated:** 2026-06-30
+**Freshly updated:** v2.0.0 wires in current Respira safety and precision. Pre-migration now inventories source pages with `respira_find_builder_targets`. Every write is preceded by a `respira_get_snapshot`, and the existing draft-duplicate path is kept. After the initial content write, validation issues (block nesting, broken refs) are corrected surgically with `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-block or multi-page fixes) instead of rewriting whole pages. Snapshot restore and draft deletion are now explicit rollback paths. Reflects the current 16 supported builders.
 
 Converts Elementor-built WordPress pages to native Gutenberg blocks. Reads Elementor's JSON widget tree from post meta, maps each widget to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use this skill whenever someone wants to move from Elementor to Gutenberg, eliminate page builder dependencies, go back to native WordPress blocks, or simplify their tech stack by dropping Elementor.
 
@@ -18,7 +10,7 @@ Converts Elementor-built WordPress pages to native Gutenberg blocks. Reads Eleme
 
 Moving from Elementor to Gutenberg is one of the most common — and most complex — builder migrations. Elementor stores content as a deeply nested JSON tree in `_elementor_data`, while Gutenberg uses HTML comments (`<!-- wp:block -->`) inline with content in `post_content`. Every layout decision Elementor makes with JSON settings must be translated into block attributes, CSS classes, or Group/Columns block structures.
 
-This skill handles that translation systematically: it reads every Elementor widget, finds the right Gutenberg block, maps settings as closely as possible, and flags anything that needs manual attention. The result is clean, dependency-free WordPress content.
+This skill handles that translation systematically: it reads every Elementor widget, finds the right Gutenberg block, maps settings as closely as possible, and flags anything that needs manual attention. The result is clean, dependency-free WordPress content. Elementor and Gutenberg are both among the 16 page builders Respira reads and writes natively, so extraction and the block write run through the same builder-aware tooling Respira uses everywhere else.
 
 **Handles:**
 - Section/Column layouts → Group and Columns blocks with appropriate width settings
@@ -109,7 +101,7 @@ Key Elementor specifics:
 - **Global widgets** reference a template via `templateID` — must be resolved before mapping
 - **Nested sections** (Inner Section widget) create sub-layouts within columns
 
-Read Elementor content via `wordpress_extract_builder_content` with `builder=elementor`.
+Read Elementor content via `respira_extract_builder_content` with `builder=elementor`.
 
 ## Target: Gutenberg (Block Editor)
 
@@ -136,20 +128,18 @@ Key Gutenberg specifics:
 - No separate meta storage — everything is in `post_content`
 - Columns use percentage widths: `<!-- wp:column {"width":"33.33%"} -->`
 
-Write Gutenberg content via `wordpress_update_page` or `wordpress_update_post` targeting the `content` field.
+Write Gutenberg content via `respira_update_page` or `respira_update_post` targeting the `content` field.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm Elementor is active via `wordpress_list_plugins`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm Elementor is active via `respira_list_plugins`.
 3. Check WordPress version (6.0+ required, 6.3+ ideal).
 4. Identify active theme — note if it is block-theme compatible.
-5. Scan all content for Elementor usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - For each, check builder via `wordpress_get_builder_info`
-6. For each Elementor page, extract content via `wordpress_extract_builder_content` with `builder=elementor`
+5. Inventory and scope the source pages with `respira_find_builder_targets` (builder=elementor) — a fast, ranked list of every Elementor-built page/post before you touch anything. Fall back to `respira_list_pages` / `respira_list_posts` + `respira_get_builder_info` to confirm builder per item where needed.
+6. For each Elementor page, extract content via `respira_extract_builder_content` with `builder=elementor`
 7. Build an inventory:
    - Total pages/posts using Elementor
    - Widget types used (frequency count)
@@ -212,7 +202,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read full Elementor content via `wordpress_extract_builder_content` with `builder=elementor`
+1. Read full Elementor content via `respira_extract_builder_content` with `builder=elementor`
 2. Walk the Elementor JSON tree depth-first:
    - Convert Section → `<!-- wp:group -->` with constrained layout
    - Convert Column structures → `<!-- wp:columns -->` and `<!-- wp:column {"width":"X%"} -->`
@@ -225,9 +215,11 @@ For each approved page:
    - Convert background images to Group block background or Cover block
    - Flag unmappable widgets with `<!-- MIGRATION NOTE: [widget type] needs manual recreation -->`
 3. Assemble complete block markup with proper nesting and closing tags
-4. Create a duplicate page via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Write block content to the duplicate via `wordpress_update_page` or `wordpress_update_post`
-6. Report: widgets converted, items flagged, known layout differences
+4. Create a duplicate page via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Before writing, take a snapshot with `respira_get_snapshot` so the duplicate's pre-write state can be restored if anything goes wrong
+6. Write block content to the duplicate via `respira_update_page` or `respira_update_post`
+7. Surgical fix pass — if the converted page has validation issues (broken block nesting, a misconverted block, a dangling reference), do not rewrite the whole page. Locate the specific element with `respira_find_element` and correct it with `respira_update_element`. For repeated fixes across many blocks or several pages, batch them with `respira_batch_update`
+8. Report: widgets converted, items flagged, known layout differences
 
 ### Phase 4: Post-Migration Verification
 
@@ -257,8 +249,9 @@ For each approved page:
 - Original Elementor pages are never modified or deleted
 - All migrated content goes to draft duplicates only
 - Never auto-publishes migrated pages
-- Creates a snapshot before migration begins (when available)
-- Provides clear rollback path (delete duplicates)
+- Takes a `respira_get_snapshot` of each duplicate before any write, so its pre-write state can be restored
+- Two explicit rollback paths: restore the snapshot with `respira_restore_snapshot`, or delete the draft duplicates entirely with `respira_delete_page` / `respira_delete_post`
+- Surgical fixes (`respira_find_element` + `respira_update_element`, or `respira_batch_update`) replace whole-page rewrites, so corrections stay scoped and reversible
 - Warns about significant layout changes before proceeding
 
 ## Honest Disclaimer
@@ -283,19 +276,28 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_update_page`
-- `wordpress_update_post`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_update_page`
+- `respira_update_post`
+
+**Safety and precision tools**
+- `respira_get_snapshot`
+- `respira_restore_snapshot`
+- `respira_find_element`
+- `respira_update_element`
+- `respira_batch_update`
+- `respira_delete_page`
+- `respira_delete_post`
 
 ## Telemetry
 

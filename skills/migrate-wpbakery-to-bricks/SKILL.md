@@ -1,16 +1,8 @@
----
-name: migrate-wpbakery-to-bricks
-description: Converts WPBakery Page Builder pages (the legacy ThemeForest-bundled vc_* shortcode format) to Bricks Builder. Parses WPBakery shortcodes from post_content, maps each element to its Bricks equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use when user says "migrate WPBakery to Bricks", "modernize a WPBakery site with Bricks", or "switch from WPBakery to Bricks".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: migration
----
-
 # Migrate WPBakery to Bricks
+
+**Version:** 2.0.0
+**Updated:** 2026-06-30
+**Freshly updated:** v2.0.0 wires in current Respira safety and precision. Pre-migration now inventories source pages with `respira_find_builder_targets`. Every write is preceded by a `respira_get_snapshot`, and the existing draft-duplicate path is kept. After the first `respira_inject_builder_content`, validation issues (collapsed column widths from fraction conversion, broken parent refs, misdecoded Design Options) are corrected surgically with `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-element or multi-page fixes) instead of re-injecting whole pages. Snapshot restore and draft deletion are now explicit rollback paths. Reflects the current 16 supported builders.
 
 Converts WPBakery Page Builder pages to Bricks Builder. Parses WPBakery's shortcode-based content from post_content, maps each element to its Bricks equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use this skill whenever someone wants to move from WPBakery to Bricks, modernize an older WPBakery site with Bricks, or switch page builders from WPBakery/Visual Composer to Bricks.
 
@@ -114,7 +106,7 @@ Key WPBakery specifics:
 - **el_class / el_id**: Custom CSS class and ID attributes
 - **Image references**: By attachment ID (not URL)
 
-Read WPBakery content via `wordpress_extract_builder_content` with `builder=wpbakery`.
+Read WPBakery content via `respira_extract_builder_content` with `builder=wpbakery`.
 
 ## Target Builder: Bricks
 
@@ -134,20 +126,18 @@ Key Bricks specifics:
 - IDs are short alphanumeric strings
 - Responsive via `_breakpoints`
 
-Write Bricks content via `wordpress_inject_builder_content` with `builder=bricks`.
+Write Bricks content via `respira_inject_builder_content` with `builder=bricks`.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm WPBakery is active via `wordpress_list_plugins`.
-3. Confirm Bricks theme is installed via `wordpress_get_site_context`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm WPBakery is active via `respira_list_plugins`.
+3. Confirm Bricks theme is installed via `respira_get_site_context`.
 4. Identify active theme — note if it bundles WPBakery and adds custom elements.
-5. Scan all content for WPBakery usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - Check builder via `wordpress_get_builder_info`
-6. Extract content via `wordpress_extract_builder_content` with `builder=wpbakery`
+5. Inventory and scope the source pages with `respira_find_builder_targets` (builder=wpbakery) — this gives a fast, ranked list of every WPBakery-built page/post before you touch anything. Fall back to `respira_list_pages` / `respira_list_posts` + `respira_get_builder_info` to confirm builder per item where needed.
+6. Extract content via `respira_extract_builder_content` with `builder=wpbakery`
 7. Build inventory:
    - Total WPBakery pages/posts
    - Element types (frequency count)
@@ -213,7 +203,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read WPBakery content via `wordpress_extract_builder_content` with `builder=wpbakery`
+1. Read WPBakery content via `respira_extract_builder_content` with `builder=wpbakery`
 2. Parse the shortcode tree:
    - Build vc_row → vc_column → element hierarchy
    - Handle vc_row_inner/vc_column_inner nesting
@@ -236,9 +226,11 @@ For each approved page:
    - Apply el_class → Bricks CSS classes setting
    - Generate unique IDs and proper parent references
    - Flag unmappable elements
-4. Create duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Write Bricks JSON via `wordpress_inject_builder_content` with `builder=bricks`
-6. Report status
+4. Create duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Before writing, take a snapshot with `respira_get_snapshot` so the duplicate's pre-write state can be restored if anything goes wrong
+6. Write Bricks JSON via `respira_inject_builder_content` with `builder=bricks`
+7. Surgical fix pass — if the injected page has validation issues (column widths that collapsed during fraction conversion, broken parent refs, an element whose Design Options decoded wrong), do not re-inject the whole page. Locate the specific element with `respira_find_element` and correct it with `respira_update_element`. For repeated fixes across many elements or several pages, batch them with `respira_batch_update`
+8. Report status
 
 ### Phase 4: Post-Migration Verification
 
@@ -268,8 +260,8 @@ For each approved page:
 - Original WPBakery pages are never modified or deleted
 - All migrated content goes to draft duplicates only
 - Never auto-publishes migrated pages
-- Creates a snapshot before migration begins (when available)
-- Provides clear rollback path (delete duplicates)
+- Snapshot before every write — `respira_get_snapshot` captures the duplicate's pre-write state, and `respira_restore_snapshot` rolls it back if an injection goes wrong
+- Two explicit rollback paths: restore the snapshot to revert a bad write, or delete the draft duplicates entirely to undo the migration
 - Warns about theme-bundled element dependencies
 
 ## Honest Disclaimer
@@ -296,18 +288,25 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+
+**Safety and surgical-fix tools**
+- `respira_get_snapshot`
+- `respira_restore_snapshot`
+- `respira_find_element`
+- `respira_update_element`
+- `respira_batch_update`
 
 ## Telemetry
 

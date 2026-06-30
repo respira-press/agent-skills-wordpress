@@ -1,22 +1,14 @@
----
-name: migrate-elementor-to-bricks
-description: Converts Elementor-built WordPress pages to Bricks Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its closest Bricks element equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use when user says "migrate Elementor to Bricks", "switch from Elementor to Bricks", or "rebuild Elementor pages in Bricks".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: migration
----
-
 # Migrate Elementor to Bricks
+
+**Version:** 2.0.0
+**Updated:** 2026-06-30
+**Freshly updated:** v2.0.0 wires in current Respira safety and precision. Pre-migration now inventories source pages with `respira_find_builder_targets`. Every write is preceded by a `respira_get_snapshot`, and the existing draft-duplicate path is kept. After the first `respira_inject_builder_content`, validation issues (column widths, broken refs) are corrected surgically with `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-element or multi-page fixes) instead of re-injecting whole pages. Snapshot restore and draft deletion are now explicit rollback paths. Reflects the current 16 supported builders.
 
 Converts Elementor-built WordPress pages to Bricks Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its closest Bricks element equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use this skill whenever someone wants to move from Elementor to Bricks, rebuild Elementor pages in Bricks, or switch page builders from Elementor to Bricks.
 
 ## What This Skill Does
 
-Elementor and Bricks are both visual page builders, but they store content in fundamentally different formats — Elementor uses a nested JSON widget tree in `_elementor_data`, while Bricks uses a flat-ish JSON array in `_bricks_page_content_2`. This skill bridges that gap by reading every Elementor widget, understanding its purpose, and recreating it as the appropriate Bricks element.
+Elementor and Bricks are both visual page builders, but they store content in fundamentally different formats — Elementor uses a nested JSON widget tree in `_elementor_data`, while Bricks uses a flat-ish JSON array in `_bricks_page_content_2`. This skill bridges that gap by reading every Elementor widget, understanding its purpose, and recreating it as the appropriate Bricks element. Both Elementor and Bricks are among the 16 page builders Respira reads and writes natively, so the extraction and injection run through the same builder-aware tooling Respira uses everywhere else.
 
 **Handles:**
 - Section/Column layouts → Bricks Section/Container elements
@@ -97,7 +89,7 @@ Key Elementor specifics:
 - **Page settings** in `_elementor_page_settings` (page layout, hide title, etc.)
 - **Global widgets** reference a template via `templateID` — must be resolved before mapping
 
-Read Elementor content via `wordpress_extract_builder_content` with `builder=elementor`.
+Read Elementor content via `respira_extract_builder_content` with `builder=elementor`.
 
 ## Target Builder: Bricks
 
@@ -118,19 +110,17 @@ Key Bricks specifics:
 - Settings keys differ from Elementor (e.g., `tag` not `header_size`, `text` not `title`)
 - Responsive settings use `_breakpoints` key within settings
 
-Write Bricks content via `wordpress_inject_builder_content` with `builder=bricks`.
+Write Bricks content via `respira_inject_builder_content` with `builder=bricks`.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm Elementor is active via `wordpress_list_plugins`.
-3. Confirm Bricks theme is installed via `wordpress_get_site_context`.
-4. Scan all content for Elementor usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - For each, check if built with Elementor via `wordpress_get_builder_info`
-5. For each Elementor page, extract content via `wordpress_extract_builder_content` with `builder=elementor`
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm Elementor is active via `respira_list_plugins`.
+3. Confirm Bricks theme is installed via `respira_get_site_context`.
+4. Inventory and scope the source pages with `respira_find_builder_targets` (builder=elementor) — this gives a fast, ranked list of every Elementor-built page/post before you touch anything. Fall back to `respira_list_pages` / `respira_list_posts` + `respira_get_builder_info` to confirm builder per item where needed.
+5. For each Elementor page, extract content via `respira_extract_builder_content` with `builder=elementor`
 6. Build an inventory:
    - Total pages/posts using Elementor
    - Widget types used across the site (frequency count)
@@ -181,7 +171,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read full Elementor content via `wordpress_extract_builder_content` with `builder=elementor`
+1. Read full Elementor content via `respira_extract_builder_content` with `builder=elementor`
 2. Walk the Elementor JSON tree and map each widget:
    - Convert Section → Bricks `section`
    - Convert Column → Bricks `container` (assign parent)
@@ -191,9 +181,11 @@ For each approved page:
    - Resolve global widgets to inline content
    - Flag unmappable widgets with `<!-- MIGRATION NOTE: ... -->` comments
 3. Generate valid Bricks JSON array with proper `id`, `name`, `parent`, `settings`
-4. Create a duplicate page via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Write Bricks content to the duplicate via `wordpress_inject_builder_content` with `builder=bricks`
-6. Report status for this page before moving to next
+4. Create a duplicate page via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Before writing, take a snapshot with `respira_get_snapshot` so the duplicate's pre-write state can be restored if anything goes wrong
+6. Write Bricks content to the duplicate via `respira_inject_builder_content` with `builder=bricks`
+7. Surgical fix pass — if the injected page has validation issues (collapsed column widths, broken parent refs, a misconverted element), do not re-inject the whole page. Locate the specific element with `respira_find_element` and correct it with `respira_update_element`. For repeated fixes across many elements or several pages, batch them with `respira_batch_update`
+8. Report status for this page before moving to next
 
 ### Phase 4: Post-Migration Verification
 
@@ -221,8 +213,9 @@ For each approved page:
 - Original Elementor pages are never modified or deleted
 - All migrated content goes to draft duplicates only
 - Never auto-publishes migrated pages
-- Creates a snapshot before migration begins (when available)
-- Provides clear rollback path (delete duplicates)
+- Takes a `respira_get_snapshot` of each duplicate before any write, so its pre-write state can be restored
+- Two explicit rollback paths: restore the snapshot with `respira_restore_snapshot`, or delete the draft duplicates entirely with `respira_delete_page` / `respira_delete_post`
+- Surgical fixes (`respira_find_element` + `respira_update_element`, or `respira_batch_update`) replace whole-page re-injection, so corrections stay scoped and reversible
 
 ## Honest Disclaimer
 
@@ -246,18 +239,27 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+
+**Safety and precision tools**
+- `respira_get_snapshot`
+- `respira_restore_snapshot`
+- `respira_find_element`
+- `respira_update_element`
+- `respira_batch_update`
+- `respira_delete_page`
+- `respira_delete_post`
 
 ## Telemetry
 

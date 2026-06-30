@@ -1,16 +1,8 @@
----
-name: migrate-oxygen-to-bricks
-description: Full-site migration from Oxygen Builder to Bricks (both modern, developer-oriented, near 1:1 mental model). Audits every Oxygen page, maps components to Bricks equivalents, builds a migration plan for approval, and converts pages to Bricks JSON via duplicates so the live site stays untouched. Use when user says "migrate Oxygen to Bricks", "switch from Oxygen to Bricks", or "replace Oxygen with Bricks Builder".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: migration
----
-
 # Migrate Oxygen to Bricks
+
+**Version:** 2.0.0
+**Updated:** 2026-06-30
+**Freshly updated:** v2.0.0 wires in current Respira safety and precision. Pre-migration now inventories source pages with `respira_find_builder_targets`. Every write is preceded by a `respira_get_snapshot`, and the existing draft-duplicate path is kept. After the first `respira_inject_builder_content`, validation issues (collapsed flex/column widths, broken parent refs, a misconverted component) are corrected surgically with `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-element or multi-page fixes) instead of re-injecting whole pages. Snapshot restore and draft deletion are now explicit rollback paths. Reflects the current 16 supported builders.
 
 Full-site migration from Oxygen Builder to Bricks Builder. Audits every Oxygen-built page, maps components to their Bricks equivalents, builds a migration plan for approval, and executes page-by-page conversion into Bricks' JSON format — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Oxygen to Bricks, switching from Oxygen to Bricks, converting Oxygen pages to Bricks, or replacing Oxygen with Bricks Builder.
 
@@ -66,26 +58,26 @@ This skill reads every Oxygen page, extracts the builder content, translates eac
 **Source: Oxygen Builder**
 - Content stored in post_meta key `ct_builder_shortcodes`
 - JSON-based structure encoding nested components
-- Read via `wordpress_extract_builder_content` with `builder=oxygen`
+- Read via `respira_extract_builder_content` with `builder=oxygen`
 - Components: `ct_section`, `ct_div`, `ct_headline`, `ct_text_block`, `ct_image`, `ct_link_button`, etc.
 
 **Target: Bricks Builder**
 - Content stored in post_meta key `_bricks_page_content_2` as a JSON array
 - Each element is an object with `id`, `name`, `parent`, `settings`, `children`
-- Write via `wordpress_inject_builder_content` with `builder=bricks`
+- Write via `respira_inject_builder_content` with `builder=bricks`
 - Elements: `section`, `container`, `heading`, `text`, `image`, `button`, etc.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Detect Oxygen presence via `wordpress_get_builder_info` or `wordpress_list_plugins`.
-3. Inventory all Oxygen-built content:
-   - `wordpress_list_pages` and `wordpress_list_posts` — identify all content
-   - `wordpress_find_builder_targets` with `builder=oxygen` — find Oxygen-managed pages
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Detect Oxygen presence via `respira_get_builder_info` or `respira_list_plugins`.
+3. Inventory and scope the source pages first:
+   - `respira_find_builder_targets` with `builder=oxygen` — a fast, ranked list of every Oxygen-managed page/post before you touch anything
+   - Fall back to `respira_list_pages` / `respira_list_posts` + `respira_get_builder_info` to confirm builder per item where needed
 4. For each Oxygen page, extract content:
-   - `wordpress_extract_builder_content` with `builder=oxygen`
+   - `respira_extract_builder_content` with `builder=oxygen`
    - Catalog: component types used, nesting depth, custom CSS, dynamic data usage, code blocks
 5. Produce an **Audit Report**:
    - Total pages/posts using Oxygen
@@ -139,7 +131,7 @@ Wait for explicit confirmation before proceeding.
 
 For each approved page:
 
-1. Extract Oxygen content via `wordpress_extract_builder_content` with `builder=oxygen`
+1. Extract Oxygen content via `respira_extract_builder_content` with `builder=oxygen`
 2. Map each Oxygen component to its Bricks equivalent:
    - Translate component types (ct_section → section, ct_div → container, etc.)
    - Convert layout properties (flexbox settings, spacing, sizing)
@@ -147,9 +139,11 @@ For each approved page:
    - Preserve text content, image URLs, link targets
    - Flag any unmappable components (custom PHP, conditions) with inline comments
 3. Build the Bricks JSON array structure
-4. Create a duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Inject Bricks content via `wordpress_inject_builder_content` with `builder=bricks`
-6. Log the migration result (success, warnings, manual review items)
+4. Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Before writing, take a snapshot with `respira_get_snapshot` so the duplicate's pre-write state can be restored if anything goes wrong
+6. Inject Bricks content via `respira_inject_builder_content` with `builder=bricks`
+7. Surgical fix pass — if the injected page has validation issues (collapsed flex/column widths, broken parent refs, a misconverted component), do not re-inject the whole page. Locate the specific element with `respira_find_element` and correct it with `respira_update_element`. For repeated fixes across many elements or several pages, batch them with `respira_batch_update`
+8. Log the migration result (success, warnings, manual review items)
 
 ### Phase 4: Post-Migration Verification
 
@@ -172,7 +166,8 @@ For each approved page:
 - Explicit user confirmation before creating any duplicates
 - Duplicate-first only — never modifies live/published Oxygen content
 - Never auto-publishes duplicates
-- Provides rollback guidance (delete duplicates if not wanted)
+- Snapshot before every write — `respira_get_snapshot` captures the duplicate's pre-write state, and `respira_restore_snapshot` rolls it back if an injection goes wrong
+- Two explicit rollback paths: restore the snapshot to revert a bad write, or delete the draft duplicates entirely to undo the migration
 - Preserves all original Oxygen content untouched
 
 ## Honest Disclaimer
@@ -195,18 +190,25 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_get_builder_info`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_list_plugins`
-- `wordpress_find_builder_targets`
-- `wordpress_extract_builder_content`
-- `wordpress_inject_builder_content`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_read_page`
-- `wordpress_read_post`
+- `respira_get_site_context`
+- `respira_get_builder_info`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_list_plugins`
+- `respira_find_builder_targets`
+- `respira_extract_builder_content`
+- `respira_inject_builder_content`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_read_page`
+- `respira_read_post`
+
+**Safety and surgical-fix tools**
+- `respira_get_snapshot`
+- `respira_restore_snapshot`
+- `respira_find_element`
+- `respira_update_element`
+- `respira_batch_update`
 
 ## Telemetry
 

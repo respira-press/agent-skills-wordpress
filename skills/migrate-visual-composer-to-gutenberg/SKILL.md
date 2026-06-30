@@ -1,16 +1,8 @@
----
-name: migrate-visual-composer-to-gutenberg
-description: Full-site migration from Visual Composer Website Builder (the modern VCV format) to the WordPress block editor (Gutenberg). Audits every VCV page, maps elements to native block equivalents, builds a migration plan for approval, and converts pages to native block markup via duplicates so the live site stays untouched. Use when user says "migrate Visual Composer to Gutenberg", "switch from VCV to blocks", or "convert Visual Composer pages to the block editor".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: migration
----
-
 # Migrate Visual Composer to Gutenberg
+
+**Version:** 2.0.0
+**Updated:** 2026-06-30
+**Freshly updated:** v2.0.0 weaves in the current Respira safety and precision flow — `respira_find_builder_targets` to inventory and scope source pages up front, a `respira_get_snapshot` checkpoint before any write, and surgical fixes via `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-element or multi-page corrections) instead of rewriting whole pages. Rollback is now explicit (restore the snapshot, delete the draft duplicates). Reflects the current 16 supported builders.
 
 Full-site migration from Visual Composer (WPBakery) to the WordPress block editor (Gutenberg). Audits every Visual Composer page, maps elements to their Gutenberg block equivalents, builds a migration plan for approval, and executes page-by-page conversion into native block markup — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Visual Composer to Gutenberg, switching from WPBakery to blocks, converting Visual Composer pages to the block editor, or moving away from Visual Composer to native WordPress.
 
@@ -72,26 +64,26 @@ This skill reads every Visual Composer page, extracts the builder content, trans
 **Source: Visual Composer**
 - Content stored in post_meta using VCV's custom JSON format
 - Shortcode-based structure in classic mode: `[vc_row][vc_column][vc_column_text]...[/vc_column_text][/vc_column][/vc_row]`
-- Read via `wordpress_extract_builder_content` with `builder=visual-composer`
+- Read via `respira_extract_builder_content` with `builder=visual-composer`
 - Elements: `vc_row`, `vc_column`, `vc_column_text`, `vc_single_image`, `vc_btn`, `vc_video`, `vc_separator`, `vc_raw_html`, `vc_empty_space`, `vc_custom_heading`, `vc_toggle`, `vc_tabs`, `vc_accordion`, `vc_row_inner`, `vc_column_inner`, etc.
 
 **Target: Gutenberg (Block Editor)**
 - Content stored in `post_content` as HTML with block comment delimiters
 - Format: `<!-- wp:paragraph --><p>Text</p><!-- /wp:paragraph -->`
-- Write via standard WordPress content tools (`wordpress_update_page` / `wordpress_update_post`)
+- Write via standard WordPress content tools (`respira_update_page` / `respira_update_post`)
 - Core blocks: `paragraph`, `heading`, `image`, `buttons`, `columns`, `group`, `html`, `video`, `separator`, `spacer`, `embed`, etc.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Detect Visual Composer presence via `wordpress_get_builder_info` or `wordpress_list_plugins`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Detect Visual Composer presence via `respira_get_builder_info` or `respira_list_plugins`.
 3. Inventory all Visual Composer content:
-   - `wordpress_list_pages` and `wordpress_list_posts` — identify all content
-   - `wordpress_find_builder_targets` with `builder=visual-composer` — find VC-managed pages
+   - `respira_list_pages` and `respira_list_posts` — identify all content
+   - `respira_find_builder_targets` with `builder=visual-composer` — find VC-managed pages
 4. For each VC page, extract content:
-   - `wordpress_extract_builder_content` with `builder=visual-composer`
+   - `respira_extract_builder_content` with `builder=visual-composer`
    - Catalog: element types used, nesting depth, third-party elements, Design Options usage, custom CSS
 5. Produce an **Audit Report**:
    - Total pages/posts using Visual Composer
@@ -152,7 +144,7 @@ Wait for explicit confirmation before proceeding.
 
 For each approved page:
 
-1. Extract Visual Composer content via `wordpress_extract_builder_content` with `builder=visual-composer`
+1. Extract Visual Composer content via `respira_extract_builder_content` with `builder=visual-composer`
 2. Map each VC element to Gutenberg blocks:
    - vc_row → `<!-- wp:group -->` blocks
    - vc_column → `<!-- wp:columns -->` with `<!-- wp:column -->` children (map width attributes)
@@ -168,9 +160,11 @@ For each approved page:
    - Preserve text content, image URLs, link targets
    - Flag unmappable elements with `<!-- wp:paragraph --><p>[MIGRATION NOTE: ...]</p><!-- /wp:paragraph -->`
 3. Assemble the complete Gutenberg block markup
-4. Create a duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Update the duplicate's `post_content` with the Gutenberg markup via `wordpress_update_page` or `wordpress_update_post`
-6. Log the migration result (success, warnings, manual review items)
+4. Take a `respira_get_snapshot` checkpoint of the target before any write, so the page can be restored exactly if the conversion needs unwinding
+5. Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+6. Write the Gutenberg markup into the duplicate's `post_content` via `respira_update_page` or `respira_update_post`
+7. Surgical fixes (not a rewrite): when a single block lands wrong — a heading, a button label, a spacing value — locate it with `respira_find_element` and correct it in place with `respira_update_element`. For repeated corrections across many blocks or several migrated pages, batch them with `respira_batch_update` rather than regenerating and re-writing whole pages.
+8. Log the migration result (success, warnings, manual review items)
 
 ### Phase 4: Post-Migration Verification
 
@@ -193,9 +187,10 @@ For each approved page:
 
 - Read-only analysis first — full Visual Composer content audit before any changes
 - Explicit user confirmation before creating any duplicates
+- Snapshot before every write — `respira_get_snapshot` captures the target so it can be returned to its exact prior state
 - Duplicate-first only — never modifies live/published Visual Composer content
 - Never auto-publishes duplicates
-- Provides rollback guidance (delete duplicates if not wanted)
+- Explicit rollback path — restore the snapshot via `respira_restore_snapshot`, or delete the draft duplicates, to undo a migration cleanly
 - Preserves all original Visual Composer content untouched
 
 ## Honest Disclaimer
@@ -220,19 +215,24 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_get_builder_info`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_list_plugins`
-- `wordpress_find_builder_targets`
-- `wordpress_extract_builder_content`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_update_page`
-- `wordpress_update_post`
-- `wordpress_read_page`
-- `wordpress_read_post`
+- `respira_get_site_context`
+- `respira_get_builder_info`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_list_plugins`
+- `respira_find_builder_targets`
+- `respira_extract_builder_content`
+- `respira_get_snapshot`
+- `respira_restore_snapshot`
+- `respira_find_element`
+- `respira_update_element`
+- `respira_batch_update`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_update_page`
+- `respira_update_post`
+- `respira_read_page`
+- `respira_read_post`
 
 ## Telemetry
 

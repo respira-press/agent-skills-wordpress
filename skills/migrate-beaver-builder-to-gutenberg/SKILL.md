@@ -1,16 +1,8 @@
----
-name: migrate-beaver-builder-to-gutenberg
-description: Full-site migration from Beaver Builder to the WordPress block editor (Gutenberg). Audits every Beaver Builder page, maps modules to native block equivalents, builds a migration plan for approval, and converts pages to native block markup via duplicates so the live site stays untouched. Use when user says "migrate Beaver Builder to Gutenberg", "switch from Beaver Builder to blocks", "convert Beaver Builder pages to the block editor", or "move from Beaver Builder to native WordPress".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: migration
----
-
 # Migrate Beaver Builder to Gutenberg
+
+**Version:** 2.0.0
+**Updated:** 2026-06-30
+**Freshly updated:** v2.0.0 wires in current Respira safety and precision. Pre-migration now inventories source pages with `respira_find_builder_targets`. Every write is preceded by a `respira_get_snapshot`, and the existing draft-duplicate path is kept. After the initial block-markup write (`respira_update_page` / `respira_update_post`), validation issues (collapsed column widths, malformed block markup, a misconverted module) are corrected surgically with `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-block or multi-page fixes) instead of rewriting whole pages. Snapshot restore and draft deletion are now explicit rollback paths. Reflects the current 16 supported builders.
 
 Full-site migration from Beaver Builder to the WordPress block editor (Gutenberg). Audits every Beaver Builder page, maps modules to their Gutenberg block equivalents, builds a migration plan for approval, and executes page-by-page conversion into native block markup — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Beaver Builder to Gutenberg, switching from Beaver Builder to blocks, converting Beaver Builder pages to the block editor, or moving away from Beaver Builder to native WordPress.
 
@@ -69,26 +61,26 @@ This skill reads every Beaver Builder page, extracts the module structure, trans
 **Source: Beaver Builder**
 - Content stored in post_meta keys `_fl_builder_data` and `_fl_builder_data_settings`
 - Module-based structure with rows → columns → modules hierarchy
-- Read via `wordpress_extract_builder_content` with `builder=beaver` or `builder=beaver-builder`
+- Read via `respira_extract_builder_content` with `builder=beaver` or `builder=beaver-builder`
 - Module types: `rich-text`, `photo`, `button`, `heading`, `html`, `video`, `icon`, `separator`, `callout`, `cta`, `numbers`, `content-slider`, etc.
 
 **Target: Gutenberg (Block Editor)**
 - Content stored in `post_content` as HTML with block comment delimiters
 - Format: `<!-- wp:paragraph --><p>Text</p><!-- /wp:paragraph -->`
-- Write via standard WordPress content tools (`wordpress_update_page` / `wordpress_update_post`)
+- Write via standard WordPress content tools (`respira_update_page` / `respira_update_post`)
 - Core blocks: `paragraph`, `heading`, `image`, `buttons`, `columns`, `group`, `html`, `video`, `separator`, `embed`, etc.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Detect Beaver Builder presence via `wordpress_get_builder_info` or `wordpress_list_plugins`.
-3. Inventory all Beaver Builder content:
-   - `wordpress_list_pages` and `wordpress_list_posts` — identify all content
-   - `wordpress_find_builder_targets` with `builder=beaver` — find BB-managed pages
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Detect Beaver Builder presence via `respira_get_builder_info` or `respira_list_plugins`.
+3. Inventory and scope the source pages first:
+   - `respira_find_builder_targets` with `builder=beaver` — a fast, ranked list of every BB-managed page/post before you touch anything
+   - Fall back to `respira_list_pages` / `respira_list_posts` + `respira_get_builder_info` to confirm builder per item where needed
 4. For each BB page, extract content:
-   - `wordpress_extract_builder_content` with `builder=beaver`
+   - `respira_extract_builder_content` with `builder=beaver`
    - Catalog: module types used, row/column structures, custom CSS, third-party modules, saved rows/modules referenced
 5. Produce an **Audit Report**:
    - Total pages/posts using Beaver Builder
@@ -144,7 +136,7 @@ Wait for explicit confirmation before proceeding.
 
 For each approved page:
 
-1. Extract Beaver Builder content via `wordpress_extract_builder_content` with `builder=beaver`
+1. Extract Beaver Builder content via `respira_extract_builder_content` with `builder=beaver`
 2. Map the row/column/module hierarchy to Gutenberg blocks:
    - Rows → `<!-- wp:group -->` blocks
    - Columns → `<!-- wp:columns -->` with `<!-- wp:column -->` children
@@ -155,9 +147,11 @@ For each approved page:
    - Preserve text content, image URLs, link targets, heading levels
    - Flag any unmappable modules with `<!-- wp:paragraph --><p>[MIGRATION NOTE: ...]</p><!-- /wp:paragraph -->`
 3. Assemble the complete Gutenberg block markup
-4. Create a duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-5. Update the duplicate's `post_content` with the Gutenberg markup via `wordpress_update_page` or `wordpress_update_post`
-6. Log the migration result (success, warnings, manual review items)
+4. Create a duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+5. Before writing, take a snapshot with `respira_get_snapshot` so the duplicate's pre-write state can be restored if anything goes wrong
+6. Update the duplicate's `post_content` with the Gutenberg markup via `respira_update_page` or `respira_update_post`
+7. Surgical fix pass — if the written page has validation issues (collapsed column widths, malformed block markup, a misconverted module), do not rewrite the whole page. Locate the specific block with `respira_find_element` and correct it with `respira_update_element`. For repeated fixes across many blocks or several pages, batch them with `respira_batch_update`
+8. Log the migration result (success, warnings, manual review items)
 
 ### Phase 4: Post-Migration Verification
 
@@ -181,7 +175,8 @@ For each approved page:
 - Explicit user confirmation before creating any duplicates
 - Duplicate-first only — never modifies live/published Beaver Builder content
 - Never auto-publishes duplicates
-- Provides rollback guidance (delete duplicates if not wanted)
+- Snapshot before every write — `respira_get_snapshot` captures the duplicate's pre-write state, and `respira_restore_snapshot` rolls it back if a write goes wrong
+- Two explicit rollback paths: restore the snapshot to revert a bad write, or delete the draft duplicates entirely to undo the migration
 - Preserves all original Beaver Builder content untouched
 
 ## Honest Disclaimer
@@ -205,19 +200,26 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_get_builder_info`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_list_plugins`
-- `wordpress_find_builder_targets`
-- `wordpress_extract_builder_content`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_update_page`
-- `wordpress_update_post`
-- `wordpress_read_page`
-- `wordpress_read_post`
+- `respira_get_site_context`
+- `respira_get_builder_info`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_list_plugins`
+- `respira_find_builder_targets`
+- `respira_extract_builder_content`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_update_page`
+- `respira_update_post`
+- `respira_read_page`
+- `respira_read_post`
+
+**Safety and surgical-fix tools**
+- `respira_get_snapshot`
+- `respira_restore_snapshot`
+- `respira_find_element`
+- `respira_update_element`
+- `respira_batch_update`
 
 ## Telemetry
 

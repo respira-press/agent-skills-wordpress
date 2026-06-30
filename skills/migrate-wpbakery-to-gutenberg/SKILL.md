@@ -1,16 +1,8 @@
----
-name: migrate-wpbakery-to-gutenberg
-description: Converts WPBakery Page Builder (formerly Visual Composer) pages to native Gutenberg blocks. Parses WPBakery shortcodes from post_content, maps each element to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use when user says "migrate WPBakery to Gutenberg", "drop WPBakery for native blocks", or "modernize a legacy WPBakery WordPress site".
-license: MIT
-metadata:
-  author: Respira for WordPress
-  author_url: https://respira.press
-  version: 1.0.0
-  mcp-server: respira-wordpress
-  category: migration
----
-
 # Migrate WPBakery to Gutenberg
+
+**Version:** 2.0.0
+**Updated:** 2026-06-30
+**Freshly updated:** v2.0.0 weaves in the current Respira safety and precision flow — `respira_find_builder_targets` to inventory and scope the WPBakery source pages up front, a `respira_get_snapshot` checkpoint before any write, and surgical fixes via `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-block or multi-page corrections) instead of rewriting whole pages. Rollback is now explicit (restore the snapshot, delete the draft duplicates). Reflects the current 16 supported builders.
 
 Converts WPBakery Page Builder (formerly Visual Composer) pages to native Gutenberg blocks. Parses WPBakery's shortcode-based content from post_content, maps each element to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use this skill whenever someone wants to move from WPBakery to Gutenberg, eliminate the WPBakery dependency, switch to native blocks, or modernize an older WordPress site still running WPBakery.
 
@@ -116,7 +108,7 @@ Key WPBakery specifics:
 - **Element classes**: `el_class` for custom CSS classes, `el_id` for IDs
 - **Templates**: Saved as separate post type, referenced by ID
 
-Read WPBakery content via `wordpress_extract_builder_content` with `builder=wpbakery`.
+Read WPBakery content via `respira_extract_builder_content` with `builder=wpbakery`.
 
 ## Target: Gutenberg (Block Editor)
 
@@ -145,20 +137,21 @@ Key Gutenberg specifics:
 - Inline styles via `style` attribute
 - Everything in `post_content`
 
-Write Gutenberg content via `wordpress_update_page` or `wordpress_update_post` targeting the `content` field.
+Write Gutenberg content via `respira_update_page` or `respira_update_post` targeting the `content` field.
 
 ## Execution Workflow
 
 ### Phase 1: Pre-Migration Audit
 
-1. Verify Respira + MCP connection via `wordpress_get_site_context`. If unavailable, stop and show setup guidance.
-2. Confirm WPBakery is active via `wordpress_list_plugins`.
+1. Verify Respira + MCP connection via `respira_get_site_context`. If unavailable, stop and show setup guidance.
+2. Confirm WPBakery is active via `respira_list_plugins`.
 3. Check WordPress version (6.0+ required, 6.3+ ideal).
 4. Identify active theme — note if it bundles WPBakery and adds custom elements.
-5. Scan all content for WPBakery usage:
-   - `wordpress_list_pages` and `wordpress_list_posts`
-   - Check builder via `wordpress_get_builder_info`
-6. Extract WPBakery content via `wordpress_extract_builder_content` with `builder=wpbakery`
+5. Scan and scope all WPBakery content:
+   - `respira_list_pages` and `respira_list_posts` — identify all content
+   - `respira_find_builder_targets` with `builder=wpbakery` — inventory the WPBakery-managed pages to scope the migration
+   - Confirm the builder per page via `respira_get_builder_info`
+6. Extract WPBakery content via `respira_extract_builder_content` with `builder=wpbakery`
 7. Build inventory:
    - Total pages/posts using WPBakery
    - Element types used (frequency count)
@@ -224,7 +217,7 @@ Ask for confirmation:
 
 For each approved page:
 
-1. Read WPBakery content via `wordpress_extract_builder_content` with `builder=wpbakery`
+1. Read WPBakery content via `respira_extract_builder_content` with `builder=wpbakery`
 2. Parse the shortcode tree:
    - Identify vc_row → vc_column → element hierarchy
    - Decode CSS from Design Options attribute
@@ -245,9 +238,11 @@ For each approved page:
    - Apply `el_id` as `anchor` in block attributes
    - Flag unmappable elements with `<!-- MIGRATION NOTE: ... -->`
 4. Assemble block markup
-5. Create duplicate via `wordpress_create_page_duplicate` or `wordpress_create_post_duplicate`
-6. Write via `wordpress_update_page` or `wordpress_update_post`
-7. Report: elements converted, flagged, layout notes
+5. Take a `respira_get_snapshot` checkpoint of the target before any write, so the page can be restored exactly if the conversion needs unwinding
+6. Create duplicate via `respira_create_page_duplicate` or `respira_create_post_duplicate`
+7. Write the block markup to the duplicate via `respira_update_page` or `respira_update_post`
+8. Surgical fixes (not a rewrite): when a single block lands wrong — a heading, a button label, a column width — locate it with `respira_find_element` and correct it in place with `respira_update_element`. For repeated corrections across many blocks or several migrated pages, batch them with `respira_batch_update` rather than regenerating and re-writing whole pages.
+9. Report: elements converted, flagged, layout notes
 
 ### Phase 4: Post-Migration Verification
 
@@ -275,8 +270,8 @@ For each approved page:
 - Original WPBakery pages are never modified or deleted
 - All migrated content goes to draft duplicates only
 - Never auto-publishes migrated pages
-- Creates a snapshot before migration begins (when available)
-- Provides clear rollback path (delete duplicates)
+- Takes a `respira_get_snapshot` checkpoint before each write
+- Explicit rollback: restore the snapshot via `respira_restore_snapshot`, or delete the draft duplicates if they are not wanted
 - Warns about theme-bundled element dependencies
 
 ## Honest Disclaimer
@@ -303,19 +298,24 @@ It can:
 ## Tooling
 
 **Core WordPress tools**
-- `wordpress_get_site_context`
-- `wordpress_list_plugins`
-- `wordpress_list_pages`
-- `wordpress_list_posts`
-- `wordpress_read_page`
-- `wordpress_read_post`
-- `wordpress_get_builder_info`
-- `wordpress_extract_builder_content`
-- `wordpress_find_builder_targets`
-- `wordpress_create_page_duplicate`
-- `wordpress_create_post_duplicate`
-- `wordpress_update_page`
-- `wordpress_update_post`
+- `respira_get_site_context`
+- `respira_list_plugins`
+- `respira_list_pages`
+- `respira_list_posts`
+- `respira_read_page`
+- `respira_read_post`
+- `respira_get_builder_info`
+- `respira_extract_builder_content`
+- `respira_find_builder_targets`
+- `respira_create_page_duplicate`
+- `respira_create_post_duplicate`
+- `respira_update_page`
+- `respira_update_post`
+- `respira_get_snapshot`
+- `respira_restore_snapshot`
+- `respira_find_element`
+- `respira_update_element`
+- `respira_batch_update`
 
 ## Telemetry
 
