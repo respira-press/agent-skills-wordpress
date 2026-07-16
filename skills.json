@@ -1,6 +1,6 @@
 {
-  "version": "1.5.1",
-  "updated_at": "2026-05-24",
+  "version": "1.6.0",
+  "updated_at": "2026-07-16",
   "skills": [
     {
       "slug": "respira-setup-assistant",
@@ -1058,6 +1058,92 @@
         ],
         "freshly_updated_until": "2026-06-30",
         "v1_0_0_changes": "Initial release in v7.1 Canopy. Resolves the most-upvoted open feature request on the Respira board."
+      }
+    },
+    {
+      "slug": "woo-agent-storefront",
+      "name": "Woo Agent Storefront",
+      "description": "Make a WooCommerce store discoverable and shoppable for AI assistants — set up product feeds in six formats, serve a store llms.txt, register with Google Merchant Center / OpenAI / Meta / Pinterest / TikTok, and hand out attributed cart links.",
+      "category": "commerce",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": "woocommerce",
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/woo-agent-storefront",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/woo-agent-storefront/SKILL.md",
+      "details": {
+        "hero_subtitle": "AI assistants recommend products to millions of shoppers, and they can only sell what they can read. This skill walks the whole path from invisible store to agent-ready storefront.",
+        "capabilities": [
+          {
+            "title": "Feeds in Six Formats",
+            "desc": "Google Shopping XML, OpenAI JSONL, Meta, Pinterest, TikTok, CSV — configured, generated, verified"
+          },
+          {
+            "title": "Store llms.txt",
+            "desc": "A machine-readable store summary at the site root, the file AI assistants look for first"
+          },
+          {
+            "title": "Spec Validation First",
+            "desc": "Every format validated against its platform spec before you register anything"
+          },
+          {
+            "title": "Enrollment Walkthrough",
+            "desc": "Merchant Center, OpenAI product discovery, Meta, Pinterest, TikTok — exact steps per platform"
+          },
+          {
+            "title": "AI Crawler Check",
+            "desc": "Flags robots.txt lines that block GPTBot, Google-Extended or PerplexityBot"
+          },
+          {
+            "title": "Attributed Cart Links",
+            "desc": "Signed links that fill a cart on your own checkout, with orders attributed to their agent source"
+          }
+        ],
+        "freshly_updated_until": "2026-10-31",
+        "v1_0_0_changes": "First release, built on the WooCommerce Add-on v3.1 agent-ready commerce surface (feeds, llms.txt, cart links, attribution)."
+      }
+    },
+    {
+      "slug": "woo-catalog-perfection",
+      "name": "Woo Catalog Perfection",
+      "description": "Drive a WooCommerce catalog to an AI-readiness score of 90+ — an ordered fixlist loop that writes the missing image alt text, descriptions, brands, GTINs and category mappings, with a snapshot before every change.",
+      "category": "commerce",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": "woocommerce",
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/woo-catalog-perfection",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/woo-catalog-perfection/SKILL.md",
+      "details": {
+        "hero_subtitle": "From \"your catalog scores 43\" to \"your catalog scores 90+\", product by product, with every change snapshotted and reversible.",
+        "capabilities": [
+          {
+            "title": "Ordered Fixlist Loop",
+            "desc": "Score → fixlist → fix → re-score, in reviewable batches of 10"
+          },
+          {
+            "title": "Identifiers Done Right",
+            "desc": "Real GTINs when you have them, brand + SKU when you don't — never fabricated"
+          },
+          {
+            "title": "Descriptions From Facts",
+            "desc": "40-80 words drafted from the product's own attributes and categories, no invented specs"
+          },
+          {
+            "title": "Alt Text and Galleries",
+            "desc": "Descriptive alt text and gallery assignment from existing media only"
+          },
+          {
+            "title": "Category Mapping",
+            "desc": "Store categories mapped to the Google product taxonomy"
+          },
+          {
+            "title": "Snapshot Safety",
+            "desc": "Every write snapshotted by the add-on, reversible for 90 days"
+          }
+        ],
+        "freshly_updated_until": "2026-10-31",
+        "v1_0_0_changes": "First release, pairs with woo-agent-storefront: this skill fixes what the feed checks flag."
       }
     }
   ],
