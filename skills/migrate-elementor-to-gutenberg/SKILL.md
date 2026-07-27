@@ -1,3 +1,15 @@
+---
+name: migrate-elementor-to-gutenberg
+description: "Converts Elementor pages to native WordPress Gutenberg blocks by mapping widgets to core blocks and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Elementor to Gutenberg
 
 **Version:** 2.0.0

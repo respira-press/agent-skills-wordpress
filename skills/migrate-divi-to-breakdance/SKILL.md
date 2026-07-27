@@ -1,3 +1,15 @@
+---
+name: migrate-divi-to-breakdance
+description: "Converts Divi pages to Breakdance Builder by parsing shortcodes, mapping modules to Breakdance elements, and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Divi to Breakdance
 
 **Version:** 2.0.0

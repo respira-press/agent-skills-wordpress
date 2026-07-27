@@ -1,3 +1,15 @@
+---
+name: migrate-elementor-to-breakdance
+description: "Converts Elementor pages to Breakdance Builder by mapping widgets to Breakdance elements and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Elementor to Breakdance
 
 **Version:** 2.0.0

@@ -1,0 +1,40 @@
+name: Validate skills
+
+# Every SKILL.md must carry YAML frontmatter with a `name` matching its
+# directory and a real `description`. Both `npx skills` and OpenCode key off
+# those fields, and when they are missing the installers SKIP the skill without
+# an error, so a user gets a partial install and no explanation.
+#
+# 28 of 39 files shipped that way before this check existed. Reported by a user,
+# not caught by CI, which is the gap this closes.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'skills.json'
+      - 'scripts/validate-skills.mjs'
+      - '.github/workflows/validate-skills.yml'
+  pull_request:
+    paths:
+      - 'skills/**'
+      - 'skills.json'
+      - 'scripts/validate-skills.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate every SKILL.md
+        run: node scripts/validate-skills.mjs

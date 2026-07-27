@@ -1,3 +1,15 @@
+---
+name: migrate-elementor-to-bricks
+description: "Converts Elementor pages to Bricks Builder by reading Elementor JSON widget data, mapping each widget to its Bricks equivalent, and creating draft duplicates with clean Bricks JSON."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Elementor to Bricks
 
 **Version:** 2.0.0

@@ -1,3 +1,15 @@
+---
+name: technical-debt-audit
+description: "Identifies technical debt in WordPress sites — orphaned shortcodes from deleted plugins, unused plugins, database bloat, unused media, builder data from inactive builders."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.2.0
+  mcp-server: respira-wordpress
+  category: audit
+---
+
 # Technical Debt Audit
 
 **Version:** 1.2.0

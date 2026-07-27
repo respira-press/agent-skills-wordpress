@@ -1,3 +1,15 @@
+---
+name: migrate-divi-to-bricks
+description: "Converts Divi pages to Bricks Builder by parsing shortcode content, mapping modules to Bricks elements, and generating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Divi to Bricks
 
 **Version:** 2.0.0

@@ -1,3 +1,15 @@
+---
+name: migrate-beaver-builder-to-bricks
+description: "Converts Beaver Builder pages to Bricks Builder by reading the flat node map, mapping modules to Bricks elements, and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Beaver Builder to Bricks
 
 **Version:** 2.0.0

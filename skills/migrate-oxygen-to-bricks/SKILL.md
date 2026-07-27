@@ -1,3 +1,15 @@
+---
+name: migrate-oxygen-to-bricks
+description: "Converts Oxygen Builder pages to Bricks by mapping component trees to Bricks JSON elements and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Oxygen to Bricks
 
 **Version:** 2.0.0

@@ -1,3 +1,15 @@
+---
+name: respira-setup-assistant
+description: "Diagnose your Respira MCP connection, walk through first-time setup, and fix common connection problems (timeouts, 401s, 403s, version mismatches)."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.1.0
+  mcp-server: respira-wordpress
+  category: onboarding
+---
+
 # Respira Setup Assistant
 
 **Version:** 1.1.0

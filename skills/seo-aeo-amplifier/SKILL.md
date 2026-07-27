@@ -1,3 +1,15 @@
+---
+name: seo-aeo-amplifier
+description: "Comprehensive on-page SEO and Answer Engine Optimization audit with automated duplicate creation and intelligent schema markup generation."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.3.0
+  mcp-server: respira-wordpress
+  category: performance
+---
+
 # SEO & AEO Amplifier
 
 **Version:** 1.3.0

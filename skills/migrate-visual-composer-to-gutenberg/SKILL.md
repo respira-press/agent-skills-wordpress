@@ -1,3 +1,15 @@
+---
+name: migrate-visual-composer-to-gutenberg
+description: "Converts Visual Composer pages to native Gutenberg blocks by parsing VC data, mapping elements to core blocks, and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Visual Composer to Gutenberg
 
 **Version:** 2.0.0
