@@ -1,11 +1,29 @@
 name: Validate Skill Submission
 
+# Runs on push to main as well as on pull requests.
+#
+# It used to run on pull_request only, which meant main was never checked
+# against its own rules. A metadata.json landed in commit 2f16a07 and sat there
+# for months: every subsequent PR inherited the failure, so the check was red on
+# work that had nothing to do with it and everyone learned to ignore it. A check
+# that is always red is worse than no check, because it trains people past the
+# one time it is right.
+#
+# The paths filter is 'skills/**' rather than a list of allowed filenames for
+# the same reason. This job's whole job is rejecting files that should not
+# exist, so enumerating the permitted ones meant a PR adding only a disallowed
+# file did not trigger the job that exists to reject it.
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - '.github/workflows/validate-skill.yml'
   pull_request:
     paths:
-      - 'skills/**/SKILL.md'
-      - 'skills/**/references/**'
-      - 'skills/**/scripts/**'
+      - 'skills/**'
       - 'README.md'
       - 'CONTRIBUTING.md'
       - '.github/workflows/validate-skill.yml'
