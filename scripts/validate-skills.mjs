@@ -18,7 +18,11 @@
  *   2. it opens with a YAML frontmatter block
  *   3. `name` is present and equals the directory slug (installers key on this)
  *   4. `description` is present and non-trivial
- *   5. the skill has an entry in skills.json, and the two agree on description
+ *   5. the skill has an entry in skills.json with a non-empty description
+ *   6. no two skills share a description (catches a copy-paste)
+ *
+ * NOT checked: that SKILL.md and skills.json use the SAME description. They are
+ * read by different consumers and are supposed to differ. See the note inline.
  *
  * And repo-wide: every skills.json entry points at a directory that exists.
  *
@@ -34,6 +38,8 @@ const SKILLS_DIR = join(ROOT, 'skills');
 
 const fail = [];
 const warn = [];
+/** description text -> the slug that used it first, for duplicate detection. */
+const descriptionOwners = new Map();
 
 const catalogRaw = JSON.parse(readFileSync(join(ROOT, 'skills.json'), 'utf8'));
 const catalog = Array.isArray(catalogRaw) ? catalogRaw : catalogRaw.skills || [];
@@ -93,8 +99,38 @@ for (const slug of dirs) {
   const entry = bySlug.get(slug);
   if (!entry) {
     warn.push(`${slug}: no entry in skills.json, so it will not appear in the marketplace`);
-  } else if (entry.description && fm.description && entry.description.trim() !== fm.description.trim()) {
-    warn.push(`${slug}: description differs between SKILL.md and skills.json`);
+  } else if (!entry.description || !entry.description.trim()) {
+    fail.push(`${slug}: skills.json entry has no description, so the marketplace listing will be blank`);
+  }
+
+  // Deliberately NOT checking that the two descriptions match.
+  //
+  // An earlier version of this script warned when SKILL.md and skills.json
+  // disagreed, on the assumption that they should be the same sentence. They
+  // should not. The two fields are read by different consumers:
+  //
+  //   SKILL.md    an AGENT deciding whether to invoke this skill. Trigger
+  //               phrasing like `Use when user says "export my site"` is
+  //               valuable here and is why the field exists.
+  //   skills.json a HUMAN browsing respira.press/skills. Trigger phrases are
+  //               noise in a directory listing.
+  //
+  // The data agreed: the only two skills the equality check flagged (beyond one
+  // real typo) were the only two carrying trigger phrases, and no skills.json
+  // entry carries them at all. The check was measuring a difference that is
+  // supposed to be there, and "fixing" those skills would have meant deleting
+  // useful agent-facing text to satisfy a rule that was wrong.
+  //
+  // What IS worth catching is a description copy-pasted from another skill,
+  // which is a real mistake rather than an intentional difference. That is the
+  // duplicate check below.
+  if (fm.description) {
+    const key = fm.description.trim().toLowerCase();
+    if (descriptionOwners.has(key)) {
+      fail.push(`${slug}: description is identical to ${descriptionOwners.get(key)}. One of them is almost certainly a copy-paste, and an agent cannot tell the two skills apart.`);
+    } else {
+      descriptionOwners.set(key, slug);
+    }
   }
 }
 
