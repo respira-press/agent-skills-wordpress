@@ -1,6 +1,6 @@
 ---
 name: migrate-divi-to-gutenberg
-description: "Converts Divi pages to native Gutenberg blocks by parsing shortcodes, mapping modules to core blocks, and creating draft duplicates for review."
+description: "Use when the user says 'migrate divi to gutenberg', 'convert divi to blocks', 'get off divi', or 'decommission divi'. Parses Divi shortcodes, maps modules to core blocks, and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

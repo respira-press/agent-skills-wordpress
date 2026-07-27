@@ -1,6 +1,6 @@
 ---
 name: mobile-experience-report
-description: "Mobile layout diagnostics — identifies responsive breakpoint problems, text sizing issues, column stacking failures, element visibility issues, navigation menu behavior. Device-by-device breakdown."
+description: "Use when the user says 'my site looks bad on mobile', 'check mobile layout', 'responsive audit', or 'site broken on phones'. Diagnoses breakpoint problems, text sizing, column stacking failures, hidden elements, and navigation menu behavior, device by device."
 license: MIT
 metadata:
   author: Respira for WordPress

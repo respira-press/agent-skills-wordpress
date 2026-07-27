@@ -1,6 +1,6 @@
 ---
 name: technical-debt-audit
-description: "Identifies technical debt in WordPress sites — orphaned shortcodes from deleted plugins, unused plugins, database bloat, unused media, builder data from inactive builders."
+description: "Use when the user says 'clean up my wordpress', 'what is bloating my wordpress', 'find orphaned shortcodes', or 'scan for unused plugins'. Audits orphaned shortcodes from deleted plugins, unused plugins, database bloat, unused media, and leftover data from inactive builders."
 license: MIT
 metadata:
   author: Respira for WordPress

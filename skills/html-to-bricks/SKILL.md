@@ -1,6 +1,6 @@
 ---
 name: html-to-bricks
-description: "Convert raw HTML/CSS into native Bricks Builder elements. Maps colors, typography, and spacing to your design system tokens so the result is drift-resistant. ACSS class mapping when ACSS is installed."
+description: "Use when the user says 'convert this html to bricks' or 'paste html into bricks', or has a Webflow, Framer, CodePen, or old static export to bring into a Bricks site. Converts raw HTML and CSS into native Bricks elements, mapping colors, type, and spacing to design tokens, plus ACSS classes when installed."
 license: MIT
 metadata:
   author: Respira for WordPress

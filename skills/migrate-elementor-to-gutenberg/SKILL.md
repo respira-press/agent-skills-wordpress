@@ -1,6 +1,6 @@
 ---
 name: migrate-elementor-to-gutenberg
-description: "Converts Elementor pages to native WordPress Gutenberg blocks by mapping widgets to core blocks and creating draft duplicates for review."
+description: "Use when the user says 'migrate elementor to gutenberg', 'convert elementor to blocks', 'remove the elementor dependency', or 'go back to native wordpress'. Maps Elementor widgets to core blocks and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

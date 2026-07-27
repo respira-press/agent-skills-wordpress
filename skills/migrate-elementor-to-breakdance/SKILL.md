@@ -1,6 +1,6 @@
 ---
 name: migrate-elementor-to-breakdance
-description: "Converts Elementor pages to Breakdance Builder by mapping widgets to Breakdance elements and creating draft duplicates for review."
+description: "Use when the user says 'migrate elementor to breakdance', 'convert elementor to breakdance', or 'rebuild elementor pages in breakdance'. Maps Elementor widgets to Breakdance elements and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

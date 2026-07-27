@@ -1,6 +1,6 @@
 ---
 name: activity-report-composer
-description: "Turn the audit log of work done on a WordPress site into a polished written report. Wraps the v7.1 respira_generate_activity_report MCP tool with six framings: agency client report, case study, internal recap, testimonial draft, build-in-public, personal recap."
+description: "Use when the user asks for a client report, a monthly or activity report, a case study draft, or says 'what did i ship this month'. Turns the site audit log into a written report in one of six framings: agency client report, case study, internal recap, testimonial draft, build-in-public, personal recap."
 license: MIT
 metadata:
   author: Respira for WordPress

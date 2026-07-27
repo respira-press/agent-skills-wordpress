@@ -1,6 +1,6 @@
 ---
 name: woocommerce-health-check
-description: "WooCommerce configuration diagnostics — identifies checkout problems, cart errors, AJAX mismatches, caching issues, payment gateway setup, SSL enforcement. Revenue-impacting diagnostics."
+description: "Use when the user says 'why is my checkout broken', 'audit my woocommerce store', 'cart problems woocommerce', or 'losing sales woocommerce'. Diagnoses checkout and cart failures, AJAX mismatches, caching conflicts, payment gateway setup, and SSL enforcement."
 license: MIT
 metadata:
   author: Respira for WordPress

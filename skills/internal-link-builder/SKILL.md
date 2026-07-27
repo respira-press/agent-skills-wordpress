@@ -1,6 +1,6 @@
 ---
 name: internal-link-builder
-description: "Strategic internal link building for WordPress sites. Analyzes all published content, maps topic relationships, identifies high-value linking opportunities between pages, and presents a clear plan for approval before making any changes."
+description: "Use when the user says 'build internal links', 'improve internal linking', 'fix orphaned pages', or 'create topic clusters'. Analyzes all published content, maps topic relationships, and presents a linking plan for approval before changing anything."
 license: MIT
 metadata:
   author: Respira for WordPress

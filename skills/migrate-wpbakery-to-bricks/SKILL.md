@@ -1,6 +1,6 @@
 ---
 name: migrate-wpbakery-to-bricks
-description: "Converts WPBakery pages to Bricks Builder by parsing shortcodes, mapping elements to Bricks equivalents, and creating draft duplicates for review."
+description: "Use when the user says 'migrate wpbakery to bricks', 'convert visual composer to bricks', or wants to modernize a WPBakery site onto Bricks. Parses WPBakery shortcodes, maps elements to their Bricks equivalents, and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

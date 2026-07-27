@@ -1,6 +1,6 @@
 ---
 name: migrate-visual-composer-to-gutenberg
-description: "Converts Visual Composer pages to native Gutenberg blocks by parsing VC data, mapping elements to core blocks, and creating draft duplicates for review."
+description: "Use when the user says 'migrate visual composer to gutenberg', 'convert vc to blocks', or 'move visual composer pages to the block editor'. Parses the Visual Composer data, maps elements to core blocks, and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

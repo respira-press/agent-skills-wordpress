@@ -1,6 +1,6 @@
 ---
 name: migrate-oxygen-to-breakdance
-description: "Converts Oxygen Builder pages to Breakdance by mapping component trees to Breakdance elements and creating draft duplicates for review."
+description: "Use when the user says 'migrate oxygen to breakdance', 'convert oxygen to breakdance', or 'replace oxygen with breakdance'. Maps Oxygen Builder component trees to Breakdance elements and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

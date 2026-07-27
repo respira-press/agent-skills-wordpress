@@ -1,6 +1,6 @@
 ---
 name: prime-the-agent
-description: "Fast 30-second session-starter. Loads the active site, identifies the page builder, loads inline schemas, and primes the agent on the do-not-write-raw-HTML rule before any work begins. v1.1 adds per-site memory: it reads a stored brief at the start and appends what it learned at the end, so context carries across sessions, teammates, and AI clients."
+description: "Use when starting a session on an existing WordPress site, or when the user says 'prime yourself', 'what builder does this site use', or 'give me a site briefing'. Loads the active site, detects the builder, loads inline schemas, reads the stored per-site brief, and sets the do-not-write-raw-HTML rule."
 license: MIT
 metadata:
   author: Respira for WordPress

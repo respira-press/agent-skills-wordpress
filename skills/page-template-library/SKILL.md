@@ -1,6 +1,6 @@
 ---
 name: page-template-library
-description: "Capture canonical page patterns (case study, service page, landing page hero + 3-up + CTA) as re-usable playbooks. Uses new v7.1 MCP tools respira_create_playbook + respira_list_playbooks + respira_update_playbook. Future page-generation skills spawn new pages from playbooks in seconds."
+description: "Use when the user says 'save this as a template', 'create a playbook from this page', 'capture this layout', or has hand-built the same page type three times. Captures canonical page patterns as reusable playbooks that later page generation can spawn from in seconds."
 license: MIT
 metadata:
   author: Respira for WordPress

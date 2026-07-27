@@ -1,6 +1,6 @@
 ---
 name: conversion-audit
-description: "Audit a WordPress site for conversion-rate friction across six dimensions: above-the-fold clarity, CTA hierarchy, form length, social proof placement, page speed, and trust signals. Prioritized fixes with expected impact — recommendations, not redesigns."
+description: "Use when the user says 'audit my conversion rate', 'cro check', 'find conversion leaks', or asks what is hurting conversion before a paid campaign or after a redesign. Scores six friction dimensions: above-the-fold clarity, CTA hierarchy, form length, social proof, speed, trust signals."
 license: MIT
 metadata:
   author: Respira for WordPress

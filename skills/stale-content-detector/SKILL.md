@@ -1,6 +1,6 @@
 ---
 name: stale-content-detector
-description: "Find pages and posts that haven't been updated in a long time. Categorize as fresh / aging / stale / archive-candidate. Suggest refresh, redirect, or archive per item — based on age, traffic signal, and internal link count."
+description: "Use when the user says 'find old content', 'what is stale', 'what needs refreshing', or 'what should i archive'. Categorizes pages and posts as fresh, aging, stale, or archive-candidate by age, traffic signal, and internal link count, with a refresh, redirect, or archive call per item."
 license: MIT
 metadata:
   author: Respira for WordPress

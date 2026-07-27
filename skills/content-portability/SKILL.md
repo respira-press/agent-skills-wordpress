@@ -1,6 +1,6 @@
 ---
 name: content-portability
-description: Export WordPress pages, posts, and custom posts to portable local packages with builder data, media, and human-readable markdown. Import to another site with smart ID remapping. Auto-backup before AI edits. Use when user says "export my site", "backup my pages", "migrate content", "download my content", or "content portability".
+description: "Use when the user says 'export my site', 'backup my pages before editing', 'download my content locally', or 'migrate content to my other site'. Exports pages, posts, and custom posts to portable local packages with builder data, media, and markdown, then imports elsewhere with ID remapping."
 license: MIT
 metadata:
   author: Respira for WordPress

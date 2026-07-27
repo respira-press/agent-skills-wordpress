@@ -1,6 +1,6 @@
 ---
 name: seo-aeo-amplifier
-description: "Comprehensive on-page SEO and Answer Engine Optimization audit with automated duplicate creation and intelligent schema markup generation."
+description: "Use when the user says 'run an seo aeo audit', 'improve my search visibility', 'optimize my site for search engines', or wants the site cited by AI answer engines. Audits on-page SEO and AEO, generates schema markup, and applies fixes on duplicates for review after a snapshot."
 license: MIT
 metadata:
   author: Respira for WordPress

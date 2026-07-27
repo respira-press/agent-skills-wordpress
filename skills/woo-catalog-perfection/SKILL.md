@@ -1,6 +1,6 @@
 ---
 name: woo-catalog-perfection
-description: Drive a WooCommerce catalog to an AI-readiness score of 90+ — an ordered fixlist loop that writes the missing image alt text, descriptions, brands, GTINs and category mappings, with a snapshot before every change.
+description: "Use when the user says 'fix my catalog for ai', 'improve my ai readiness score', 'get my catalog to 90', or 'my products keep getting rejected by google'. Runs an ordered fixlist that writes the missing alt text, descriptions, brands, GTINs, and category mappings, snapshotting before each change."
 license: MIT
 metadata:
   author: "Respira for WordPress"

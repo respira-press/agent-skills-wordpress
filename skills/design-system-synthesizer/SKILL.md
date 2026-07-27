@@ -1,6 +1,6 @@
 ---
 name: design-system-synthesizer
-description: "Read your site's representative pages, theme files, and media library to extract a complete reusable design system — logo, colors, typography, spacing scale, component patterns. Persist it as machine data AND generate a visible style-guide page on your site that renders the tokens visually."
+description: "Use when the user says 'build a design system for my site', 'extract design tokens', 'capture my brand', or 'build my style guide', or after a rebrand. Reads representative pages, theme files, and media to extract logo, colors, typography, spacing, and components, then writes a visible style-guide page."
 license: MIT
 metadata:
   author: Respira for WordPress
