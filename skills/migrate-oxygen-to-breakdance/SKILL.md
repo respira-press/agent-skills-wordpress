@@ -1,3 +1,15 @@
+---
+name: migrate-oxygen-to-breakdance
+description: "Converts Oxygen Builder pages to Breakdance by mapping component trees to Breakdance elements and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Oxygen to Breakdance
 
 **Version:** 2.0.0

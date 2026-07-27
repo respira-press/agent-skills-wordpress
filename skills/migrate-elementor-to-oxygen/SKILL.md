@@ -1,3 +1,15 @@
+---
+name: migrate-elementor-to-oxygen
+description: "Converts Elementor pages to Oxygen Builder by mapping widgets to Oxygen components and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Elementor to Oxygen
 
 **Version:** 2.0.0

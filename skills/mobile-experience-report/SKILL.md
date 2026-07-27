@@ -1,3 +1,15 @@
+---
+name: mobile-experience-report
+description: "Mobile layout diagnostics — identifies responsive breakpoint problems, text sizing issues, column stacking failures, element visibility issues, navigation menu behavior. Device-by-device breakdown."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.2.0
+  mcp-server: respira-wordpress
+  category: audit
+---
+
 # Mobile Experience Report
 
 **Version:** 1.2.0

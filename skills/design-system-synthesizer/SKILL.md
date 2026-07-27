@@ -1,3 +1,15 @@
+---
+name: design-system-synthesizer
+description: "Read your site's representative pages, theme files, and media library to extract a complete reusable design system — logo, colors, typography, spacing scale, component patterns. Persist it as machine data AND generate a visible style-guide page on your site that renders the tokens visually."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.2.0
+  mcp-server: respira-wordpress
+  category: intelligence
+---
+
 # Design System Synthesizer
 
 **Version:** 1.2.0

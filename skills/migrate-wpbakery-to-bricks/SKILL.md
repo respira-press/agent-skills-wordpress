@@ -1,3 +1,15 @@
+---
+name: migrate-wpbakery-to-bricks
+description: "Converts WPBakery pages to Bricks Builder by parsing shortcodes, mapping elements to Bricks equivalents, and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate WPBakery to Bricks
 
 **Version:** 2.0.0

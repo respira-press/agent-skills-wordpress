@@ -1,3 +1,15 @@
+---
+name: brand-voice-synthesizer
+description: "Read 5-10 published posts and extract the brand voice — tone, lexicon, sentence patterns, person used, formality, signature phrases, phrases the site never uses. Persist it so every future content-writing skill produces copy that sounds like the brand, not like generic AI."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.1.0
+  mcp-server: respira-wordpress
+  category: intelligence
+---
+
 # Brand Voice Synthesizer
 
 **Version:** 1.1.0

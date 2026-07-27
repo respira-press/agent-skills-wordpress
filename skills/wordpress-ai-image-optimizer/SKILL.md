@@ -1,3 +1,15 @@
+---
+name: wordpress-ai-image-optimizer
+description: "AI-powered image optimization that downloads images from WordPress, processes locally (compress, WebP conversion, resize, rename), uploads optimized versions, and updates all content references."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.2.0
+  mcp-server: respira-wordpress
+  category: performance
+---
+
 # WordPress AI Image Optimizer
 
 **Version:** 1.2.0

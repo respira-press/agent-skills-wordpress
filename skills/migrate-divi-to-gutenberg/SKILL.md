@@ -1,3 +1,15 @@
+---
+name: migrate-divi-to-gutenberg
+description: "Converts Divi pages to native Gutenberg blocks by parsing shortcodes, mapping modules to core blocks, and creating draft duplicates for review."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 2.0.0
+  mcp-server: respira-wordpress
+  category: migration
+---
+
 # Migrate Divi to Gutenberg
 
 **Version:** 2.0.0

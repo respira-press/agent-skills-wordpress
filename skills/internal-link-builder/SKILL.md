@@ -1,3 +1,15 @@
+---
+name: internal-link-builder
+description: "Strategic internal link building for WordPress sites. Analyzes all published content, maps topic relationships, identifies high-value linking opportunities between pages, and presents a clear plan for approval before making any changes."
+license: MIT
+metadata:
+  author: Respira for WordPress
+  author_url: https://respira.press
+  version: 1.2.0
+  mcp-server: respira-wordpress
+  category: performance
+---
+
 # Internal Link Builder
 
 **Version:** 1.2.0
