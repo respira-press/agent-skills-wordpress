@@ -14,7 +14,46 @@ Built by the community. Curated by Respira. Open source.
 Skills teach AI agents how to work with WordPress in ways that respect your site's architecture and your need for control.
 
 **Plain AI agent:** Generic guidance based on best practices  
-**Respira-powered skills:** Deep site access via 103+ MCP tools
+**Respira-powered skills:** Deep site access via 197 MCP tools, 302 with the WooCommerce add-on
+
+---
+
+## Installation
+
+### npx skills (recommended)
+
+Works with Claude Code, OpenCode, Codex and anything else that reads the Skills
+format. Tracks what you installed, from where, and at what content hash, so
+installs are reproducible and updates are one command.
+
+```bash
+# Install every skill globally
+npx skills add respira-press/agent-skills-wordpress -g -a claude-code -y
+
+# Or into the current project only
+npx skills add respira-press/agent-skills-wordpress -a claude-code -y
+
+# Update later
+npx skills update -g
+```
+
+Swap `-a claude-code` for your agent, for example `-a opencode`.
+
+Installing writes a lock file recording each skill's `source`, `skillPath` and
+`computedHash`, so you can tell exactly which version of a skill you are running
+and whether it has changed upstream.
+
+### From inside WordPress
+
+If you run the Respira plugin, the Skills screen in wp-admin installs and
+updates these without touching a terminal.
+
+### Manual
+
+```bash
+git clone https://github.com/respira-press/agent-skills-wordpress
+cp -r agent-skills-wordpress/skills/* ~/.claude/skills/
+```
 
 ---
 
