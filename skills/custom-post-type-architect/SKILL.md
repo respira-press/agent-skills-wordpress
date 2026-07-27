@@ -1,6 +1,6 @@
 ---
 name: custom-post-type-architect
-description: "Design and create WordPress custom post types end to end — CPT + supporting taxonomies + ACF field group + sample entries + builder-specific single template suggestion. Uses new v7.1 MCP tools: respira_create_post_type, respira_create_taxonomy, respira_create_acf_field_group."
+description: "Use when the user asks to create a custom post type, build a portfolio, set up case studies, add team members, events, or podcast episodes, or says 'scaffold a CPT'. Creates the post type plus supporting taxonomies, an ACF field group, sample entries, and a builder-specific single template suggestion."
 license: MIT
 metadata:
   author: Respira for WordPress

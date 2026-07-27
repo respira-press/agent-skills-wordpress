@@ -1,6 +1,6 @@
 ---
 name: figma-to-elementor
-description: "Rebuilds a Figma frame as an editable Elementor page. Reads the Figma node tree (layers, auto-layout, text, color, images), maps each node to its Elementor widget or container, and writes clean Elementor JSON to a draft duplicate so nothing live is touched."
+description: "Use when the user says 'figma to elementor', 'build this figma design in elementor', or hands over a Figma frame to rebuild in WordPress. Maps the Figma node tree to Elementor widgets and containers and writes clean Elementor JSON into a draft duplicate, so nothing live is touched."
 license: MIT
 metadata:
   author: Respira for WordPress

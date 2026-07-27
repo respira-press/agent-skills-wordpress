@@ -1,6 +1,6 @@
 ---
 name: migrate-beaver-builder-to-bricks
-description: "Converts Beaver Builder pages to Bricks Builder by reading the flat node map, mapping modules to Bricks elements, and creating draft duplicates for review."
+description: "Use when the user says 'migrate beaver builder to bricks', 'convert bb to bricks', or 'replace beaver builder with bricks'. Reads the Beaver Builder flat node map, maps each module to its Bricks element, and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

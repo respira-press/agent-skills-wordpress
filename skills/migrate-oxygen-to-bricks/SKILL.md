@@ -1,6 +1,6 @@
 ---
 name: migrate-oxygen-to-bricks
-description: "Converts Oxygen Builder pages to Bricks by mapping component trees to Bricks JSON elements and creating draft duplicates for review."
+description: "Use when the user says 'migrate oxygen to bricks', 'convert oxygen to bricks', or 'replace oxygen with bricks'. Maps Oxygen Builder component trees to Bricks JSON elements and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

@@ -1,6 +1,6 @@
 ---
 name: migrate-brizy-to-gutenberg
-description: "Converts Brizy pages to native Gutenberg blocks by parsing Brizy JSON data, mapping elements to core blocks, and creating draft duplicates for review."
+description: "Use when the user says 'migrate brizy to gutenberg', 'convert brizy to blocks', or 'replace brizy with native wordpress'. Parses the Brizy JSON data, maps elements to core blocks, and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

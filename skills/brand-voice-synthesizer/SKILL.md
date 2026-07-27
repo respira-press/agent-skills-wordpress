@@ -1,6 +1,6 @@
 ---
 name: brand-voice-synthesizer
-description: "Read 5-10 published posts and extract the brand voice — tone, lexicon, sentence patterns, person used, formality, signature phrases, phrases the site never uses. Persist it so every future content-writing skill produces copy that sounds like the brand, not like generic AI."
+description: "Use when the user says 'extract my brand voice', 'what is my writing style', or 'analyze my tone', or before any skill that writes copy for the site. Reads 5-10 published posts and persists tone, lexicon, sentence patterns, formality, signature phrases, and phrases the site never uses."
 license: MIT
 metadata:
   author: Respira for WordPress

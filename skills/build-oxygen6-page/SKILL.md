@@ -1,6 +1,6 @@
 ---
 name: build-oxygen6-page
-description: "Build or rebuild pages on Oxygen 6 (Jenga) as native, editable elements instead of a single HTML block. Hands the agent Oxygen 6's structure: the element schemas, the header/footer/template post types, and the Template Content Area rule."
+description: "Use when building or rebuilding a page, header, footer, or template on an Oxygen 6 (Jenga) site, or when a previous attempt produced a blank page, one raw HTML block, or 'Unknown element'. Hands the agent the Oxygen 6 element schemas and the Template Content Area rule. Not for Oxygen Classic."
 license: MIT
 metadata:
   author: Respira for WordPress

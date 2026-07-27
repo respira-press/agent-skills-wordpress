@@ -1,6 +1,6 @@
 ---
 name: wordpress-site-dna
-description: "Archaeological analysis of WordPress sites. Detects all page builders, audits plugins (active vs dead weight), maps content structure, finds orphaned shortcodes, measures performance, and assesses security posture."
+description: "Use when the user says 'analyze my wordpress site', 'what is running on my site', 'site dna', or 'what plugins are on my site'. Detects every page builder, audits active versus dead-weight plugins, maps content structure, finds orphaned shortcodes, and checks performance and security posture."
 license: MIT
 metadata:
   author: Respira for WordPress

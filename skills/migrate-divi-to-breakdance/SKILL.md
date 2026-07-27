@@ -1,6 +1,6 @@
 ---
 name: migrate-divi-to-breakdance
-description: "Converts Divi pages to Breakdance Builder by parsing shortcodes, mapping modules to Breakdance elements, and creating draft duplicates for review."
+description: "Use when the user says 'migrate divi to breakdance', 'convert divi to breakdance', or 'rebuild divi pages in breakdance'. Parses Divi shortcodes, maps modules to Breakdance elements, and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

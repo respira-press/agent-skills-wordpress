@@ -1,6 +1,6 @@
 ---
 name: migrate-elementor-to-oxygen
-description: "Converts Elementor pages to Oxygen Builder by mapping widgets to Oxygen components and creating draft duplicates for review."
+description: "Use when the user says 'migrate elementor to oxygen', 'convert elementor to oxygen', or 'rebuild elementor pages in oxygen'. Maps Elementor widgets to Oxygen components and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

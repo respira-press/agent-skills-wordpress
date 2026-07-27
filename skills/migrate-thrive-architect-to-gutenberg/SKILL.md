@@ -1,6 +1,6 @@
 ---
 name: migrate-thrive-architect-to-gutenberg
-description: "Converts Thrive Architect pages to native Gutenberg blocks by parsing Thrive content, mapping elements to core blocks, and creating draft duplicates for review."
+description: "Use when the user says 'migrate thrive architect to gutenberg', 'convert thrive to blocks', or 'replace thrive architect with native wordpress'. Parses Thrive Architect content, maps elements to core blocks, and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

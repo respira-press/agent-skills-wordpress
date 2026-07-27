@@ -1,6 +1,6 @@
 ---
 name: woo-agent-storefront
-description: Make a WooCommerce store discoverable and shoppable for AI assistants — set up product feeds in six formats, serve a store llms.txt, register with Google Merchant Center / OpenAI / Meta / Pinterest / TikTok, and hand out attributed cart links.
+description: "Use when the user says 'make my store visible to chatgpt', 'set up product feeds', or 'make my store agent-ready', or asks about Google Merchant Center, a store llms.txt, or cart links for AI agents. Sets up product feeds in six formats and registers the catalog with the major platforms."
 license: MIT
 metadata:
   author: "Respira for WordPress"

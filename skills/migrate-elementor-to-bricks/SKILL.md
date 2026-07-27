@@ -1,6 +1,6 @@
 ---
 name: migrate-elementor-to-bricks
-description: "Converts Elementor pages to Bricks Builder by reading Elementor JSON widget data, mapping each widget to its Bricks equivalent, and creating draft duplicates with clean Bricks JSON."
+description: "Use when the user says 'migrate elementor to bricks', 'convert elementor to bricks', or 'move my site from elementor to bricks'. Reads the Elementor JSON widget data, maps each widget to its Bricks equivalent, and creates draft duplicates with clean Bricks JSON."
 license: MIT
 metadata:
   author: Respira for WordPress

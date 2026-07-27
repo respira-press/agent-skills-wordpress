@@ -1,6 +1,6 @@
 ---
 name: migrate-divi-to-bricks
-description: "Converts Divi pages to Bricks Builder by parsing shortcode content, mapping modules to Bricks elements, and generating draft duplicates for review."
+description: "Use when the user says 'migrate divi to bricks', 'convert divi to bricks', or 'rebuild divi pages in bricks'. Parses Divi shortcode content, maps modules to Bricks elements, and generates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

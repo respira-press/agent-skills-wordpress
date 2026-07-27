@@ -1,6 +1,6 @@
 ---
 name: migrate-beaver-builder-to-gutenberg
-description: "Converts Beaver Builder pages to native Gutenberg blocks by reading the flat node map, mapping modules to core blocks, and creating draft duplicates for review."
+description: "Use when the user says 'migrate beaver builder to gutenberg', 'convert beaver builder to blocks', or 'move beaver builder to the block editor'. Reads the Beaver Builder flat node map, maps modules to core blocks, and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

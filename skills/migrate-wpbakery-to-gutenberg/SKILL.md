@@ -1,6 +1,6 @@
 ---
 name: migrate-wpbakery-to-gutenberg
-description: "Converts WPBakery pages to native Gutenberg blocks by parsing shortcodes, mapping elements to core blocks, and creating draft duplicates for review."
+description: "Use when the user says 'migrate wpbakery to gutenberg', 'remove wpbakery', 'get rid of visual composer', or 'decommission wpbakery'. Parses WPBakery shortcodes, maps elements to core blocks, and creates draft duplicates for review."
 license: MIT
 metadata:
   author: Respira for WordPress

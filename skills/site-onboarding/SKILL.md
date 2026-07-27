@@ -1,6 +1,6 @@
 ---
 name: site-onboarding
-description: First-run onboarding for Respira MCP connections. Verifies connectivity, discovers site architecture, maps all available MCP tools, and produces a site briefing so the AI understands what it can do. Use when user says "get started", "connect to my site", "what can you do", or "onboard".
+description: "Use when the user says 'get started with my site', 'connect to my wordpress site', 'what can you do on my site', or 'onboard'. Verifies connectivity, discovers the site architecture, maps the available MCP tools, and produces a site briefing."
 license: MIT
 metadata:
   author: Respira for WordPress
