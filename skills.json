@@ -1,6 +1,6 @@
 {
   "version": "1.10.0",
-  "updated_at": "2026-07-16",
+  "updated_at": "2026-08-03",
   "skills": [
     {
       "slug": "respira-setup-assistant",
@@ -1147,6 +1147,127 @@
         ],
         "freshly_updated_until": "2026-10-31",
         "v1_0_0_changes": "First release, pairs with woo-agent-storefront: this skill fixes what the feed checks flag."
+      }
+    },
+    {
+      "slug": "respira-builder-edits",
+      "name": "Respira Builder Edits",
+      "description": "Use for any in-page content edit on a WordPress site with a page builder. Covers finding elements, applying surgical edits, duplicating before large changes, and verifying the result. Works across Elementor 3 + 4, Divi 4 + 5, Beaver Builder, Bricks, Oxygen Classic, Oxygen 6, Breakdance, WPBakery, Uncode, and Gutenberg.",
+      "category": "editing",
+      "author": "Respira for WordPress",
+      "version": "1.2.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/respira-builder-edits",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/respira-builder-edits/SKILL.md",
+      "details": {
+        "hero_subtitle": "The core discipline for editing a live page builder site without breaking it: find the right element, duplicate before you touch anything real, apply the surgical edit, then verify it actually landed.",
+        "capabilities": [
+          {
+            "title": "Builder-Aware Editing",
+            "desc": "Detects the active builder first so every edit uses the correct field names and write path, not a guess."
+          },
+          {
+            "title": "Find Before You Write",
+            "desc": "Locates the exact element by selector, text, class, or ID before any change, instead of editing blind."
+          },
+          {
+            "title": "Snapshot Before Multi-Element Edits",
+            "desc": "Duplicates the page before touching more than one element, so every change has an undo path."
+          },
+          {
+            "title": "Cross-Builder Coverage",
+            "desc": "One workflow across Elementor, Divi 4 and 5, Beaver Builder, Bricks, Oxygen Classic and 6, Breakdance, WPBakery, Uncode, and Gutenberg."
+          },
+          {
+            "title": "Read-Back Verification",
+            "desc": "Re-reads the element after every write and confirms the change is actually reflected, not just reported."
+          },
+          {
+            "title": "Known Gotcha Table",
+            "desc": "A maintained table of common builder-specific mistakes and the correct approach for each, updated as the plugin ships fixes."
+          }
+        ],
+        "freshly_updated_until": "2026-11-30",
+        "v1_0_0_changes": "Actively maintained since 2025; tracks builder-specific fixes as they ship (Divi 5 node-id fallbacks, Bricks CSS regen, Beaver Builder column defaults, and more)."
+      }
+    },
+    {
+      "slug": "respira-site-audit",
+      "name": "Respira Site Audit",
+      "description": "Use when asked to audit, score, or health-check a WordPress site or page. Runs SEO, AEO, readability, accessibility, performance, RankMath, and Core Web Vitals analyzers and presents a unified report with prioritised fixes.",
+      "category": "audit",
+      "author": "Respira for WordPress",
+      "version": "1.1.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/respira-site-audit",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/respira-site-audit/SKILL.md",
+      "details": {
+        "hero_subtitle": "One unified health check across eight analyzers instead of running them one at a time and losing track of what matters most.",
+        "capabilities": [
+          {
+            "title": "Eight Analyzers, One Report",
+            "desc": "SEO, AEO, readability, accessibility, performance, RankMath, Core Web Vitals, and structured data, run together and prioritised."
+          },
+          {
+            "title": "Severity-Ranked Findings",
+            "desc": "Groups results into critical, warning, and suggestion so the quick wins surface first, not buried in raw output."
+          },
+          {
+            "title": "Builder-Aware Fix Paths",
+            "desc": "Checks the active builder before recommending element-level fixes, since Elementor, Divi, Bricks, and Beaver each fix differently."
+          },
+          {
+            "title": "Site-Wide or Single-Page",
+            "desc": "Runs against one page or the whole site's public pages, same workflow either way."
+          },
+          {
+            "title": "SEO vs AEO Distinction",
+            "desc": "Treats search-ranking signals and AI-answer signals as genuinely different checks instead of conflating them."
+          }
+        ],
+        "freshly_updated_until": "2026-11-30",
+        "v1_0_0_changes": "Actively maintained; aligned with the current analyzer set (respira_analyze_seo, respira_analyze_aeo, respira_analyze_readability, respira_analyze_images, respira_analyze_rankmath, respira_get_core_web_vitals, respira_check_structured_data)."
+      }
+    },
+    {
+      "slug": "respira-woocommerce",
+      "name": "Respira WooCommerce",
+      "description": "Use for WooCommerce operations on a WordPress site. Listing, reading, creating, updating, and duplicating products. Managing categories and tags. Reading orders and updating order status. Stock management. Sales reports. Storefront layout edits. Builder-aware throughout. Requires the Respira WooCommerce add-on (paid).",
+      "category": "commerce",
+      "author": "Respira for WordPress",
+      "version": "1.2.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": "woocommerce",
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/respira-woocommerce",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/respira-woocommerce/SKILL.md",
+      "details": {
+        "hero_subtitle": "The 21 core WooCommerce abilities plus builder-aware storefront layout edits, so a product, order, or shop template gets edited through the right path instead of a raw page update.",
+        "capabilities": [
+          {
+            "title": "Full Product Lifecycle",
+            "desc": "List, read, create, update, and duplicate products through the canonical WooCommerce data layer, not post meta guesses."
+          },
+          {
+            "title": "Categories, Tags, Orders, Stock",
+            "desc": "Complete CRUD on categories and tags, order status updates, and stock management, each through its dedicated ability."
+          },
+          {
+            "title": "Storefront Layout Surface",
+            "desc": "Analyzes and edits builder-managed product card layouts across Elementor, Divi, Flatsome, Bricks, and Gutenberg shop templates."
+          },
+          {
+            "title": "Sales Reporting",
+            "desc": "Pulls sales reports without needing separate WC admin access."
+          },
+          {
+            "title": "Clean Failure When Unlicensed",
+            "desc": "Every Woo tool returns a structured error pointing to the add-on page when WooCommerce or the add-on isn't active, instead of a confusing generic failure."
+          }
+        ],
+        "freshly_updated_until": "2026-11-30",
+        "v1_0_0_changes": "Actively maintained alongside the WooCommerce add-on's 21-ability surface and storefront layout tools."
       }
     }
   ]
