@@ -1,6 +1,6 @@
 {
-  "version": "1.10.0",
-  "updated_at": "2026-08-03",
+  "version": "1.11.0",
+  "updated_at": "2026-08-04",
   "skills": [
     {
       "slug": "respira-setup-assistant",
@@ -479,11 +479,15 @@
       "description": "Converts Elementor pages to Bricks Builder by reading Elementor JSON widget data, mapping each widget to its Bricks equivalent, and creating draft duplicates with clean Bricks JSON.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-elementor-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-bricks/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-bricks/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-elementor-to-gutenberg",
@@ -491,11 +495,15 @@
       "description": "Converts Elementor pages to native WordPress Gutenberg blocks by mapping widgets to core blocks and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-elementor-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-gutenberg/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-gutenberg/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-elementor-to-breakdance",
@@ -503,11 +511,15 @@
       "description": "Converts Elementor pages to Breakdance Builder by mapping widgets to Breakdance elements and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-elementor-to-breakdance",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-breakdance/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-breakdance/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-elementor-to-oxygen",
@@ -515,11 +527,15 @@
       "description": "Converts Elementor pages to Oxygen Builder by mapping widgets to Oxygen components and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-elementor-to-oxygen",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-oxygen/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-oxygen/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-divi-to-bricks",
@@ -527,11 +543,15 @@
       "description": "Converts Divi pages to Bricks Builder by parsing shortcode content, mapping modules to Bricks elements, and generating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-divi-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-divi-to-bricks/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-divi-to-bricks/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-divi-to-gutenberg",
@@ -539,11 +559,15 @@
       "description": "Converts Divi pages to native Gutenberg blocks by parsing shortcodes, mapping modules to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-divi-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-divi-to-gutenberg/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-divi-to-gutenberg/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-divi-to-breakdance",
@@ -551,11 +575,15 @@
       "description": "Converts Divi pages to Breakdance Builder by parsing shortcodes, mapping modules to Breakdance elements, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-divi-to-breakdance",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-divi-to-breakdance/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-divi-to-breakdance/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-wpbakery-to-gutenberg",
@@ -563,11 +591,15 @@
       "description": "Converts WPBakery pages to native Gutenberg blocks by parsing shortcodes, mapping elements to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-wpbakery-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-wpbakery-to-gutenberg/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-wpbakery-to-gutenberg/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-wpbakery-to-bricks",
@@ -575,11 +607,15 @@
       "description": "Converts WPBakery pages to Bricks Builder by parsing shortcodes, mapping elements to Bricks equivalents, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-wpbakery-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-wpbakery-to-bricks/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-wpbakery-to-bricks/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-beaver-builder-to-gutenberg",
@@ -587,11 +623,15 @@
       "description": "Converts Beaver Builder pages to native Gutenberg blocks by reading the flat node map, mapping modules to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-beaver-builder-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-beaver-builder-to-gutenberg/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-beaver-builder-to-gutenberg/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-beaver-builder-to-bricks",
@@ -599,11 +639,15 @@
       "description": "Converts Beaver Builder pages to Bricks Builder by reading the flat node map, mapping modules to Bricks elements, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-beaver-builder-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-beaver-builder-to-bricks/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-beaver-builder-to-bricks/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-oxygen-to-bricks",
@@ -611,11 +655,15 @@
       "description": "Converts Oxygen Builder pages to Bricks by mapping component trees to Bricks JSON elements and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-oxygen-to-bricks",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-oxygen-to-bricks/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-oxygen-to-bricks/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-oxygen-to-breakdance",
@@ -623,11 +671,15 @@
       "description": "Converts Oxygen Builder pages to Breakdance by mapping component trees to Breakdance elements and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-oxygen-to-breakdance",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-oxygen-to-breakdance/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-oxygen-to-breakdance/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-brizy-to-gutenberg",
@@ -635,11 +687,15 @@
       "description": "Converts Brizy pages to native Gutenberg blocks by parsing Brizy JSON data, mapping elements to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-brizy-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-brizy-to-gutenberg/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-brizy-to-gutenberg/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-thrive-architect-to-gutenberg",
@@ -647,11 +703,15 @@
       "description": "Converts Thrive Architect pages to native Gutenberg blocks by parsing Thrive content, mapping elements to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-thrive-architect-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-thrive-architect-to-gutenberg/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-thrive-architect-to-gutenberg/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "migrate-visual-composer-to-gutenberg",
@@ -659,11 +719,15 @@
       "description": "Converts Visual Composer pages to native Gutenberg blocks by parsing VC data, mapping elements to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-visual-composer-to-gutenberg",
-      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-visual-composer-to-gutenberg/SKILL.md"
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-visual-composer-to-gutenberg/SKILL.md",
+      "details": {
+        "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
+        "freshly_updated_until": "2026-08-31"
+      }
     },
     {
       "slug": "activity-report-composer",
@@ -811,7 +875,7 @@
       "description": "Read your site's representative pages, theme files, and media library to extract a complete reusable design system — logo, colors, typography, spacing scale, component patterns. Persist it as machine data AND generate a visible style-guide page on your site that renders the tokens visually.",
       "category": "intelligence",
       "author": "Respira for WordPress",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/design-system-synthesizer",
@@ -844,7 +908,8 @@
             "desc": "Saved at the site level. Every Respira content-creation skill from that point on references the system, so new pages snap to your brand instead of guessing."
           }
         ],
-        "freshly_updated_until": "2026-06-30",
+        "freshly_updated_until": "2026-08-31",
+        "v1_3_0_changes": "v1.3.0 catches up with the design-token surface. Builder global palettes and typography are written through the first-class token tools (respira_list_design_tokens, respira_create_design_token, respira_update_design_token, respira_delete_design_token). HTML/design conversions register tokens in the builder's global store automatically and converted pages reference them, so the synthesizer reads what is already registered first, reuses those names instead of re-inlining values, and reports token registration in its summary. Builders without a global store (Brizy, Thrive Architect, WPBakery, Visual Composer, Flatsome, SeedProd) register nothing.",
         "v1_0_0_changes": "Initial release in v7.1 Roots. Flagship skill of the v7.1 brand-foundation suite (Design System + Brand Voice + Page Template Library). Together they form the explicit foundation that every future content-generation skill stands on.",
         "v1_1_0_changes": "v1.1.0 adds the visible style-guide page output. The synthesizer now builds a real WordPress page on the site (private draft by default) that renders the synthesized tokens visually: color swatches with hex codes, typography samples in actual styles, spacing scale blocks, component previews. Built with the active page builder so it's editable in the user's normal workflow. Solves the 'where do I see the design system' question."
       }
@@ -855,7 +920,7 @@
       "description": "Convert raw HTML/CSS into native Bricks Builder elements. Maps colors, typography, and spacing to your design system tokens so the result is drift-resistant. ACSS class mapping when ACSS is installed.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/html-to-bricks",
@@ -880,7 +945,8 @@
             "desc": "Paste HTML, give a URL (external images flagged not silently mirrored), or reference a file."
           }
         ],
-        "freshly_updated_until": "2026-06-30",
+        "freshly_updated_until": "2026-08-31",
+        "v1_1_0_changes": "v1.1.0 adds design-token awareness: the conversion registers the colors and typography it carries as named design tokens in Bricks' own global styles, and converted elements reference those tokens instead of carrying value copies. The skill reuses registered tokens when refining and reports the registration when done.",
         "v1_0_0_changes": "Initial release in v7.1 Roots. Resolves the most-upvoted open feature request on the Respira board."
       }
     },
@@ -922,10 +988,10 @@
     {
       "slug": "prime-the-agent",
       "name": "Prime the Agent",
-      "description": "Fast 30-second session-starter. Loads the active site, identifies the page builder, loads inline schemas, and primes the agent on the do-not-write-raw-HTML rule before any work begins. v1.1 adds per-site memory: it reads a stored brief at the start and appends what it learned at the end, so context carries across sessions, teammates, and AI clients.",
+      "description": "Fast 30-second session-starter. Loads the active site, identifies the page builder, loads inline schemas, and primes the agent on the do-not-write-raw-HTML rule before any work begins. v1.2 moves per-site memory to the first-class tools: the stored brief arrives automatically inside get_site_context under site_memory, and durable learnings are saved with respira_remember at the end, so context carries across sessions, teammates, and AI clients. Site rules found in memory are enforced server-side; a refusal is final.",
       "category": "workflow",
       "author": "Respira for WordPress",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/prime-the-agent",
@@ -951,10 +1017,11 @@
           },
           {
             "title": "Persistent site memory",
-            "desc": "Reads a per-site brief stored on the site (respira_get_option) at the start and appends durable learnings at the end (respira_update_option), so quirks and the division of labor survive across sessions, teammates, and AI clients."
+            "desc": "Reads the per-site brief that arrives automatically in get_site_context under site_memory and saves durable learnings at the end with respira_remember (pruning with respira_forget), so quirks and the division of labor survive across sessions, teammates, and AI clients. Site rules in memory are enforced server-side; a respira_protected_by_site_rule refusal is final."
           }
         ],
-        "freshly_updated_until": "2026-07-31",
+        "freshly_updated_until": "2026-08-31",
+        "v1_2_0_changes": "Moves per-site memory to the first-class memory tools. The brief now arrives automatically in respira_get_site_context under site_memory (no extra option call), learnings are saved with respira_remember and pruned with respira_forget, and the old respira_site_memory option read/write pattern is legacy. Memory rules are enforced server-side: a respira_protected_by_site_rule refusal is final and is never retried or worked around. The ask-before-saving rule stays.",
         "v1_1_0_changes": "Adds per-site memory. The skill now reads a stored brief (the respira_site_memory option) at the start of a session and offers to append what it learned at the end, so context persists across sessions and travels to teammates and other AI clients. Notes are treated as untrusted context, carry a confirmed date, and stay capped to a short brief.",
         "v1_0_0_changes": "Initial release in v7.1 Roots. Promotes the canonical session-starter preamble (previously a copy-paste snippet shared in customer support) to a first-class triggerable skill. Designed to be run before any other skill or work in a new conversation about a WordPress site."
       }
@@ -1035,7 +1102,7 @@
       "description": "Rebuilds a Figma frame as an editable Elementor page. Reads the Figma node tree (layers, auto-layout, text, color, images), maps each node to its Elementor widget or container, and writes clean Elementor JSON to a draft duplicate so nothing live is touched.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/figma-to-elementor",
@@ -1060,7 +1127,8 @@
             "desc": "Builds on a draft duplicate with a snapshot first, so your live pages are never touched."
           }
         ],
-        "freshly_updated_until": "2026-09-30"
+        "freshly_updated_until": "2026-09-30",
+        "v1_1_0_changes": "v1.1.0 adds design-token awareness: conversion writes register the frame's colors and typography as named design tokens in Elementor's own global styles, and the built page references those tokens instead of carrying value copies. The skill reuses registered tokens when refining and reports the registration in its summary."
       }
     },
     {

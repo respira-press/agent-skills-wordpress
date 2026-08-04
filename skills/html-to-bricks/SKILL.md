@@ -5,15 +5,15 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
 
 # HTML to Bricks Builder
 
-**Version:** 1.0.0
-**Updated:** 2026-05-24
+**Version:** 1.1.0
+**Updated:** 2026-08-04
 **Category:** migration
 **Status:** stable
 **Requires:** Respira for WordPress plugin 7.1+ + Bricks Builder active + MCP server
@@ -82,6 +82,8 @@ In all modes, also accept inline `<style>` blocks and external `<link rel=styles
 Call `respira_convert_html_to_builder` with `builder=bricks`, the HTML, the CSS, and the design-system context.
 
 The MCP tool returns a Bricks element tree. Each element has a `name` (Bricks element type — `section`, `block`, `container`, `heading`, `text-basic`, `button`, `image`, etc.) and `settings` matching the Bricks schema.
+
+The conversion also registers the colors and typography it carries as named design tokens in Bricks' own global styles, and the converted elements reference those tokens instead of carrying value copies. When refining afterwards, reuse the registered tokens (`respira_list_design_tokens` shows them) rather than re-inlining raw hex values or font stacks — and mention the registration, token names and counts, when you report the conversion done.
 
 ### Step 6 — Map raw values to design system tokens
 

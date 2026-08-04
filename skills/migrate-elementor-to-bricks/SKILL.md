@@ -5,16 +5,16 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 2.0.0
+  version: 2.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
 
 # Migrate Elementor to Bricks
 
-**Version:** 2.0.0
-**Updated:** 2026-06-30
-**Freshly updated:** v2.0.0 wires in current Respira safety and precision. Pre-migration now inventories source pages with `respira_find_builder_targets`. Every write is preceded by a `respira_get_snapshot`, and the existing draft-duplicate path is kept. After the first `respira_inject_builder_content`, validation issues (column widths, broken refs) are corrected surgically with `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-element or multi-page fixes) instead of re-injecting whole pages. Snapshot restore and draft deletion are now explicit rollback paths. Reflects the current 16 supported builders.
+**Version:** 2.1.0
+**Updated:** 2026-08-04
+**Freshly updated:** v2.1.0 adds design-token awareness: conversion writes now register the colors and typography they carry as named design tokens in Bricks' own global styles, and converted pages reference those tokens instead of carrying value copies. Reuse registered tokens instead of re-inlining raw values, and report the registration in the migration summary.
 
 Converts Elementor-built WordPress pages to Bricks Builder. Reads Elementor's JSON widget tree from post meta, maps each widget to its closest Bricks element equivalent, generates a migration plan for approval, and writes clean Bricks JSON to the target pages. Use this skill whenever someone wants to move from Elementor to Bricks, rebuild Elementor pages in Bricks, or switch page builders from Elementor to Bricks.
 
@@ -202,6 +202,7 @@ For each approved page:
 ### Phase 4: Post-Migration Verification
 
 1. Summarize all migrations:
+   - Design tokens registered in Bricks' global styles (token names and counts)
    - Pages migrated successfully
    - Total widgets converted
    - Items flagged for manual attention
@@ -217,6 +218,10 @@ For each approved page:
    - [ ] Review flagged items and recreate manually
    - [ ] Check forms and interactive elements
    - [ ] Compare side-by-side with Elementor original
+
+## Design Tokens
+
+Conversion writes now register the colors and typography they carry as named design tokens in Bricks' own global styles, and the converted pages reference those tokens instead of carrying value copies. When fixing or extending a migrated page, reuse the registered tokens (`respira_list_design_tokens` shows them) rather than re-inlining raw hex values or font stacks. And say so when you finish: the migration summary should name the tokens that were registered and note that migrated pages reference them.
 
 ## Safety Model
 

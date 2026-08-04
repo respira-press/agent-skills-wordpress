@@ -5,16 +5,16 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 2.0.0
+  version: 2.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
 
 # Migrate WPBakery to Gutenberg
 
-**Version:** 2.0.0
-**Updated:** 2026-06-30
-**Freshly updated:** v2.0.0 weaves in the current Respira safety and precision flow — `respira_find_builder_targets` to inventory and scope the WPBakery source pages up front, a `respira_get_snapshot` checkpoint before any write, and surgical fixes via `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-block or multi-page corrections) instead of rewriting whole pages. Rollback is now explicit (restore the snapshot, delete the draft duplicates). Reflects the current 16 supported builders.
+**Version:** 2.1.0
+**Updated:** 2026-08-04
+**Freshly updated:** v2.1.0 adds design-token awareness: conversion writes now register the colors and typography they carry as named design tokens in the block editor's own global styles, and converted pages reference those tokens instead of carrying value copies. Reuse registered tokens instead of re-inlining raw values, and report the registration in the migration summary.
 
 Converts WPBakery Page Builder (formerly Visual Composer) pages to native Gutenberg blocks. Parses WPBakery's shortcode-based content from post_content, maps each element to its closest core block equivalent, generates a migration plan for approval, and writes clean block markup to the target pages. Use this skill whenever someone wants to move from WPBakery to Gutenberg, eliminate the WPBakery dependency, switch to native blocks, or modernize an older WordPress site still running WPBakery.
 
@@ -259,6 +259,7 @@ For each approved page:
 ### Phase 4: Post-Migration Verification
 
 1. Summarize all migrations
+   - Design tokens registered in the block editor's global styles (token names and counts)
 2. For each migrated page:
    - Link to edit in Gutenberg
    - Flagged items
@@ -274,6 +275,10 @@ For each approved page:
    - [ ] Consider theme modernization if using an older WPBakery-bundled theme
    - [ ] Test page speed (expect significant improvement)
    - [ ] Search for any remaining vc_ shortcode remnants
+
+## Design Tokens
+
+Conversion writes now register the colors and typography they carry as named design tokens in the block editor's own global styles, and the converted pages reference those tokens instead of carrying value copies. When fixing or extending a migrated page, reuse the registered tokens (`respira_list_design_tokens` shows them) rather than re-inlining raw hex values or font stacks. And say so when you finish: the migration summary should name the tokens that were registered and note that migrated pages reference them.
 
 ## Safety Model
 

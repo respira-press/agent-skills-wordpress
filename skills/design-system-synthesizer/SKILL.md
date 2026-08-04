@@ -5,16 +5,16 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.2.0
+  version: 1.3.0
   mcp-server: respira-wordpress
   category: intelligence
 ---
 
 # Design System Synthesizer
 
-**Version:** 1.2.0
-**Updated:** 2026-06-30
-**Freshly updated:** v1.2.0 makes the synthesis safe and source-traceable end to end. Reads tokens from the actual builder content (`respira_extract_builder_content`) and theme files (`respira_read_theme_file` on style.css / theme.json) rather than guessing. Persists the design_system JSON via `respira_get_option` (diff first) + `respira_update_option`, and takes a `respira_get_snapshot` checkpoint before building the visible style-guide page with `respira_build_page` so the write is explicitly reversible (restore the snapshot, delete the draft). Applying tokens to a builder's global colors and typography is described in plain words since there is no confirmed MCP tool name for that path yet.
+**Version:** 1.3.0
+**Updated:** 2026-08-04
+**Freshly updated:** v1.3.0 catches up with the design-token surface. Builder global palettes and typography are now written through first-class token tools (`respira_list_design_tokens`, `respira_create_design_token`, `respira_update_design_token`, `respira_delete_design_token`), replacing v1.2.0's describe-it-in-plain-words guidance. HTML/design conversions register the colors and typography they carry as named tokens in the builder's own global styles automatically, and converted pages reference those tokens instead of carrying value copies — so the synthesizer reads what is already registered before synthesizing, reuses those names instead of re-inlining values, and reports token registration in its summary.
 **Category:** intelligence
 **Status:** stable
 **Requires:** Respira for WordPress plugin 7.1+ + MCP server
@@ -328,6 +328,8 @@ After page creation, output:
 
 **Human view:** {page_url} · status: private (editors only)
 
+**Builder tokens:** {n} tokens registered or aligned in {builder}'s global styles (`respira_list_design_tokens` to inspect), or "none — {builder} has no global token store"
+
 **Open it now:** [{page_title} in the editor]({builder_edit_url})
 
 **Promote to public:** call `respira_update_page(id={page_id}, status='publish')` if you want this visible on your site as a /design-system/ landing.
@@ -350,13 +352,15 @@ Once persisted, future skills (Page Template Library, Brand Voice Synthesizer, f
 
 ### Applying tokens to the builder's own global colors / typography
 
-Some builders (Bricks, Elementor, Divi, Oxygen) keep their own global color palette and global typography settings, separate from the page-level styles. Pushing the synthesized tokens into those global settings means future hand-edits in the builder also snap to the brand.
+Builders with a global store — the block editor family, Elementor, Divi, Bricks, Beaver, Breakdance, Oxygen — keep their own global color palette and typography settings, separate from the page-level styles. Pushing the synthesized tokens into that store means future hand-edits in the builder also snap to the brand.
 
-There is **no confirmed MCP tool name** for writing a builder's global palette today, so do not invent one (e.g. do not assume a `respira_*` design-system tool exists). The real path is the plugin's design-token import layer on the WordPress side (`includes/bricks-intelligence/class-design-token-import.php` and the design-system REST handler in `includes/class-respira-bricks-tools.php`), reached through the site, not a named MCP tool. In practice:
+That path is now first-class: `respira_list_design_tokens`, `respira_create_design_token`, `respira_update_design_token`, `respira_delete_design_token`. And HTML/design conversions register the colors and typography they carry as named tokens in that store automatically, with converted pages referencing the tokens instead of carrying value copies. In practice:
 
-- Persist the `respira_design_system` option (Step 8) — that is the canonical, tool-confirmed write.
-- Build the visible style-guide page (Step 9) so the tokens are visible and editable.
-- For pushing tokens into a builder's *global* palette/typography, describe the change to the user in plain words and let them apply it (or trigger the plugin's design-token import). Only reference a builder-token tool by name once you have grepped `includes/` and confirmed the exact registered name.
+- Start with `respira_list_design_tokens` — conversions may already have registered tokens on this site. Reuse those names rather than re-inlining raw values or inventing a parallel palette.
+- Persist the `respira_design_system` option (Step 8) — that stays the canonical machine artifact.
+- With the user's confirmation, register or align the synthesized tokens in the builder's global store via `respira_create_design_token` / `respira_update_design_token`.
+- Builders without a global store (Brizy, Thrive Architect, WPBakery, Visual Composer, Flatsome, SeedProd) register nothing — page-level values are the only surface there; say so instead of pretending.
+- Mention the token registration — names and counts — in the completion summary.
 
 This is the foundation. Every other content skill stands on it.
 
@@ -390,7 +394,12 @@ This is the foundation. Every other content skill stands on it.
 - `respira_build_page` — render the visible style-guide page in the active builder
 - `respira_restore_snapshot` + `respira_delete_page` — explicit rollback of the build
 
-Applying tokens to a builder's *global* colors/typography has **no confirmed MCP tool name** — describe it in plain words (see "Applying tokens to the builder's own global colors / typography" above). Never invent a builder-token tool name.
+**Builder global tokens**
+- `respira_list_design_tokens` — see what conversions already registered; always read before writing
+- `respira_create_design_token` / `respira_update_design_token` — register or align the synthesized tokens in the builder's global store (with user confirmation)
+- `respira_delete_design_token` — remove a token the user has retired
+
+No-store builders (Brizy, Thrive Architect, WPBakery, Visual Composer, Flatsome, SeedProd) have no global surface to write; skip token registration there and say so.
 
 ---
 

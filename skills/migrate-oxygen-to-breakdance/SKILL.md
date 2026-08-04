@@ -5,16 +5,16 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 2.0.0
+  version: 2.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
 
 # Migrate Oxygen to Breakdance
 
-**Version:** 2.0.0
-**Updated:** 2026-06-30
-**Freshly updated:** v2.0.0 weaves in the current Respira safety and precision flow — `respira_find_builder_targets` to inventory and scope source pages up front, a `respira_get_snapshot` checkpoint before any write, and surgical fixes via `respira_find_element` + `respira_update_element` (and `respira_batch_update` for multi-element or multi-page corrections) instead of re-injecting whole pages. Rollback is now explicit (restore the snapshot, delete the draft duplicates). Reflects the current 16 supported builders.
+**Version:** 2.1.0
+**Updated:** 2026-08-04
+**Freshly updated:** v2.1.0 adds design-token awareness: conversion writes now register the colors and typography they carry as named design tokens in Breakdance's own global styles, and converted pages reference those tokens instead of carrying value copies. Reuse registered tokens instead of re-inlining raw values, and report the registration in the migration summary.
 
 Full-site migration from Oxygen Builder to Breakdance. Audits every Oxygen-built page, maps components to their Breakdance equivalents, builds a migration plan for approval, and executes page-by-page conversion — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Oxygen to Breakdance, switching from Oxygen to Breakdance, converting Oxygen pages to Breakdance, or replacing Oxygen with Breakdance.
 
@@ -159,6 +159,7 @@ For each approved page:
 ### Phase 4: Post-Migration Verification
 
 1. Summarize all migrated pages with status:
+   - Design tokens registered in Breakdance's global styles (token names and counts)
    - Clean migrations (no issues)
    - Migrations with warnings (flagged items needing review)
    - Failed migrations (if any)
@@ -170,6 +171,10 @@ For each approved page:
    - Where to find duplicates in WordPress admin
    - How to preview Breakdance pages
    - How to delete duplicates if not wanted
+
+## Design Tokens
+
+Conversion writes now register the colors and typography they carry as named design tokens in Breakdance's own global styles, and the converted pages reference those tokens instead of carrying value copies. When fixing or extending a migrated page, reuse the registered tokens (`respira_list_design_tokens` shows them) rather than re-inlining raw hex values or font stacks. And say so when you finish: the migration summary should name the tokens that were registered and note that migrated pages reference them.
 
 ## Safety Model
 

@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: migration
 ---
@@ -111,7 +111,7 @@ Respira writes Elementor as a simplified tree of `{ type, widget, settings, elem
 
 **Images:** collect IMAGE fills, export from Figma, sideload with `respira_sideload_image`, and set the resulting media on the Elementor image widget/background.
 
-**Design system:** map the frame's distinct fill colors to Elementor global colors (primary/secondary/accent/text) so later edits stay on-brand.
+**Design system:** map the frame's distinct fill colors to Elementor global colors (primary/secondary/accent/text) so later edits stay on-brand. Conversion writes register these colors and the frame's typography as named design tokens in Elementor's own global styles, and the built page references the tokens instead of carrying value copies — when refining afterwards, reuse the registered tokens (`respira_list_design_tokens` shows them) rather than re-inlining raw values.
 
 ## Execution Workflow
 
@@ -142,7 +142,7 @@ For the approved frame:
 6. Report status for the frame before moving on.
 
 ### Phase 4: Verify
-1. Summarize: sections/widgets built, images imported, items flagged.
+1. Summarize: sections/widgets built, images imported, design tokens registered in Elementor's global styles (names and counts), items flagged.
 2. Provide the wp-admin/Elementor editor link to the draft.
 3. Give a checklist: open in the Elementor editor, check tablet/mobile, confirm images load, test links/buttons, review flagged items, compare against the Figma frame.
 
