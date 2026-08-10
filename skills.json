@@ -1337,6 +1337,109 @@
         "freshly_updated_until": "2026-11-30",
         "v1_0_0_changes": "Actively maintained alongside the WooCommerce add-on's 21-ability surface and storefront layout tools."
       }
+    },
+    {
+      "slug": "figma-to-divi",
+      "name": "Figma to Divi",
+      "description": "Rebuilds a Figma frame as an editable Divi page. Reads the Figma node tree and maps each node to native Divi sections, rows, columns and modules (Divi 5 blocks or Divi 4 shortcodes, auto-detected), writing to a draft so nothing live is touched.",
+      "category": "migration",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/figma-to-divi",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/figma-to-divi/SKILL.md",
+      "details": {
+        "hero_subtitle": "Hand a Figma frame to your agent and get a real, editable Divi page. Auto-layout becomes sections, rows and columns; text, color and images carry across; everything lands on a safe draft.",
+        "capabilities": [
+          {
+            "title": "Divi-native output",
+            "desc": "Real sections, rows, columns and modules in the generation your site runs — Divi 5 blocks or Divi 4 shortcodes — never pasted HTML."
+          },
+          {
+            "title": "Smart module recognition",
+            "desc": "FAQ stacks become Accordions, number+label pairs become Counters, icon cards become Blurbs, image rows become Galleries."
+          },
+          {
+            "title": "Panel-faithful styling",
+            "desc": "Inset rounded panels, framed images and shadows — the signatures of modern SaaS designs — carried via section styling and page CSS."
+          },
+          {
+            "title": "Screenshot-verified",
+            "desc": "The build is compared against the Figma frame visually before it is handed over, and drifted elements are fixed, not shipped."
+          }
+        ],
+        "freshly_updated_until": "2026-10-15"
+      }
+    },
+    {
+      "slug": "figma-to-bricks",
+      "name": "Figma to Bricks",
+      "description": "Rebuilds a Figma frame as an editable Bricks page with BEM global classes and the frame's palette imported into the Bricks design system. Writes to a draft so nothing live is touched.",
+      "category": "migration",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/figma-to-bricks",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/figma-to-bricks/SKILL.md",
+      "details": {
+        "hero_subtitle": "Hand a Figma frame to your agent and get a class-based, token-bound Bricks page — the kind a maintainer wants to inherit, not a pile of inline styles.",
+        "capabilities": [
+          {
+            "title": "BEM classes, not inline styles",
+            "desc": "Every Figma section becomes a scaffolded BEM block with styling on reusable global classes."
+          },
+          {
+            "title": "Palette into the design system",
+            "desc": "The frame's colors import into the Bricks color palette and CSS variables, with one-call rollback."
+          },
+          {
+            "title": "ACSS aware",
+            "desc": "When Automatic.css is installed, spacing and typography map onto ACSS utilities instead of raw values."
+          },
+          {
+            "title": "Health-checked",
+            "desc": "The Bricks health check runs after the build: orphans, duplicate ids, broken refs and empty containers get fixed before handover."
+          }
+        ],
+        "freshly_updated_until": "2026-10-15"
+      }
+    },
+    {
+      "slug": "figma-to-gutenberg",
+      "name": "Figma to Gutenberg",
+      "description": "Rebuilds a Figma frame as core Gutenberg blocks on any WordPress 6.6+ site — no page builder required. Registers the frame's palette in Global Styles and writes to a draft so nothing live is touched.",
+      "category": "migration",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/figma-to-gutenberg",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/figma-to-gutenberg/SKILL.md",
+      "details": {
+        "hero_subtitle": "Hand a Figma frame to your agent and get a page of plain core blocks any WordPress user can keep editing — with the design's palette registered in Global Styles.",
+        "capabilities": [
+          {
+            "title": "Core blocks only",
+            "desc": "Groups with flex layout, headings, paragraphs, images, buttons, details — a page that works on any theme with nothing extra installed."
+          },
+          {
+            "title": "Palette into Global Styles",
+            "desc": "The frame's colors register as named design tokens the whole site can reuse; blocks reference tokens, not hex copies."
+          },
+          {
+            "title": "Round-trip friendly",
+            "desc": "Prefers groups over columns for row layouts, so the page survives later agent reads and human edits faithfully."
+          },
+          {
+            "title": "Screenshot-verified",
+            "desc": "The build is compared against the Figma frame visually before handover."
+          }
+        ],
+        "freshly_updated_until": "2026-10-15"
+      }
     }
-  ]
+  ],
+  "last_updated": "2026-08-04"
 }
