@@ -1,6 +1,6 @@
 {
-  "version": "1.12.0",
-  "updated_at": "2026-08-13T17:31:56Z",
+  "version": "1.13.0",
+  "updated_at": "2026-08-13T22:04:43Z",
   "skills": [
     {
       "slug": "respira-setup-assistant",
@@ -920,7 +920,7 @@
       "description": "The taste layer for every page an agent builds. Loads the site's saved Art Direction before any visual work, plans tokens in two passes against the direction's donts and the known AI-default aesthetics, builds with tokens preserved, checks the result with respira_check_design (rendered mode on published pages), and mints a live preview so the human watches the real page. Also the import lane for Claude Design output and other design-system documents.",
       "category": "intelligence",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/art-direction",
@@ -945,8 +945,8 @@
             "desc": "respira_check_design runs after every build. On published pages, rendered mode fetches the real page and checks contrast, layout, and type scale with screenshot evidence. Every unwaived fail gets fixed before the work is called done."
           },
           {
-            "title": "Claude Design import lane",
-            "desc": "Bring output from Claude Design or any design-system document. Tokens convert to DTCG and import with a dry run and readiness delta first; voice, imagery guidance, and donts land in the direction's guidance. Guessed values carry inferred:true so the dashboard stays honest."
+            "title": "Figma and Claude Design import lanes",
+            "desc": "With Figma MCP access, read a file's variables (get_variable_defs), guess roles by name the same way the plugin does, and import as a DTCG dry run. Bring output from Claude Design or any design-system document the same way: tokens convert to DTCG with a dry run and readiness delta first; voice, imagery guidance, and donts land in the direction's guidance additively, on top of what is already saved. Guessed values carry inferred:true so the dashboard stays honest. Both lanes also run without an agent, on the dashboard's Import tokens panel."
           },
           {
             "title": "Live receipts",
@@ -1483,5 +1483,5 @@
       }
     }
   ],
-  "last_updated": "2026-08-13T17:31:56Z"
+  "last_updated": "2026-08-13T22:04:43Z"
 }
