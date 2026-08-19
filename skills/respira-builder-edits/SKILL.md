@@ -1,6 +1,7 @@
 ---
 name: respira-builder-edits
 description: Use for any in-page content edit on a WordPress site with a page builder. Covers finding elements, applying surgical edits, duplicating before large changes, and verifying the result. Works across Elementor 3 + 4, Divi 4 + 5, Beaver Builder, Bricks, Oxygen Classic, Oxygen 6, Breakdance, WPBakery, Uncode, and Gutenberg.
+license: MIT
 metadata:
   short-description: Safe, builder-native in-page editing across all supported builders
   version: 1.2.0

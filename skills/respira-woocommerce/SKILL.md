@@ -1,6 +1,7 @@
 ---
 name: respira-woocommerce
 description: Use for WooCommerce operations on a WordPress site. Listing, reading, creating, updating, and duplicating products. Managing categories and tags. Reading orders and updating order status. Stock management. Sales reports. Storefront layout edits. Builder-aware throughout. Requires the Respira WooCommerce add-on (paid).
+license: MIT
 metadata:
   short-description: Builder-aware WooCommerce product, category, order, stock, and storefront management
   version: 1.2.0

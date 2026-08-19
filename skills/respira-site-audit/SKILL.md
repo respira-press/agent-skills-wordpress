@@ -1,6 +1,7 @@
 ---
 name: respira-site-audit
 description: Use when asked to audit, score, or health-check a WordPress site or page. Runs SEO, AEO, readability, accessibility, performance, RankMath, and Core Web Vitals analyzers and presents a unified report with prioritised fixes.
+license: MIT
 metadata:
   short-description: Full site health check across SEO, AEO, accessibility, readability, and performance
   version: 1.1.0
