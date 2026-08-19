@@ -1,6 +1,6 @@
 {
-  "version": "1.13.0",
-  "updated_at": "2026-08-13T22:04:43Z",
+  "version": "1.14.0",
+  "updated_at": "2026-08-19T10:22:11Z",
   "skills": [
     {
       "slug": "respira-setup-assistant",
@@ -993,6 +993,41 @@
       }
     },
     {
+      "slug": "html-to-breakdance",
+      "name": "HTML to Breakdance",
+      "description": "Convert raw HTML/CSS into native Breakdance elements in _breakdance_data. Emits fully qualified EssentialElements types so nothing gets skip-rendered, binds colors, typography and spacing to Breakdance Variables, and reports every CodeBlock fallback instead of hiding it.",
+      "category": "migration",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/html-to-breakdance",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/html-to-breakdance/SKILL.md",
+      "details": {
+        "hero_subtitle": "Got HTML from a Webflow or Framer export and a Breakdance site to put it in? Convert it into real EssentialElements nodes, bound to your Breakdance Variables, with every raw-HTML fallback named rather than hidden.",
+        "capabilities": [
+          {
+            "title": "Breakdance-native conversion",
+            "desc": "Output is a tree of fully qualified EssentialElements types written into _breakdance_data. Lowercase generic types persist and then skip-render, so the skill checks every emitted type against the builder's own catalog before writing."
+          },
+          {
+            "title": "Variables instead of value copies",
+            "desc": "Raw hex colors, font sizes and spacing map onto registered Breakdance Variables, so changing a variable later moves the converted page with it."
+          },
+          {
+            "title": "Honest about the fallbacks",
+            "desc": "Forms and tables become CodeBlock, which is raw HTML in a box. The skill counts them and names the source elements rather than letting them pass as native conversion."
+          },
+          {
+            "title": "Meta-storage aware",
+            "desc": "Breakdance keeps the page in post meta, not post content, so the skill checks a duplicate's baseline snapshot is non-empty before converting into it, and never appends onto an empty extract."
+          }
+        ],
+        "freshly_updated_until": "2026-09-30",
+        "v1_0_0_changes": "Initial release. Requires plugin 8.6.32, which fixes the converter emitting an unregistered list class that made any document containing a list fail to convert to Breakdance at all."
+      }
+    },
+    {
       "slug": "page-template-library",
       "name": "Page Template Library Bootstrapper",
       "description": "Capture canonical page patterns (case study, service page, landing page hero + 3-up + CTA) as re-usable playbooks. Uses new v7.1 MCP tools respira_create_playbook + respira_list_playbooks + respira_update_playbook. Future page-generation skills spawn new pages from playbooks in seconds.",
@@ -1483,5 +1518,5 @@
       }
     }
   ],
-  "last_updated": "2026-08-13T22:04:43Z"
+  "last_updated": "2026-08-19T10:22:11Z"
 }
