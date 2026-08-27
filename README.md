@@ -14,7 +14,7 @@ Built by the community. Curated by Respira. Open source.
 Skills teach AI agents how to work with WordPress in ways that respect your site's architecture and your need for control.
 
 **Plain AI agent:** Generic guidance based on best practices  
-**Respira-powered skills:** Deep site access via 197 MCP tools, 302 with the WooCommerce add-on
+**Respira-powered skills:** Deep site access via 214 MCP tools, 319 with the WooCommerce add-on
 
 ---
 
