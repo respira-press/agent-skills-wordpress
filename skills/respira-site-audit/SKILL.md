@@ -4,9 +4,9 @@ description: Use when asked to audit, score, or health-check a WordPress site or
 license: MIT
 metadata:
   short-description: Full site health check across SEO, AEO, accessibility, readability, and performance
-  version: 1.1.0
-  updated_at: 2026-05-17
-  respira_min_version: 7.1.0
+  version: 1.2.0
+  updated_at: 2026-09-13
+  respira_min_version: 8.9.0
 ---
 
 # Respira Site Audit
@@ -22,11 +22,13 @@ metadata:
 | Treating AEO and SEO as interchangeable | SEO targets search rankings. AEO targets AI-generated answers. Both analyzers cover different signals and you usually want both. |
 | Not checking whether the page is published before auditing | Drafts and private pages may produce incomplete results. Confirm `status: publish` first. |
 | Using `extract_builder_content` when you only need structure | Use `respira_get_page_outline` for the "what is on this page" read. It is lighter and includes the primary heading per row. |
+| Calling a site secure because a security plugin is installed | Run `respira_run_security_audit` and report what it checked and what it could not. A partial scan or an unavailable vulnerability check is never "clean". |
+| Quoting `respira_get_core_web_vitals` as real-user data | It is a heuristic estimate from static analysis. Use `respira_run_pagespeed_audit` for Lighthouse lab data and CrUX field data. |
 
 ## Inputs
 
 - Target: a specific page URL, page ID, or "the whole site".
-- Scope: which analyzers to run. Default is all eight.
+- Scope: which analyzers to run. Default is all eight, plus the security audit on site-wide runs.
 - Output format: a summary for the user, or JSON for a CI / CD pipeline.
 
 ## Workflow
@@ -44,7 +46,7 @@ metadata:
    - `respira_scan_page_accessibility`. WCAG 2.1 AA violations, alt text, contrast.
    - `respira_analyze_images`. Per-image weight, format, oversize-by-X factor.
    - `respira_check_structured_data`. Schema.org presence per page.
-   - `respira_get_core_web_vitals`. CrUX-backed LCP, INP, CLS where available.
+   - `respira_run_pagespeed_audit`. PageSpeed Insights: Lighthouse lab metrics plus CrUX field data (LCP, INP, CLS at p75) when Google publishes it for the URL.
 5. Aggregate findings by severity: CRITICAL → WARNING → SUGGESTION.
 6. Build a prioritised fix list: quick wins first (alt text, missing meta) before structural changes.
 7. Report: headline score per area plus top 3 fixes per area.
@@ -54,6 +56,14 @@ metadata:
 1. `respira_list_pages` with `status: publish`. Collect all published page IDs.
 2. For each page, or a representative sample, run the single-page workflow above.
 3. Aggregate into a site-level summary: worst-performing pages, most common issue types, overall score bands.
+
+### Security (site-wide audits, or whenever security comes up)
+
+1. `respira_run_security_audit` once per site, not per page. Pass `deep_scan: true` on plugin 9.0 and later, where it only reads. On older plugins the deep scan also writes and deletes one inert probe file in uploads, so ask first there or leave it off. Never set `probe_uploads_execution` here; the WordPress Security Review skill asks for it with consent.
+2. Read `indicators` (every entry, with its `summary` and the `note` in its evidence), `coverage` (what was not checked) and `known_vulnerabilities` (plugin 9.0 and later: `status: ok` means the match ran and each match carries the version that fixes it; `unavailable` or `not_run` means it did not).
+3. Severity: a known vulnerability or a high-severity indicator is CRITICAL; a medium indicator is a WARNING; a coverage gap (`executable_file_scan` partial or not run, the host-level items marked false) is listed plainly as not checked.
+4. Never write "secure", "clean" or "no known vulnerabilities" when coverage is partial, when `known_vulnerabilities` is missing or its `status` is not `ok`, or when a high-severity indicator is present. Write "no problems found in what was checked" and name what was not checked.
+5. Fixes belong to the WordPress Security Review skill: updates are approval-gated and run one at a time, and nothing is deleted or revoked without the owner's yes.
 
 ### RankMath / Yoast integration
 
@@ -66,6 +76,7 @@ If RankMath, Yoast, AIOSEO, or SEOPress is active (visible in `respira_get_site_
 ## Rules
 
 - Always run `respira_get_site_context` first. Plugin presence (RankMath, Yoast, WooCommerce, ACF, WPML) changes which tools are relevant.
+- Security findings come from `respira_run_security_audit`, never from which security plugin is installed.
 - Severity taxonomy: every finding must be CRITICAL (broken or missing, hurts rankings or UX), WARNING (suboptimal, addressable), or SUGGESTION (optional improvement).
 - Do not recommend changes that bypass the builder. For element-level SEO fixes (alt text, heading hierarchy), use `respira_find_element` plus `respira_update_element` after confirming the builder.
 - For accessibility fixes, prefer `respira_apply_accessibility_fixes` over manual element edits where the tool covers the finding.
@@ -102,7 +113,7 @@ Goal: audit the homepage for SEO and AEO readiness.
 4. respira_analyze_aeo             → WARNING: no FAQ schema | SUGGESTION: add HowTo schema
 5. respira_analyze_rankmath        → Focus keyword score: 62/100, improve keyword density
 6. respira_scan_page_accessibility → WARNING: 2 buttons have no accessible label
-7. respira_get_core_web_vitals     → LCP 2.8s (needs improvement), INP 180ms (good), CLS 0.05 (good)
+7. respira_run_pagespeed_audit     → LCP 2.8s (needs improvement), INP 180ms (good), CLS 0.05 (good)
 
 Report:
   CRITICAL  → Add meta description (missing entirely)

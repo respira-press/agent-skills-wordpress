@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.0.1
   mcp-server: respira-wordpress
   category: commerce
 ---
@@ -39,7 +39,7 @@ So this reads sales, stock and catalogue quality before it writes a word, then d
 ## Requirements
 
 - WooCommerce with the Respira WooCommerce add-on, licensed
-- Enough order history for `get-sales-report` to say something useful. On a store with almost no orders, say that plainly and plan from stock and margin instead of pretending the data speaks.
+- Enough order history for `woocommerce_top_products` and `woocommerce_revenue_summary` to say something useful. On a store with almost no orders, say that plainly and plan from stock and margin instead of pretending the data speaks.
 
 ## Trigger Phrase
 
@@ -56,10 +56,10 @@ So this reads sales, stock and catalogue quality before it writes a word, then d
 
 ### Phase 1: Read the shop
 
-1. `get-sales-report` over the last 30 and 90 days. What sells, what is seasonal, what has stalled.
-2. `list-products-advanced` for stock and price on the candidates. A hero product that goes out of stock on day two is a campaign that ends on day two.
-3. `find-low-stock` to rule those out early.
-4. `analyze-catalog-quality` on the shortlist. A product with no image and a twelve-word description will not convert however good the campaign is, and fixing that comes first.
+1. `woocommerce_top_products` and `woocommerce_revenue_summary` over the last 30 and 90 days (pass `date_start` and `date_end`), then `woocommerce_sales_timeseries` with `interval: week`. What sells, what is seasonal, what has stalled.
+2. `woocommerce_list_products_advanced` for stock and price on the candidates. A hero product that goes out of stock on day two is a campaign that ends on day two.
+3. `woocommerce_find_low_stock` to rule those out early.
+4. `woocommerce_catalog_health` for the store, then `woocommerce_product_ai_readiness` on each shortlisted product. A product with no image and a twelve-word description will not convert however good the campaign is, and fixing that comes first.
 
 ### Phase 2: Propose, do not assume
 
@@ -78,7 +78,7 @@ If the promoted products have catalogue gaps, fix those first with Woo Catalog P
 ### Phase 4: Draft
 
 - Landing or category copy through `respira_create_page_duplicate` and the builder tools, never onto the live page
-- `update-product` for descriptions on the promoted set, staged
+- `woocommerce_update_product` for descriptions on the promoted set, staged
 - The offer itself through Woo Pricing and Promotions, previewed with `dry_run` first
 
 Every claim traces to something read in Phase 1. Prices come from the product, availability comes from stock, delivery claims come from the shipping settings or are not made.
@@ -87,9 +87,11 @@ Every claim traces to something read in Phase 1. Prices come from the product, a
 
 List the drafts, their preview links, and what remains a human decision: approving the pages, sending whatever is being sent, and the date the offer ends.
 
+For each draft page, `respira_create_share_link` gives a link anyone can open with no WordPress login. When the owner wants the people who sign off to comment on the page itself, send a Murmur review link instead (`respira_create_review_link`, Builder plan and up; on a lower plan the tool answers `respira_murmur_plan`, so fall back to the share link). The Murmur Review Loop skill picks up their notes.
+
 ### Phase 6: Afterwards
 
-When the campaign has run, `get-sales-report` for the window and compare against the plan. Say what worked and what did not, including when the answer is that the campaign made no measurable difference.
+When the campaign has run, `woocommerce_top_products` and `woocommerce_revenue_summary` for the window, and `woocommerce_agent_orders_report` for orders that arrived through agent cart links, and compare against the plan. Say what worked and what did not, including when the answer is that the campaign made no measurable difference.
 
 ## Safety Model
 
@@ -109,7 +111,7 @@ It can: pick candidates from real sales and stock rather than plausibility, stop
 
 ## Tooling
 
-`respira_woo_get-sales-report`, `respira_woo_agent-orders-report`, `respira_woo_list-products-advanced`, `respira_woo_find-low-stock`, `respira_woo_analyze-catalog-quality`, `respira_woo_update-product`, `respira_woo_create-coupon`, `respira_woo_schedule-sale`, `respira_create_page_duplicate`, `respira_update_element`, `respira_get_snapshot`
+`woocommerce_top_products`, `woocommerce_revenue_summary`, `woocommerce_sales_timeseries`, `woocommerce_agent_orders_report`, `woocommerce_list_products_advanced`, `woocommerce_find_low_stock`, `woocommerce_catalog_health`, `woocommerce_product_ai_readiness`, `woocommerce_update_product`, `woocommerce_create_coupon`, `woocommerce_schedule_sale`, `respira_create_page_duplicate`, `respira_update_element`, `respira_get_snapshot`, `respira_create_share_link`, `respira_create_review_link`
 
 ## Telemetry
 
@@ -120,6 +122,7 @@ After run completion, fire-and-forget to `POST https://www.respira.press/api/ski
 - Woo Pricing and Promotions (the offer the campaign runs on)
 - Woo Catalog Perfection (fix the products before promoting them)
 - Brand Voice Synthesizer (write in the store's own voice)
+- Murmur Review Loop (collect and apply the sign-off notes)
 - SEO & AEO Amplifier (make the campaign page findable)
 
 ---

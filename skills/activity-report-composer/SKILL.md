@@ -5,24 +5,24 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: respira-wordpress
   category: reporting
 ---
 
 # Activity Report Composer
 
-**Version:** 1.0.0
-**Updated:** 2026-05-24
+**Version:** 1.1.0
+**Updated:** 2026-09-13
 **Category:** reporting
 **Status:** stable
-**Requires:** Respira for WordPress plugin 7.1+ + MCP server
+**Requires:** Respira for WordPress plugin 9.0+ for the tool, 7.1+ through `respira_invoke_ability` + MCP server
 
 ---
 
 ## Description
 
-Turn the audit log of work done on a WordPress site into a polished, written report. This skill wraps the new v7.1 `respira_generate_activity_report` MCP tool, which returns structured data (totals, top tools used, hours saved, cost saved at agency rate, highlights). The skill then walks the agent through writing that data into one of six framings.
+Turn the audit log of work done on a WordPress site into a polished, written report. This skill wraps `respira_generate_activity_report` (plugin 9.0 and later list it as a tool; on older plugins call `respira_invoke_ability` with `ability: "respira/generate-activity-report"` and the same arguments under `args`), which returns structured data (totals, top tools used, hours saved, cost saved at agency rate, highlights). The skill then walks the agent through writing that data into one of six framings.
 
 The six framings:
 
@@ -72,7 +72,7 @@ Ask the user which of the six framings to use. If they don't say, recommend base
 
 ### Step 3 — Pull the structured data
 
-Call `respira_generate_activity_report` with the window and framing. The tool returns:
+Call `respira_generate_activity_report` with `window_days` (or `start_date` and `end_date`) and `framing` (`agency_client_report`, `agency_case_study`, `personal_recap`, `team_report`, `testimonial_draft` or `build_in_public`). Add `client_name` for a client report and `anonymize: true` for anything that will be published. If the tool is not in the list, the plugin is older than 9.0: call `respira_invoke_ability` with `ability: "respira/generate-activity-report"` and the same arguments under `args`. The tool returns:
 
 ```json
 {

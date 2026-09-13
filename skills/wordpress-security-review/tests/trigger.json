@@ -1,0 +1,25 @@
+{
+  "test_suite": "wordpress-security-review-trigger",
+  "version": "1.0.0",
+  "description": "Trigger phrase accuracy test: should fire on WordPress security, vulnerability and compromise questions, not on general audits or non-WordPress security",
+  "target_false_positive_rate": 0.05,
+  "target_false_negative_rate": 0.05,
+  "should_trigger": [
+    { "phrase": "is my site secure", "confidence": "high" },
+    { "phrase": "run a security audit", "confidence": "high" },
+    { "phrase": "check for vulnerabilities", "confidence": "high" },
+    { "phrase": "was my site hacked", "confidence": "high" },
+    { "phrase": "fix the vulnerable plugins", "confidence": "high" },
+    { "phrase": "security review", "confidence": "high" },
+    { "phrase": "are any of my plugins vulnerable", "confidence": "high" },
+    { "phrase": "who are the administrators on this site", "confidence": "medium" },
+    { "phrase": "is there a WordPress security update for my site", "confidence": "medium" }
+  ],
+  "should_not_trigger": [
+    { "phrase": "audit my site for SEO", "reason": "Respira Site Audit" },
+    { "phrase": "what plugins do I have installed", "reason": "WordPress Site DNA" },
+    { "phrase": "install Wordfence", "reason": "a plugin install request, not a review" },
+    { "phrase": "is my AWS account secure", "reason": "not WordPress" },
+    { "phrase": "update all my plugins", "reason": "a maintenance request with no security question; ask before treating it as one" }
+  ]
+}

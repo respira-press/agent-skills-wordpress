@@ -1,0 +1,25 @@
+{
+  "test_suite": "murmur-review-loop-trigger",
+  "version": "1.0.0",
+  "description": "Trigger phrase accuracy test: should fire when work needs a human reviewer or when review notes come back, not on general editing or sharing requests",
+  "target_false_positive_rate": 0.05,
+  "target_false_negative_rate": 0.05,
+  "should_trigger": [
+    { "phrase": "send this to my client", "confidence": "high" },
+    { "phrase": "get feedback on this page", "confidence": "high" },
+    { "phrase": "send a review link", "confidence": "high" },
+    { "phrase": "what did the client say", "confidence": "high" },
+    { "phrase": "work through the review notes", "confidence": "high" },
+    { "phrase": "resolve the murmurs", "confidence": "high" },
+    { "phrase": "let my colleague comment on the new homepage", "confidence": "medium" },
+    { "phrase": "are there any open notes on the about page", "confidence": "medium" },
+    { "phrase": "apply the client's feedback", "confidence": "medium" }
+  ],
+  "should_not_trigger": [
+    { "phrase": "change the hero heading", "reason": "a direct edit with no reviewer involved" },
+    { "phrase": "publish the new homepage", "reason": "publishing, not review" },
+    { "phrase": "share this post on LinkedIn", "reason": "social sharing, not a review link" },
+    { "phrase": "reply to the comments on my blog post", "reason": "WordPress post comments, not Murmur review notes" },
+    { "phrase": "write a client report for this month", "reason": "Activity Report Composer" }
+  ]
+}

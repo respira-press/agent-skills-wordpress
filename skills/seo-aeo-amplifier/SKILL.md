@@ -5,14 +5,14 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.3.0
+  version: 1.3.1
   mcp-server: respira-wordpress
   category: performance
 ---
 
 # SEO & AEO Amplifier
 
-**Version:** 1.3.0
+**Version:** 1.3.1
 **Updated:** 2026-06-30
 **Freshly updated:** v1.3.0 takes a snapshot with respira_get_snapshot before any edit so every change is one-click reversible, switches from full extract/inject to surgical respira_find_element + respira_update_element edits for meta titles, descriptions and H1s, applies schema and meta across many pages in a single safe pass with respira_batch_update, and wires respira_generate_activity_report into the "SEO work done -> client report" handoff. Also leans on the real SEO analysis tools (respira_analyze_seo, respira_analyze_aeo, respira_analyze_rankmath, respira_check_seo_issues, respira_check_structured_data) instead of hand-rolled scoring.
 
@@ -256,7 +256,7 @@ It can:
 - `respira_restore_snapshot` (one-click rollback)
 
 **Reporting**
-- `respira_generate_activity_report` (SEO work done -> client report)
+- `respira_generate_activity_report` (SEO work done -> client report; plugin 9.0 and later list it as a tool; on older plugins call `respira_invoke_ability` with `ability: "respira/generate-activity-report"` and the same arguments under `args`)
 
 **WooCommerce tools (optional)**
 - `woocommerce_list_products`

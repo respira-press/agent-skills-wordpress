@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.2.0
+  version: 1.2.1
   mcp-server: respira-wordpress
   category: audit
   requires-addon: woocommerce
@@ -13,7 +13,7 @@ metadata:
 
 # WooCommerce Health Check
 
-**Version:** 1.2.0
+**Version:** 1.2.1
 **Updated:** 2026-06-30
 **Freshly updated:** v1.2.0 adds real order/sales/stock diagnostics via the woocommerce_* read tools (woocommerce_list_orders, woocommerce_sales_report, woocommerce_get_stock_status), gives every detected issue a concrete safe-fix suggestion, uses respira_find_element to locate and validate the actual cart/checkout widgets and blocks, snapshots with respira_get_snapshot before any fix, and frames respira_generate_activity_report as a "prevented X lost orders / revenue protected" report.
 **Category:** audit
@@ -569,7 +569,7 @@ All tools below are provided by the `respira-wordpress` MCP server. Never call t
 | `respira_get_snapshot` | Snapshot before any fix (rollback point) | none |
 | `respira_restore_snapshot` | Roll back to a snapshot if a fix has side effects | snapshot id |
 | `respira_create_page_duplicate` | Duplicate-first page fixes (checkout/cart/mobile) | `{ id }` |
-| `respira_generate_activity_report` | "Revenue protected / prevented X lost orders" report | none |
+| `respira_generate_activity_report` | "Revenue protected / prevented X lost orders" report (plugin 9.0 and later list it as a tool; on older plugins call `respira_invoke_ability` with `ability: "respira/generate-activity-report"` and the same arguments under `args`) | none |
 | `woocommerce_list_orders` | Recent orders + status mix (failed/pending signal) | none |
 | `woocommerce_sales_report` | Sales totals over a period (size the impact) | period |
 | `woocommerce_get_stock_status` | Stock state per product (silent lost-sale flags) | none |

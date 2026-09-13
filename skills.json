@@ -1,6 +1,6 @@
 {
-  "version": "1.14.0",
-  "updated_at": "2026-08-19T10:22:11Z",
+  "version": "1.15.0",
+  "updated_at": "2026-09-13",
   "skills": [
     {
       "slug": "respira-setup-assistant",
@@ -8,7 +8,7 @@
       "description": "Diagnose your Respira MCP connection, walk through first-time setup, and fix common connection problems (timeouts, 401s, 403s, version mismatches).",
       "category": "onboarding",
       "author": "Respira for WordPress",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/respira-setup-assistant",
@@ -76,7 +76,7 @@
       "description": "Archaeological analysis of WordPress sites. Detects all page builders, audits plugins (active vs dead weight), maps content structure, finds orphaned shortcodes, measures performance, and assesses security posture.",
       "category": "audit",
       "author": "Respira for WordPress",
-      "version": "1.1.0",
+      "version": "1.3.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/wordpress-site-dna",
@@ -110,7 +110,7 @@
           },
           {
             "title": "Security Posture",
-            "desc": "SSL, admin exposure, file permissions, vulnerability scan"
+            "desc": "Runs the Respira security audit: core checksums, administrators, compromise indicators and coverage, plus known vulnerabilities on plugin 9.0. Says when a check did not run instead of calling the site clean."
           },
           {
             "title": "Technical Debt Score",
@@ -126,7 +126,8 @@
           "2.3GB of unoptimized images killing Core Web Vitals"
         ],
         "freshly_updated_until": "2026-05-31",
-        "v1_1_0_changes": "Swapped deprecated wordpress_* tool names to respira_*. Picked up v7.0.x backend fixes (Bricks settings normalisation, Beaver Box mappings + font-field stdClass + column size default, Oxygen Classic root wrapper + try/catch, Breakdance content path nesting + append unwrap, Divi 4 multi-tool bundle, Divi 5 _nodeId fallback + children-aliases fold, WPBakery + Uncode adapter pack). v7.1 Elementor 4 atomic-write surface referenced where relevant."
+        "v1_1_0_changes": "Swapped deprecated wordpress_* tool names to respira_*. Picked up v7.0.x backend fixes (Bricks settings normalisation, Beaver Box mappings + font-field stdClass + column size default, Oxygen Classic root wrapper + try/catch, Breakdance content path nesting + append unwrap, Divi 4 multi-tool bundle, Divi 5 _nodeId fallback + children-aliases fold, WPBakery + Uncode adapter pack). v7.1 Elementor 4 atomic-write surface referenced where relevant.",
+        "v1_3_0_changes": "The security step runs respira_run_security_audit instead of guessing from security plugin names, reads indicators, coverage and known vulnerabilities, and scores security only on what was checked."
       }
     },
     {
@@ -135,7 +136,7 @@
       "description": "Identifies technical debt in WordPress sites — orphaned shortcodes from deleted plugins, unused plugins, database bloat, unused media, builder data from inactive builders.",
       "category": "audit",
       "author": "Respira for WordPress",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/technical-debt-audit",
@@ -195,7 +196,7 @@
       "description": "WooCommerce configuration diagnostics — identifies checkout problems, cart errors, AJAX mismatches, caching issues, payment gateway setup, SSL enforcement. Revenue-impacting diagnostics.",
       "category": "audit",
       "author": "Respira for WordPress",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "mcp_server": "respira-wordpress",
       "requires_addon": "woocommerce",
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/woocommerce-health-check",
@@ -313,7 +314,7 @@
       "description": "Comprehensive on-page SEO and Answer Engine Optimization audit with automated duplicate creation and intelligent schema markup generation.",
       "category": "performance",
       "author": "Respira for WordPress",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/seo-aeo-amplifier",
@@ -358,7 +359,7 @@
       "description": "AI-powered image optimization that downloads images from WordPress, processes locally (compress, WebP conversion, resize, rename), uploads optimized versions, and updates all content references.",
       "category": "performance",
       "author": "Respira for WordPress",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/wordpress-ai-image-optimizer",
@@ -479,14 +480,15 @@
       "description": "Converts Elementor pages to Bricks Builder by reading Elementor JSON widget data, mapping each widget to its Bricks equivalent, and creating draft duplicates with clean Bricks JSON.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-elementor-to-bricks",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-bricks/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -495,14 +497,15 @@
       "description": "Converts Elementor pages to native WordPress Gutenberg blocks by mapping widgets to core blocks and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-elementor-to-gutenberg",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-gutenberg/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -511,14 +514,15 @@
       "description": "Converts Elementor pages to Breakdance Builder by mapping widgets to Breakdance elements and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-elementor-to-breakdance",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-breakdance/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -527,14 +531,15 @@
       "description": "Converts Elementor pages to Oxygen Builder by mapping widgets to Oxygen components and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-elementor-to-oxygen",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-elementor-to-oxygen/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -543,14 +548,15 @@
       "description": "Converts Divi pages to Bricks Builder by parsing shortcode content, mapping modules to Bricks elements, and generating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-divi-to-bricks",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-divi-to-bricks/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -559,14 +565,15 @@
       "description": "Converts Divi pages to native Gutenberg blocks by parsing shortcodes, mapping modules to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-divi-to-gutenberg",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-divi-to-gutenberg/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -575,14 +582,15 @@
       "description": "Converts Divi pages to Breakdance Builder by parsing shortcodes, mapping modules to Breakdance elements, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-divi-to-breakdance",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-divi-to-breakdance/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -591,14 +599,15 @@
       "description": "Converts WPBakery pages to native Gutenberg blocks by parsing shortcodes, mapping elements to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-wpbakery-to-gutenberg",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-wpbakery-to-gutenberg/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -607,14 +616,15 @@
       "description": "Converts WPBakery pages to Bricks Builder by parsing shortcodes, mapping elements to Bricks equivalents, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-wpbakery-to-bricks",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-wpbakery-to-bricks/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -623,14 +633,15 @@
       "description": "Converts Beaver Builder pages to native Gutenberg blocks by reading the flat node map, mapping modules to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-beaver-builder-to-gutenberg",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-beaver-builder-to-gutenberg/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -639,14 +650,15 @@
       "description": "Converts Beaver Builder pages to Bricks Builder by reading the flat node map, mapping modules to Bricks elements, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-beaver-builder-to-bricks",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-beaver-builder-to-bricks/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -655,14 +667,15 @@
       "description": "Converts Oxygen Builder pages to Bricks by mapping component trees to Bricks JSON elements and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-oxygen-to-bricks",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-oxygen-to-bricks/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -671,14 +684,15 @@
       "description": "Converts Oxygen Builder pages to Breakdance by mapping component trees to Breakdance elements and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-oxygen-to-breakdance",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-oxygen-to-breakdance/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -687,14 +701,15 @@
       "description": "Converts Brizy pages to native Gutenberg blocks by parsing Brizy JSON data, mapping elements to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-brizy-to-gutenberg",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-brizy-to-gutenberg/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -703,14 +718,15 @@
       "description": "Converts Thrive Architect pages to native Gutenberg blocks by parsing Thrive content, mapping elements to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-thrive-architect-to-gutenberg",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-thrive-architect-to-gutenberg/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -719,14 +735,15 @@
       "description": "Converts Visual Composer pages to native Gutenberg blocks by parsing VC data, mapping elements to core blocks, and creating draft duplicates for review.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "2.1.0",
+      "version": "2.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/migrate-visual-composer-to-gutenberg",
       "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/migrate-visual-composer-to-gutenberg/SKILL.md",
       "details": {
         "v2_1_0_changes": "v2.1.0 adds design-token awareness: conversion writes register the colors and typography they carry as named design tokens in the target builder's own global styles, and converted pages reference those tokens instead of carrying value copies. The skill now reuses registered tokens instead of re-inlining raw values and reports the registration in the migration summary.",
-        "freshly_updated_until": "2026-08-31"
+        "freshly_updated_until": "2026-08-31",
+        "v2_2_0_changes": "Adds the review hand-off: a Murmur review link for the migrated drafts (a share link below the Builder plan), notes resolved with the snapshot id, and a site-wide cache purge once the owner publishes."
       }
     },
     {
@@ -735,7 +752,7 @@
       "description": "Turn the audit log of work done on a WordPress site into a polished written report. Wraps the v7.1 respira_generate_activity_report MCP tool with six framings: agency client report, case study, internal recap, testimonial draft, build-in-public, personal recap.",
       "category": "reporting",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/activity-report-composer",
@@ -761,7 +778,8 @@
           }
         ],
         "freshly_updated_until": "2026-06-30",
-        "v1_0_0_changes": "Initial release in v7.1 Roots. Wraps the new respira_generate_activity_report MCP tool — the headline tool of Roots — with six prompting framings and three output formats."
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Wraps the new respira_generate_activity_report MCP tool — the headline tool of Roots — with six prompting framings and three output formats.",
+        "v1_1_0_changes": "Calls respira_generate_activity_report as a first-class tool on plugin 9.0 and later, with the exact framing values, and falls back to respira_invoke_ability with respira/generate-activity-report on older plugins."
       }
     },
     {
@@ -770,7 +788,7 @@
       "description": "Read 5-10 published posts and extract the brand voice — tone, lexicon, sentence patterns, person used, formality, signature phrases, phrases the site never uses. Persist it so every future content-writing skill produces copy that sounds like the brand, not like generic AI.",
       "category": "intelligence",
       "author": "Respira for WordPress",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/brand-voice-synthesizer",
@@ -796,7 +814,8 @@
           }
         ],
         "freshly_updated_until": "2026-06-30",
-        "v1_0_0_changes": "Initial release in v7.1 Roots. Part of the brand-foundation trio: Design System Synthesizer, Brand Voice Synthesizer, Page Template Library Bootstrapper."
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Part of the brand-foundation trio: Design System Synthesizer, Brand Voice Synthesizer, Page Template Library Bootstrapper.",
+        "v1_2_0_changes": "Saves the voice to Site Memory with respira_remember as two short preference entries, so every later session reads it through respira_get_site_context. Plugins older than 8.3 keep the respira_brand_voice option."
       }
     },
     {
@@ -875,7 +894,7 @@
       "description": "Read your site's representative pages, theme files, and media library to extract a complete reusable design system — logo, colors, typography, spacing scale, component patterns. Persist it as machine data AND generate a visible style-guide page on your site that renders the tokens visually.",
       "category": "intelligence",
       "author": "Respira for WordPress",
-      "version": "1.3.0",
+      "version": "1.4.2",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/design-system-synthesizer",
@@ -920,7 +939,7 @@
       "description": "The taste layer for every page an agent builds. Loads the site's saved Art Direction before any visual work, plans tokens in two passes against the direction's donts and the known AI-default aesthetics, builds with tokens preserved, checks the result with respira_check_design (rendered mode on published pages), and mints a live preview so the human watches the real page. Also the import lane for Claude Design output and other design-system documents.",
       "category": "intelligence",
       "author": "Respira for WordPress",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/art-direction",
@@ -953,7 +972,8 @@
             "desc": "A short-lived signed preview lets you watch the real page while work lands, and respira.press/dashboard/art-direction shows the saved direction, readiness, and apply reports."
           }
         ],
-        "freshly_updated_until": "2026-09-30"
+        "freshly_updated_until": "2026-09-30",
+        "v1_2_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
       }
     },
     {
@@ -962,7 +982,7 @@
       "description": "Convert raw HTML/CSS into native Bricks Builder elements. Maps colors, typography, and spacing to your design system tokens so the result is drift-resistant. ACSS class mapping when ACSS is installed.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/html-to-bricks",
@@ -989,7 +1009,8 @@
         ],
         "freshly_updated_until": "2026-08-31",
         "v1_1_0_changes": "v1.1.0 adds design-token awareness: the conversion registers the colors and typography it carries as named design tokens in Bricks' own global styles, and converted elements reference those tokens instead of carrying value copies. The skill reuses registered tokens when refining and reports the registration when done.",
-        "v1_0_0_changes": "Initial release in v7.1 Roots. Resolves the most-upvoted open feature request on the Respira board."
+        "v1_0_0_changes": "Initial release in v7.1 Roots. Resolves the most-upvoted open feature request on the Respira board.",
+        "v1_2_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
       }
     },
     {
@@ -998,7 +1019,7 @@
       "description": "Convert raw HTML/CSS into native Breakdance elements in _breakdance_data. Emits fully qualified EssentialElements types so nothing gets skip-rendered, binds colors, typography and spacing to Breakdance Variables, and reports every CodeBlock fallback instead of hiding it.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/html-to-breakdance",
@@ -1024,7 +1045,8 @@
           }
         ],
         "freshly_updated_until": "2026-09-30",
-        "v1_0_0_changes": "Initial release. Requires plugin 8.6.32, which fixes the converter emitting an unregistered list class that made any document containing a list fail to convert to Breakdance at all."
+        "v1_0_0_changes": "Initial release. Requires plugin 8.6.32, which fixes the converter emitting an unregistered list class that made any document containing a list fail to convert to Breakdance at all.",
+        "v1_1_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
       }
     },
     {
@@ -1033,7 +1055,7 @@
       "description": "Capture canonical page patterns (case study, service page, landing page hero + 3-up + CTA) as re-usable playbooks. Uses new v7.1 MCP tools respira_create_playbook + respira_list_playbooks + respira_update_playbook. Future page-generation skills spawn new pages from playbooks in seconds.",
       "category": "workflow",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.0.3",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/page-template-library",
@@ -1144,7 +1166,7 @@
       "description": "Build or rebuild pages on Oxygen 6 (Jenga) as native, editable elements instead of a single HTML block. Hands the agent Oxygen 6's structure: the element schemas, the header/footer/template post types, and the Template Content Area rule.",
       "category": "workflow",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/build-oxygen6-page",
@@ -1170,7 +1192,8 @@
           }
         ],
         "freshly_updated_until": "2026-07-31",
-        "v1_0_0_changes": "Initial release. Gives Oxygen 6 the native-build guidance that Divi and Bricks already had."
+        "v1_0_0_changes": "Initial release. Gives Oxygen 6 the native-build guidance that Divi and Bricks already had.",
+        "v1_1_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
       }
     },
     {
@@ -1179,7 +1202,7 @@
       "description": "Rebuilds a Figma frame as an editable Elementor page. Reads the Figma node tree (layers, auto-layout, text, color, images), maps each node to its Elementor widget or container, and writes clean Elementor JSON to a draft duplicate so nothing live is touched.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/figma-to-elementor",
@@ -1205,7 +1228,8 @@
           }
         ],
         "freshly_updated_until": "2026-09-30",
-        "v1_1_0_changes": "v1.1.0 adds design-token awareness: conversion writes register the frame's colors and typography as named design tokens in Elementor's own global styles, and the built page references those tokens instead of carrying value copies. The skill reuses registered tokens when refining and reports the registration in its summary."
+        "v1_1_0_changes": "v1.1.0 adds design-token awareness: conversion writes register the frame's colors and typography as named design tokens in Elementor's own global styles, and the built page references those tokens instead of carrying value copies. The skill reuses registered tokens when refining and reports the registration in its summary.",
+        "v1_2_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
       }
     },
     {
@@ -1340,10 +1364,10 @@
     {
       "slug": "respira-site-audit",
       "name": "Respira Site Audit",
-      "description": "Use when asked to audit, score, or health-check a WordPress site or page. Runs SEO, AEO, readability, accessibility, performance, RankMath, and Core Web Vitals analyzers and presents a unified report with prioritised fixes.",
+      "description": "Use when asked to audit, score, or health-check a WordPress site or page. Runs SEO, AEO, readability, accessibility, performance, RankMath, and Core Web Vitals analyzers and presents a unified report with prioritised fixes. On site-wide runs it adds the Respira security audit.",
       "category": "audit",
       "author": "Respira for WordPress",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/respira-site-audit",
@@ -1373,7 +1397,8 @@
           }
         ],
         "freshly_updated_until": "2026-11-30",
-        "v1_0_0_changes": "Actively maintained; aligned with the current analyzer set (respira_analyze_seo, respira_analyze_aeo, respira_analyze_readability, respira_analyze_images, respira_analyze_rankmath, respira_get_core_web_vitals, respira_check_structured_data)."
+        "v1_0_0_changes": "Actively maintained; aligned with the current analyzer set (respira_analyze_seo, respira_analyze_aeo, respira_analyze_readability, respira_analyze_images, respira_analyze_rankmath, respira_get_core_web_vitals, respira_check_structured_data).",
+        "v1_2_0_changes": "Adds a security section: respira_run_security_audit once per site, with indicators, coverage and known vulnerabilities reported without calling a partial scan clean. Uses respira_run_pagespeed_audit for real Core Web Vitals instead of the heuristic estimate."
       }
     },
     {
@@ -1421,7 +1446,7 @@
       "description": "Rebuilds a Figma frame as an editable Divi page. Reads the Figma node tree and maps each node to native Divi sections, rows, columns and modules (Divi 5 blocks or Divi 4 shortcodes, auto-detected), writing to a draft so nothing live is touched.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/figma-to-divi",
@@ -1446,7 +1471,8 @@
             "desc": "The build is compared against the Figma frame visually before it is handed over, and drifted elements are fixed, not shipped."
           }
         ],
-        "freshly_updated_until": "2026-10-15"
+        "freshly_updated_until": "2026-10-15",
+        "v1_1_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
       }
     },
     {
@@ -1455,7 +1481,7 @@
       "description": "Rebuilds a Figma frame as an editable Bricks page with BEM global classes and the frame's palette imported into the Bricks design system. Writes to a draft so nothing live is touched.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/figma-to-bricks",
@@ -1480,7 +1506,8 @@
             "desc": "The Bricks health check runs after the build: orphans, duplicate ids, broken refs and empty containers get fixed before handover."
           }
         ],
-        "freshly_updated_until": "2026-10-15"
+        "freshly_updated_until": "2026-10-15",
+        "v1_1_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
       }
     },
     {
@@ -1489,7 +1516,7 @@
       "description": "Rebuilds a Figma frame as core Gutenberg blocks on any WordPress 6.6+ site — no page builder required. Registers the frame's palette in Global Styles and writes to a draft so nothing live is touched.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/figma-to-gutenberg",
@@ -1514,7 +1541,8 @@
             "desc": "The build is compared against the Figma frame visually before handover."
           }
         ],
-        "freshly_updated_until": "2026-10-15"
+        "freshly_updated_until": "2026-10-15",
+        "v1_1_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
       }
     },
     {
@@ -1523,7 +1551,7 @@
       "description": "Run a sale, reprice a category, or set up a coupon on a live WooCommerce store. Every change is previewed in money before it happens, snapshotted when it does, and reversible afterwards.",
       "category": "commerce",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "mcp_server": "respira-wordpress",
       "requires_addon": "woocommerce",
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/woo-pricing-promotions",
@@ -1551,7 +1579,7 @@
           },
           {
             "title": "A named way back",
-            "desc": "Every price change carries a snapshot id, and revert-pricing puts it back."
+            "desc": "Every price change carries a snapshot id, and woocommerce_revert_pricing puts it back."
           }
         ],
         "expected_findings": [
@@ -1567,7 +1595,7 @@
       "description": "Plan and draft a campaign from what your store actually sells. Reads sales, stock and catalogue quality first, then drafts copy against real products at real prices, staged for approval.",
       "category": "commerce",
       "author": "Respira for WordPress",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "mcp_server": "respira-wordpress",
       "requires_addon": "woocommerce",
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/woo-marketing-campaigns",
@@ -1604,7 +1632,96 @@
           "Claims in draft copy that the store's own shipping or stock settings do not support."
         ]
       }
+    },
+    {
+      "slug": "murmur-review-loop",
+      "name": "Murmur Review Loop",
+      "description": "Send a page to the people who sign off on it with a Murmur review link, bring their notes back pinned to the element they point at, reply, apply each change on a duplicate, and resolve every note with the snapshot of the change.",
+      "category": "workflow",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/murmur-review-loop",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/murmur-review-loop/SKILL.md",
+      "example_prompts": [
+        "send this page to my client for review",
+        "what did the client say about the homepage",
+        "work through the open review notes"
+      ],
+      "details": {
+        "hero_subtitle": "The client taps the spot and types the note. The agent gets the page, the quoted text and the element under it, applies the change on a duplicate, and resolves the note with the snapshot.",
+        "capabilities": [
+          {
+            "title": "A link, not a login",
+            "desc": "The reviewer opens the page on any device with no WordPress account and leaves notes pinned to the exact spot. Murmur is on the Builder plan and up."
+          },
+          {
+            "title": "Triage before writing",
+            "desc": "Sorts the notes into changes, questions and decisions that belong to the owner, and shows the sort before anything changes."
+          },
+          {
+            "title": "Changes on a duplicate",
+            "desc": "Each change lands on a duplicate, on the element the note points at, never on the live page."
+          },
+          {
+            "title": "Resolved with the snapshot",
+            "desc": "Every note closes with what changed and the snapshot id of the write, so any change can be undone from the note."
+          }
+        ],
+        "expected_findings": [
+          "Two reviewers asking for opposite changes, held for the owner.",
+          "Notes whose anchor no longer matches because the page changed after the review started.",
+          "Questions that need a reply rather than a write."
+        ],
+        "v1_0_0_changes": "First release for Respira 9.0: the full Murmur loop over the seven review tools, with a share link as the fallback below the Builder plan."
+      }
+    },
+    {
+      "slug": "wordpress-security-review",
+      "name": "WordPress Security Review",
+      "description": "Run the Respira security audit, read its indicators, coverage and known vulnerabilities honestly, and fix what it finds one approved update at a time. Never calls a site clean when a check did not run.",
+      "category": "audit",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/wordpress-security-review",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/wordpress-security-review/SKILL.md",
+      "example_prompts": [
+        "is my site secure",
+        "check my plugins for known vulnerabilities",
+        "fix the vulnerable plugins"
+      ],
+      "details": {
+        "hero_subtitle": "Most security checks grade a site on whether a security plugin is installed. This one checks core files, administrators, credentials and known vulnerabilities, and says what it could not see.",
+        "capabilities": [
+          {
+            "title": "Evidence, not plugin names",
+            "desc": "Core checksums against WordPress.org, every administrator and application password, executable files where they should not be, and compromise indicators, each with a note."
+          },
+          {
+            "title": "Known vulnerabilities",
+            "desc": "Installed core, plugin and theme versions matched against the Wordfence vulnerability database, each with the version that fixes it (plugin 9.0 and later)."
+          },
+          {
+            "title": "Honest coverage",
+            "desc": "A partial scan is reported as partial and an unreachable vulnerability database as not checked. The report never rounds either up to clean."
+          },
+          {
+            "title": "Fixes behind approval",
+            "desc": "Plugin, theme and core security updates one at a time, each approval-gated, with a home-page check between steps. Nothing is deleted or revoked without an explicit yes."
+          }
+        ],
+        "expected_findings": [
+          "A plugin with a known vulnerability whose fix is one update away.",
+          "An administrator account created recently that the owner should confirm.",
+          "An application password on an administrator account nobody recognises.",
+          "An uploads scan that reached its limit, reported as partial rather than clean."
+        ],
+        "v1_0_0_changes": "First release for Respira 9.0: run_security_audit with deep_scan, the uploads probe only with consent, known vulnerabilities from the Wordfence database, and approval-gated fixes including update_theme and revoke_application_password."
+      }
     }
   ],
-  "last_updated": "2026-08-19T10:22:11Z"
+  "last_updated": "2026-09-13"
 }

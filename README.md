@@ -14,7 +14,7 @@ Built by the community. Curated by Respira. Open source.
 Skills teach AI agents how to work with WordPress in ways that respect your site's architecture and your need for control.
 
 **Plain AI agent:** Generic guidance based on best practices  
-**Respira-powered skills:** Deep site access via 214 MCP tools, 319 with the WooCommerce add-on
+**Respira-powered skills:** Deep site access via over 220 MCP tools, over 330 with the WooCommerce add-on
 
 ---
 
@@ -82,6 +82,16 @@ Store diagnostics: checkout issues, cart problems, payment gateway configuration
 **[Mobile Experience Report](skills/mobile-experience-report)**  
 Mobile layout analysis: responsive breakpoints, touch targets, navigation issues.  
 *By Respira for WordPress*
+
+**[WordPress Security Review](skills/wordpress-security-review)**  
+Runs the Respira security audit when you ask, reads its indicators, coverage and known vulnerabilities honestly, never calls a partial scan clean, and fixes what it finds one approved step at a time.  
+*By Respira for WordPress* · Theme updates and app password revocation need Respira for WordPress 9.0
+
+### Client Review
+
+**[Murmur Review Loop](skills/murmur-review-loop)**  
+Sends a Murmur review link, reads the notes your client pins to the page, replies, applies each change on a duplicate, and resolves every note with the snapshot of the change.  
+*By Respira for WordPress* · Murmur is on the Builder plan and up
 
 ### Performance Skills
 

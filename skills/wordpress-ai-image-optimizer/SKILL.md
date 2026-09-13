@@ -5,14 +5,14 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.2.0
+  version: 1.2.1
   mcp-server: respira-wordpress
   category: performance
 ---
 
 # WordPress AI Image Optimizer
 
-**Version:** 1.2.0
+**Version:** 1.2.1
 **Updated:** 2026-06-30
 **Freshly updated:** v1.2.0 replaces per-image `respira_update_media` loops with a single `respira_update_media_batch` pass (up to ~50 items at once), snapshots the media library with `respira_get_snapshot` before the batch so the whole run is one-step reversible, runs the audit through `respira_analyze_images`, surfaces optional stock replacements via `respira_search_stock_images` + `respira_sideload_image`, and closes with a `respira_generate_activity_report` summary (e.g. "optimized 47 images, saved 1.2GB").
 
@@ -209,7 +209,7 @@ Uses these Respira MCP tools:
 - `respira_restore_snapshot` (one-step revert)
 
 **Reporting:**
-- `respira_generate_activity_report` (run summary: images optimized, space saved, alt text added)
+- `respira_generate_activity_report` (run summary: images optimized, space saved, alt text added; plugin 9.0 and later list it as a tool; on older plugins call `respira_invoke_ability` with `ability: "respira/generate-activity-report"` and the same arguments under `args`)
 
 **Content Scanning:**
 - `respira_list_pages`

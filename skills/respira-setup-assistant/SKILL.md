@@ -5,18 +5,18 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.1.0
+  version: 1.2.0
   mcp-server: respira-wordpress
   category: onboarding
 ---
 
 # Respira Setup Assistant
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
+**Version:** 1.2.0
+**Updated:** 2026-05-24
 **Category:** onboarding
 **Status:** active
-**Freshly updated:** v1.1.0 picks up the v7.1 OAuth setup flow, the new respira_diagnose_connection tool for edge-layer blocks, and the install-skills npm command.
+**Freshly updated:** v1.2.0 reflects the v7.1 Roots React-first admin redesign. Setup walkthrough now references the new /wp-admin/admin.php?page=respira-v71-preview admin shell, the 11 new REST endpoints, and the command-K palette. Diagnostics aware of the 4 new builders (Spectra, Kadence Blocks, GenerateBlocks, SeedProd) and the upgraded Divi 5 108-module catalog.
 **Requires:** Respira for WordPress plugin (installs via this skill if missing)
 **Telemetry endpoint:** https://www.respira.press/api/skills/track-usage
 

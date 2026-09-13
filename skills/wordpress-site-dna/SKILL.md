@@ -5,16 +5,17 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.1.0
+  version: 1.3.0
   mcp-server: respira-wordpress
   category: audit
+  respira_min_version: 8.9.0
 ---
 
 # WordPress Site DNA
 
-**Version:** 1.1.0
-**Updated:** 2026-05-17
-**Freshly updated:** v1.1.0 swaps deprecated wordpress_* tool names to respira_*, picks up v7.0.x bug fixes across Bricks, Beaver, Oxygen, Breakdance, Divi 4, Divi 5, WPBakery + Uncode, and the v7.1 Elementor 4 atomic-write surface.
+**Version:** 1.3.0
+**Updated:** 2026-09-13
+**Freshly updated:** v1.3.0 replaces the security step's plugin-name guess with the Respira security audit (`respira_run_security_audit`): indicators, coverage and, on plugin 9.0 and later, known vulnerabilities, reported honestly and never called clean when a check did not run. v1.2.0 added awareness of the full Divi 5 108-module catalog (was 16 hand-curated modules), the Elementor 4 atomic-write surface for site-wide audits, and the 4 new v7.1 builders. Integrates with respira_generate_activity_report (a tool on plugin 9.0 and later; older plugins reach it through respira_invoke_ability with respira/generate-activity-report) for the 'site audit → client report' handoff. Cross-links to the new Activity Report Composer skill.
 **Category:** audit
 **Status:** beta
 **Requires:** Respira for WordPress plugin + MCP server
@@ -151,7 +152,7 @@ Categorize each plugin:
 - **active**: `active = true`, in use
 - **inactive**: `active = false`
 - **outdated**: `update_available = true`
-- **security_risk**: abandoned (>2 years no update) or known CVE
+- **security_risk**: abandoned (more than 2 years without an update) or listed in the security audit's `known_vulnerabilities` (Step 7)
 - **dead_weight**: installed, `active = false`, no evidence of use in content
 
 **Performance impact flags:**
@@ -208,18 +209,33 @@ Aggregate across sampled pages to estimate site-wide patterns.
 
 ### Step 7: Security Assessment
 
-Derive security posture from data already collected:
+Run the Respira security audit rather than guessing from plugin names. An installed security plugin says nothing about whether the site is patched.
+
+```
+Tool: respira_run_security_audit
+Input: { "deep_scan": true }
+```
+
+On plugin 9.0 and later the deep scan only reads. On older plugins it also writes and deletes one inert probe file in uploads, so leave `deep_scan` off there unless the owner agrees. Never set `probe_uploads_execution` in this skill: the WordPress Security Review skill asks for it with consent. If the tool is missing (a plugin older than 8.0.2), use the context checks below and say the security audit could not run.
 
 | Check | Source |
 |-------|--------|
+| Known vulnerabilities | `known_vulnerabilities` (plugin 9.0 and later): `status` `ok` means the match ran, and each match carries the version that fixes it |
+| Compromise indicators | `indicators`: every entry's `severity`, `summary` and the `note` in its evidence |
+| Core file integrity | the core checksum check in `checks`: files that differ from WordPress.org |
+| Administrators and credentials | the administrator and application password data in `checks`, and `coverage.recent_administrators` |
+| What was not checked | `coverage`: `executable_file_scan` (complete, partial or not_run) and the host-level items it marks false |
 | SSL/HTTPS | `respira_get_site_context` → site URL scheme |
 | WordPress version current | `respira_get_site_context` → respira_version |
 | PHP version supported | `respira_get_site_context` → php_version |
 | Debug mode disabled | `respira_get_site_context` → debug_mode |
-| Security plugin active | `respira_list_plugins` → scan for Wordfence, Sucuri, iThemes Security |
-| XML-RPC status | `respira_get_site_context` if exposed |
-| Admin username | Cannot be determined via MCP — note as "unable to verify, check manually" |
-| Login URL customized | Cannot be determined via MCP — note as "unable to verify, check manually" |
+| Security plugin installed | `respira_list_plugins` (informational; not scored) |
+| Login URL customized | Cannot be determined via MCP: note as "unable to verify, check manually" |
+
+Report it honestly:
+- Report every indicator, with its summary and note. Indicators are questions for the owner, not verdicts.
+- Never write "secure", "clean" or "no known vulnerabilities" when `coverage.executable_file_scan` is `partial` or `not_run`, when `known_vulnerabilities` is missing or its `status` is not `ok`, or when a high-severity indicator is present. Write "no problems found in what was checked" and name what was not checked.
+- Fixing is a separate, approval-gated step: hand it to the WordPress Security Review skill.
 
 ---
 
@@ -240,7 +256,7 @@ Builder Complexity (25 points):
   - 4+ builders: 3 pts
 
 Plugin Health (25 points):
-  - No security risks: 10 pts
+  - No plugin with a known vulnerability, and none abandoned: 10 pts (5 pts when the vulnerability check did not run: unknown is not clean)
   - <10% plugins outdated: 8 pts
   - <20% plugins inactive: 7 pts
 
@@ -250,9 +266,10 @@ Performance (15 points):
   - No major JS/CSS bloat: 5 pts
 
 Security (10 points):
-  - SSL active: 4 pts
-  - Security plugin active: 3 pts
-  - Debug mode off: 3 pts
+  - SSL active: 3 pts
+  - Debug mode off: 2 pts
+  - No high or medium indicators in the security audit: 3 pts
+  - Audit coverage complete (deep scan complete and the vulnerability check ran): 2 pts
 ```
 
 **Score labels:**
@@ -422,15 +439,19 @@ fetch("https://www.respira.press/api/skills/track-usage", {
 
 | Check | Status | Notes |
 |-------|--------|-------|
+| Known Vulnerabilities | [✅ none found / 🔴 n found / ⚠️ not checked] | [each match and the version that fixes it, or why the check did not run] |
+| Audit Indicators | [✅ none / ⚠️ / 🔴] | [each indicator's summary] |
+| Core Files | [✅/🔴] | [files that differ from WordPress.org] |
+| Administrators | [✅/⚠️] | [count, any created recently, application passwords] |
+| Scan Coverage | [✅ complete / ⚠️ partial / ⚠️ not run] | [what was not checked, including host cron, logs and backups] |
 | SSL/HTTPS | [✅/⚠️/🔴] | [details] |
-| Security Plugin | [✅/⚠️/🔴] | [Wordfence/Sucuri/None] |
 | PHP Version | [✅/⚠️/🔴] | [supported or EOL] |
 | WordPress Version | [✅/⚠️/🔴] | [current or outdated] |
 | Debug Mode | [✅/⚠️/🔴] | [on or off] |
-| Admin Username | ⚠️ Cannot verify via MCP — check manually |
-| Login URL | ⚠️ Cannot verify via MCP — check manually |
+| Security Plugin | ℹ️ | [installed or not; informational, not scored] |
+| Login URL | ⚠️ Cannot verify via MCP: check manually |
 
-**Risk Level:** [Low | Medium | High | Critical]
+**Risk Level:** [Low | Medium | High | Critical]. Never "Low" when a check did not run: say what was not checked.
 
 ---
 
@@ -478,8 +499,8 @@ these unused plugins: [list from report]"
 
 ### Fix Security Issues
 ```
-In Claude with Respira for WordPress: "Audit my WordPress security: check plugin versions,
-active security plugins, and PHP version support"
+In Claude with Respira for WordPress: "Run a WordPress security review: fix the known
+vulnerabilities one approved update at a time, then check the site again"
 ```
 
 ---

@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.0.1
   mcp-server: respira-wordpress
   category: commerce
 ---
@@ -35,7 +35,7 @@ Pricing is the one place on a store where a plausible-looking mistake costs real
 ## Requirements
 
 - WooCommerce with the Respira WooCommerce add-on, licensed
-- The store's own reporting for volume, which `get-sales-report` reads
+- The store's own sales history for volume, which `woocommerce_top_products` reads
 
 ## Trigger Phrase
 
@@ -55,8 +55,8 @@ Pricing is the one place on a store where a plausible-looking mistake costs real
 
 Never reprice from memory of what a product costs.
 
-1. `respira_woo_list-products-advanced` for the target set, or `get-product` for a named one. This also matters mechanically: reads are what the add-on records as provenance, and a write to something never read is annotated as unverified.
-2. `get-sales-report` over a comparable recent window, so the discount has a volume to be measured against.
+1. `woocommerce_list_products_advanced` for the target set, or `woocommerce_get_product` for a named one. This also matters mechanically: reads are what the add-on records as provenance, and a write to something never read is annotated as unverified.
+2. `woocommerce_top_products` over a comparable recent window (`date_start`, `date_end`), so the discount has a volume to be measured against.
 3. Note anything already on sale. Stacking a new sale on an existing one is the most common way a discount ends up twice as deep as intended.
 
 ### Phase 2: State it in money
@@ -73,15 +73,15 @@ Run the write with `dry_run: true` first, every time. The response lists each pr
 
 ### Phase 4: Write
 
-- `bulk-update-prices` for a repricing, or `schedule-sale` when it should end by itself
-- `create-coupon` for a code, with `usage_limit` set unless the user says otherwise, because an uncapped code is a liability
-- `add-sale-badge` if the storefront should show it
+- `woocommerce_bulk_update_prices` for a repricing (`change_type` percentage, absolute or set_value; `apply_to` regular_price, sale_price or both), or `woocommerce_schedule_sale` when it should end by itself
+- `woocommerce_create_coupon` for a code, with `usage_limit` set unless the user says otherwise, because an uncapped code is a liability
+- `woocommerce_add_sale_badge` if the storefront should show it (block themes only; run it with `dry_run: true` first)
 
 Snapshots are captured automatically. Report the snapshot ids.
 
 ### Phase 5: Confirm and hand back the undo
 
-State what changed, in money, and how to reverse it: `revert-pricing` with the product and snapshot id. If the sale was scheduled, say the date it ends without anyone acting.
+State what changed, in money, and how to reverse it: `woocommerce_revert_pricing` with the `product_id` and `snapshot_id`. If the sale was scheduled, say the date it ends without anyone acting.
 
 ## Safety Model
 
@@ -101,7 +101,7 @@ It can: show what a change costs before it happens, apply it consistently across
 
 ## Tooling
 
-`respira_woo_list-products-advanced`, `respira_woo_get-product`, `respira_woo_get-sales-report`, `respira_woo_bulk-update-prices`, `respira_woo_schedule-sale`, `respira_woo_revert-pricing`, `respira_woo_create-coupon`, `respira_woo_update-coupon`, `respira_woo_list-coupons`, `respira_woo_add-sale-badge`
+`woocommerce_list_products_advanced`, `woocommerce_get_product`, `woocommerce_top_products`, `woocommerce_revenue_summary`, `woocommerce_bulk_update_prices`, `woocommerce_schedule_sale`, `woocommerce_revert_pricing`, `woocommerce_create_coupon`, `woocommerce_update_coupon`, `woocommerce_list_coupons`, `woocommerce_add_sale_badge`
 
 ## Telemetry
 
