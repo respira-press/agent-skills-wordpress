@@ -5,15 +5,15 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.2.0
+  version: 1.3.0
   mcp-server: respira-wordpress
   category: migration
 ---
 
 # HTML to Bricks Builder
 
-**Version:** 1.2.0
-**Updated:** 2026-09-13
+**Version:** 1.3.0
+**Updated:** 2026-10-04
 **Category:** migration
 **Status:** stable
 **Requires:** Respira for WordPress plugin 7.1+ + Bricks Builder active + MCP server
@@ -83,7 +83,11 @@ In all modes, also accept inline `<style>` blocks and external `<link rel=styles
 
 ### Step 5 — Run the conversion
 
-Call `respira_convert_html_to_builder` with `builder=bricks`, the HTML, the CSS, and the design-system context.
+Call `respira_convert_html_to_builder` with `builder=bricks` and the whole document, head and `<style>` blocks included.
+
+**A document with a stylesheet converts in fidelity mode** (plugin 8.8.34+): the converter creates the page itself as a new draft, writes the file's structure one to one as Bricks sections and blocks with their own tags, keeps every class and id, and carries the stylesheet verbatim, scoped to the page, so the page looks like the file (hover states, transitions and keyframe animations included). The report says `mode: "fidelity"`. Read it, skip Steps 6 to 8, and go to Step 9. The html-to-page skill covers the input checklist and the report in full.
+
+The rest of this step and Steps 6 and 7 describe **restyle mode**: a document with no stylesheet, or `options.mode: "restyle"` when the user wants the design re-typed into Bricks settings, tokens and ACSS classes.
 
 The MCP tool returns a Bricks element tree. Each element has a `name` (Bricks element type — `section`, `block`, `container`, `heading`, `text-basic`, `button`, `image`, etc.) and `settings` matching the Bricks schema.
 
@@ -112,7 +116,7 @@ This is optional and gated on ACSS being present. If ACSS isn't installed, fall 
 
 ### Step 8 — Inject into the page
 
-For a new page: call `respira_build_page` with the Bricks element tree as the page body.
+For a new page: the conversion already created it as a draft. Do not call `respira_build_page` with the result; that writes a second page.
 
 For an existing page: call `respira_create_page_duplicate` first (SafeEdit), then `respira_inject_builder_content` against the duplicate.
 
@@ -132,7 +136,8 @@ If anything is off, the user can refine in the Bricks editor directly. Common is
 
 - HTML elements Bricks doesn't have a 1:1 mapping for (e.g. `<details>` collapsible → mapped to Bricks accordion)
 - Forms — HTML `<form>` doesn't convert into Bricks Form element 1:1. Flag and ask the user to wire the form fields manually.
-- Custom animations — CSS keyframes don't convert. Flag.
+- Custom animations: in fidelity mode CSS keyframes carry with the stylesheet; in restyle mode they don't convert. Flag them in restyle mode.
+- Scripts are not carried in either mode; anything the page does only in JavaScript is lost. Name it.
 
 Then run `respira_check_design` (pass the converted page's `post_id`) before treating the conversion as done, and fix every unwaived fail it reports. When the page is published, prefer `rendered: true` so structure and contrast get checked too, not just the stored content.
 
@@ -148,7 +153,7 @@ When the converted page is on a duplicate or a draft, share the draft with whoev
 - **Never inject HTML directly into the page body.** If the conversion can't map an HTML element to a Bricks element, the skill must report the failure and let the user decide. Do not fall back to a "code block" element that pastes raw HTML — that recreates the do-not-write-raw-HTML failure mode.
 - **External assets are flagged, not mirrored.** Don't silently download external images and side-load them. Flag them so the user explicitly decides to mirror.
 - **Always SafeEdit on existing pages.** Never convert HTML into a live page directly. Duplicate first.
-- **Design system tokens take precedence over raw values.** When a CSS hex matches a design system color, use the token. Always.
+- **In restyle mode, design system tokens take precedence over raw values.** When a CSS hex matches a design system color, use the token. In fidelity mode the file is the design: its own `:root` tokens register as Bricks tokens, and the site's direction is not applied.
 
 ---
 

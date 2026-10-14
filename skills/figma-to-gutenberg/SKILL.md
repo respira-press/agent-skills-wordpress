@@ -21,7 +21,7 @@ Rebuilds a Figma frame as a real, editable block-editor page — no page builder
 - Text nodes → `core/heading` (level inferred from font size) or `core/paragraph`
 - Rectangles/ellipses with image fills → `core/image`; lines → `core/separator`; buttons → `core/buttons` + `core/button`
 - Repeated patterns by layer name + structure: FAQ stacks → `core/details`, image rows → `core/gallery`, quote-shaped blocks → `core/quote`
-- Typography (size, weight, line-height, letter-spacing, alignment) via block supports; families noted for the theme
+- Typography (size, weight, line-height, letter-spacing, alignment) via block supports; the frame's font families and type-scale sizes registered as `fontFamilies` and `fontSizes` presets in Global Styles (`respira_create_design_token` with type `typography`), and a family passed with `role: body` or `role: heading` set as the site-wide body or heading font. Weights are not registered
 - Colors: solid fills and gradients on blocks; **the frame's distinct palette registered as named design tokens in Global Styles** (`respira_create_design_token`) so the page references tokens the whole site can reuse
 - Spacing from Figma padding/item spacing via block gap and padding supports; per-corner radius and shadows where block supports allow
 - Image fills downloaded from Figma and sideloaded into the media library

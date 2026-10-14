@@ -14,7 +14,7 @@ metadata:
 
 **Version:** 2.2.0
 **Updated:** 2026-09-13
-**Freshly updated:** v2.1.0 adds design-token awareness: conversion writes now register the colors and typography they carry as named design tokens in the block editor's own global styles, and converted pages reference those tokens instead of carrying value copies. Reuse registered tokens instead of re-inlining raw values, and report the registration in the migration summary.
+**Freshly updated:** v2.1.0 adds design-token awareness: conversion writes register the colors, font families and font sizes they carry as named presets in the block editor's own global styles (the palette, fontFamilies and fontSizes), and converted pages reference those presets instead of carrying value copies. A font token named for the body or heading also sets the site-wide body or heading font; font weights are not registered. Reuse registered tokens instead of re-inlining raw values, and report the registration in the migration summary.
 
 Full-site migration from Brizy Builder to the WordPress block editor (Gutenberg). Audits every Brizy-built page, maps components to their Gutenberg block equivalents, builds a migration plan for approval, and executes page-by-page conversion into native block markup — all through duplicates so your live site stays untouched. Use this skill whenever someone mentions migrating from Brizy to Gutenberg, switching from Brizy to blocks, converting Brizy pages to the block editor, or moving away from Brizy to native WordPress.
 
@@ -192,7 +192,7 @@ For each approved page:
 
 ## Design Tokens
 
-Conversion writes now register the colors and typography they carry as named design tokens in the block editor's own global styles, and the converted pages reference those tokens instead of carrying value copies. When fixing or extending a migrated page, reuse the registered tokens (`respira_list_design_tokens` shows them) rather than re-inlining raw hex values or font stacks. And say so when you finish: the migration summary should name the tokens that were registered and note that migrated pages reference them.
+Conversion writes register the colors, font families and font sizes they carry as named presets in the block editor's own global styles: colors in the palette, font stacks in `settings.typography.fontFamilies`, type-scale sizes in `settings.typography.fontSizes` (a size counts as a font size when its token name says so, such as `--text-h1`, `--font-size-base` or `--fs-lead`; other lengths go to spacing). A font token named for the body or heading (`--font-body`, `--font-heading`) also sets `styles.typography.fontFamily` or the heading element's font family, which is what changes the site's fonts. Font weights are not registered. The converted pages reference those presets instead of carrying value copies. When fixing or extending a migrated page, reuse the registered tokens (`respira_list_design_tokens` shows them) rather than re-inlining raw hex values or font stacks. And say so when you finish: the migration summary should name the tokens that were registered and note that migrated pages reference them.
 
 ## Safety Model
 

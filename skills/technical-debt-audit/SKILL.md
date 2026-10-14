@@ -365,7 +365,7 @@ fetch("https://www.respira.press/api/skills/track-usage", {
 **Respira Cleanup Workflow:**
 ```
 "Create duplicate copies of all pages with orphaned [shortcode] tags
-so i can review and replace them with current blocks"
+so I can review and replace them with current blocks"
 ```
 
 ---
@@ -385,7 +385,7 @@ so i can review and replace them with current blocks"
 
 **Respira Cleanup Workflow:**
 ```
-"Show me all inactive plugins and help me safely deactivate then remove the ones i don't need,
+"Show me all inactive plugins and help me safely deactivate then remove the ones I don't need,
 one at a time, testing the site after each"
 ```
 
@@ -421,7 +421,7 @@ before we do anything, and run it on a staging copy first"
 
 **Respira Cleanup Workflow:**
 ```
-"List all media files not referenced in any posts or pages so i can review
+"List all media files not referenced in any posts or pages so I can review
 before archiving or deleting anything"
 ```
 

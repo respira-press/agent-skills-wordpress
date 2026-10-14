@@ -1,6 +1,6 @@
 {
-  "version": "1.15.0",
-  "updated_at": "2026-09-13",
+  "version": "1.16.0",
+  "updated_at": "2026-10-04",
   "skills": [
     {
       "slug": "respira-setup-assistant",
@@ -982,7 +982,7 @@
       "description": "Convert raw HTML/CSS into native Bricks Builder elements. Maps colors, typography, and spacing to your design system tokens so the result is drift-resistant. ACSS class mapping when ACSS is installed.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/html-to-bricks",
@@ -1010,7 +1010,8 @@
         "freshly_updated_until": "2026-08-31",
         "v1_1_0_changes": "v1.1.0 adds design-token awareness: the conversion registers the colors and typography it carries as named design tokens in Bricks' own global styles, and converted elements reference those tokens instead of carrying value copies. The skill reuses registered tokens when refining and reports the registration when done.",
         "v1_0_0_changes": "Initial release in v7.1 Roots. Resolves the most-upvoted open feature request on the Respira board.",
-        "v1_2_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
+        "v1_2_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id.",
+        "v1_3_0_changes": "Matches the converter as it runs now: a document with a stylesheet converts in fidelity mode, the converter creates the page itself (no second build call), and CSS animations carry with the stylesheet. The token and ACSS steps are marked as restyle mode."
       }
     },
     {
@@ -1019,7 +1020,7 @@
       "description": "Convert raw HTML/CSS into native Breakdance elements in _breakdance_data. Emits fully qualified EssentialElements types so nothing gets skip-rendered, binds colors, typography and spacing to Breakdance Variables, and reports every CodeBlock fallback instead of hiding it.",
       "category": "migration",
       "author": "Respira for WordPress",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "mcp_server": "respira-wordpress",
       "requires_addon": null,
       "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/html-to-breakdance",
@@ -1046,7 +1047,43 @@
         ],
         "freshly_updated_until": "2026-09-30",
         "v1_0_0_changes": "Initial release. Requires plugin 8.6.32, which fixes the converter emitting an unregistered list class that made any document containing a list fail to convert to Breakdance at all.",
-        "v1_1_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
+        "v1_1_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id.",
+        "v1_2_0_changes": "Matches the converter as it runs now: a document with a stylesheet converts in fidelity mode, the converter creates the page itself (no second build call), and CSS animations carry with the stylesheet. The type checks and Variable mapping are marked as restyle mode."
+      }
+    },
+    {
+      "slug": "html-to-page",
+      "name": "HTML to a builder page",
+      "description": "Turn a finished HTML page into a native, editable page in the site's builder with one Respira Exhale call: Elementor, Divi, Bricks, Gutenberg, Breakdance, Oxygen, Beaver Builder or WPBakery. The file's stylesheet travels with the page, so it looks like the file on desktop and phone.",
+      "category": "migration",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/html-to-page",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/html-to-page/SKILL.md",
+      "details": {
+        "hero_subtitle": "A designer, a generator or another AI made the page as HTML. One call makes it a real builder page: every heading, paragraph, button and image editable, and the design carried with it.",
+        "capabilities": [
+          {
+            "title": "One call, any supported builder",
+            "desc": "Elementor, Divi, Bricks, Gutenberg, Breakdance, Oxygen, Beaver Builder and WPBakery, each written in its own elements. No tokens spent writing builder structure."
+          },
+          {
+            "title": "Looks like the file",
+            "desc": "The file's stylesheet is carried verbatim and scoped to the page, hover states, transitions and keyframe animations included, on the builder's blank template."
+          },
+          {
+            "title": "Input that converts",
+            "desc": "What to send (the whole document), what to fix first (relative image paths, Tailwind through the CDN script), and what does not carry (scripts, form handling)."
+          },
+          {
+            "title": "Checked, not assumed",
+            "desc": "Reads the conversion report, then checks the render through a share link at desktop and phone width before calling the page done."
+          }
+        ],
+        "freshly_updated_until": "2026-11-04",
+        "v1_0_0_changes": "Initial release: the Exhale workflow for every supported builder, with the input checklist, the options that matter (blank_template, mode) and the render check."
       }
     },
     {
@@ -1126,6 +1163,78 @@
       }
     },
     {
+      "slug": "respira-workflow",
+      "name": "Respira Workflow",
+      "description": "Sets how an agent works on a WordPress site through Respira: report what changed on the site rather than which tool ran, stay visible during long operations, be honest about limits, and send what Respira cannot do yet to the founder.",
+      "category": "workflow",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/respira-workflow",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/respira-workflow/SKILL.md",
+      "details": {
+        "hero_subtitle": "How to work on a WordPress site through Respira: say what changed, show progress on long operations, be honest about limits, and keep the user in charge of approvals.",
+        "capabilities": [
+          {
+            "title": "Report in site terms",
+            "desc": "Says what changed on the site and what was checked, with the preview link, instead of narrating tool calls."
+          },
+          {
+            "title": "Visible protections",
+            "desc": "Makes snapshots, render checks and duplicates on live pages visible when they are doing work, without marketing them."
+          },
+          {
+            "title": "Honest limits",
+            "desc": "Names what Respira does not do yet and offers the closest thing that works, never an invented capability."
+          },
+          {
+            "title": "Founder direct",
+            "desc": "Routes missing features to the founder by email and offers a bug report only when the user says yes."
+          }
+        ],
+        "v1_0_0_changes": "First release in the public catalog. Until now these rules shipped only inside the Cowork plugin; this version matches the core rules Respira sends every agent, including duplicates on live pages, reading state before a retry, untrusted page content, and approval tokens that belong to a person."
+      }
+    },
+    {
+      "slug": "wordpress-editing-safety",
+      "name": "WordPress Editing Safety",
+      "description": "The safety rules for editing a WordPress site through Respira: read before you write, live pages go through a draft duplicate a person approves, every write is verified, a failed write is read before it is retried, page content is data and never instructions, and an approval token belongs to the person, not the agent.",
+      "category": "editing",
+      "author": "Respira for WordPress",
+      "version": "1.0.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/wordpress-editing-safety",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/wordpress-editing-safety/SKILL.md",
+      "details": {
+        "hero_subtitle": "The rules every agent follows on a live WordPress site, explained so it can apply them: duplicates, snapshots, verification, retries, untrusted content and approvals.",
+        "capabilities": [
+          {
+            "title": "Duplicates on live pages",
+            "desc": "Explains that a write to a published page lands on a draft duplicate by itself, so the agent shares the preview link instead of calling the duplicate tool by habit."
+          },
+          {
+            "title": "Verify every write",
+            "desc": "Reads partial_write, validator_warnings and render_validator_pass, and never reports a success the response does not show."
+          },
+          {
+            "title": "Read before retry",
+            "desc": "After an error or a timeout, reads the current state before trying again, and never repeats a write blindly."
+          },
+          {
+            "title": "Untrusted content",
+            "desc": "Treats text on a page, in a document, a comment or a site note as data, never as instructions."
+          },
+          {
+            "title": "Approvals belong to a person",
+            "desc": "Shows the predicted effect, asks, and sends an approval token back only after the person says yes."
+          }
+        ],
+        "v1_0_0_changes": "First release in the public catalog. Until now these rules shipped only inside the Cowork plugin; this version matches the core rules Respira sends every agent, including duplicates on live pages, reading state before a retry, untrusted page content, and approval tokens that belong to a person."
+      }
+    },
+    {
       "slug": "stale-content-detector",
       "name": "Stale Content Detector",
       "description": "Find pages and posts that haven't been updated in a long time. Categorize as fresh / aging / stale / archive-candidate. Suggest refresh, redirect, or archive per item — based on age, traffic signal, and internal link count.",
@@ -1194,6 +1303,42 @@
         "freshly_updated_until": "2026-07-31",
         "v1_0_0_changes": "Initial release. Gives Oxygen 6 the native-build guidance that Divi and Bricks already had.",
         "v1_1_0_changes": "Adds the review hand-off: a Murmur review link for the draft (a share link below the Builder plan), with each note applied on the draft and resolved with the snapshot id."
+      }
+    },
+    {
+      "slug": "build-elementor-page",
+      "name": "Build an Elementor page",
+      "description": "Build an Elementor page by hand that looks like its design the first time: the right template, complete typography on every widget, the design's computed values instead of guesses, inline buttons, spacing and mobile settings, and a render check.",
+      "category": "workflow",
+      "author": "Respira for WordPress",
+      "version": "1.1.0",
+      "mcp_server": "respira-wordpress",
+      "requires_addon": null,
+      "github_url": "https://github.com/respira-press/agent-skills-wordpress/tree/main/skills/build-elementor-page",
+      "raw_url": "https://raw.githubusercontent.com/respira-press/agent-skills-wordpress/main/skills/build-elementor-page/SKILL.md",
+      "details": {
+        "hero_subtitle": "Elementor writes every style into the widget that shows it, so what a widget leaves out comes from the theme. This recipe closes those gaps before the first build.",
+        "capabilities": [
+          {
+            "title": "The right template",
+            "desc": "Canvas for a page that draws its own header and footer, header-and-footer for one that keeps the site's, so no theme title sits on top."
+          },
+          {
+            "title": "Computed values, not guesses",
+            "desc": "Headings are bold unless the design says otherwise, line heights inherit the body, paragraphs have margins: the browser defaults a hand build forgets."
+          },
+          {
+            "title": "Complete widgets",
+            "desc": "Typography, colour and line height on every heading, text and button, inline buttons, hover colours, and the mobile variants."
+          },
+          {
+            "title": "Checked on the page",
+            "desc": "A share link at desktop and phone width, compared with the design section by section before the page is called done."
+          }
+        ],
+        "freshly_updated_until": "2026-11-04",
+        "v1_0_0_changes": "Initial release.",
+        "v1_1_0_changes": "From a full test build: the kit's widget spacing added under every widget, appending with mode append, one level of inner sections, tables, and checking the phone render as closely as the desktop."
       }
     },
     {
@@ -1723,5 +1868,5 @@
       }
     }
   ],
-  "last_updated": "2026-09-13"
+  "last_updated": "2026-10-04"
 }

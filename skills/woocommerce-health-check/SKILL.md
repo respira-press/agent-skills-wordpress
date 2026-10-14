@@ -15,7 +15,7 @@ metadata:
 
 **Version:** 1.2.1
 **Updated:** 2026-06-30
-**Freshly updated:** v1.2.0 adds real order/sales/stock diagnostics via the woocommerce_* read tools (woocommerce_list_orders, woocommerce_sales_report, woocommerce_get_stock_status), gives every detected issue a concrete safe-fix suggestion, uses respira_find_element to locate and validate the actual cart/checkout widgets and blocks, snapshots with respira_get_snapshot before any fix, and frames respira_generate_activity_report as a "prevented X lost orders / revenue protected" report.
+**Freshly updated:** v1.2.0 adds real order/sales/stock diagnostics via the woocommerce_* read tools (woocommerce_list_orders, woocommerce_revenue_summary, woocommerce_get_stock_status), gives every detected issue a concrete safe-fix suggestion, uses respira_find_element to locate and validate the actual cart/checkout widgets and blocks, snapshots with respira_get_snapshot before any fix, and frames respira_generate_activity_report as a "prevented X lost orders / revenue protected" report.
 **Category:** audit
 **Status:** active
 **Requires:** Respira for WordPress plugin + MCP server + WooCommerce (`requires_addon: woocommerce`)
@@ -142,11 +142,12 @@ Look at order status mix over a recent window:
 - Many `cancelled` after `pending` can mean session/cart loss before payment.
 
 ```
-Tool: woocommerce_sales_report
-Returns: Sales totals over a period
+Tool: woocommerce_revenue_summary
+Args: date_start, date_end (store timezone; default the last 30 days)
+Returns: Gross, discounts, refunds, tax, shipping and net revenue over the period, with the statuses counted and how many orders it covered
 ```
 
-Use the sales report to size the impact: a sudden drop against a prior period quantifies how much revenue the configuration issues are putting at risk, which feeds the "revenue protected" framing in the final report.
+Use the revenue summary to size the impact: run it for the recent window and for the period before it, and a sudden drop between the two quantifies how much revenue the configuration issues are putting at risk, which feeds the "revenue protected" framing in the final report.
 
 ```
 Tool: woocommerce_get_stock_status
@@ -385,7 +386,7 @@ This skill is read-only by default. When the user approves a fix, every change f
 After the audit (and any approved fixes), turn the work into a store-owner-facing report with `respira_generate_activity_report`.
 
 Frame it around protected revenue, not raw tool calls:
-- Tie the failed/pending order rate and the `woocommerce_sales_report` drop you measured in Step 4 to an estimate of orders that were being lost.
+- Tie the failed/pending order rate and the `woocommerce_revenue_summary` drop you measured in Step 4 to an estimate of orders that were being lost.
 - After fixes, state what was restored: "checkout widget re-inserted, caching exclusions added, X products corrected back in stock."
 - The activity report becomes the "prevented X lost orders / revenue protected" summary the owner can keep or hand to a client, with the snapshot id as the documented rollback point.
 
@@ -571,7 +572,7 @@ All tools below are provided by the `respira-wordpress` MCP server. Never call t
 | `respira_create_page_duplicate` | Duplicate-first page fixes (checkout/cart/mobile) | `{ id }` |
 | `respira_generate_activity_report` | "Revenue protected / prevented X lost orders" report (plugin 9.0 and later list it as a tool; on older plugins call `respira_invoke_ability` with `ability: "respira/generate-activity-report"` and the same arguments under `args`) | none |
 | `woocommerce_list_orders` | Recent orders + status mix (failed/pending signal) | none |
-| `woocommerce_sales_report` | Sales totals over a period (size the impact) | period |
+| `woocommerce_revenue_summary` | Revenue over a period, net of refunds (size the impact) | date_start, date_end |
 | `woocommerce_get_stock_status` | Stock state per product (silent lost-sale flags) | none |
 | `woocommerce_update_stock` | Correct a confirmed stock data error (after snapshot) | product + stock |
 

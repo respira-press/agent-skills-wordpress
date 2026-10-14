@@ -5,15 +5,15 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.1.0
+  version: 1.2.0
   mcp-server: respira-wordpress
   category: migration
 ---
 
 # HTML to Breakdance
 
-**Version:** 1.1.0
-**Updated:** 2026-09-13
+**Version:** 1.2.0
+**Updated:** 2026-10-04
 **Category:** migration
 **Status:** stable
 **Requires:** Respira for WordPress plugin 8.6.32+ + Breakdance active + MCP server
@@ -100,7 +100,7 @@ Oxygen 6, its types are `OxygenElements\*` and this skill does not apply.
 
 Call `respira_get_active_site`. Ask:
 
-- *"Convert the HTML into a new page (i'll create it), or into an existing page (you tell me which)?"*
+- *"Convert the HTML into a new page (I'll create it), or into an existing page (you tell me which)?"*
 - If existing: confirm the page ID and say plainly that a SafeEdit duplicate gets created first.
 
 ### Step 3: Pull the design direction if present
@@ -131,8 +131,19 @@ Fetch the text of external stylesheets so the style mapper has something to read
 
 ### Step 5: Run the conversion
 
-Call `respira_convert_html_to_builder` with `builder=breakdance`, the HTML, the CSS, and the
-design-system context.
+Call `respira_convert_html_to_builder` with `builder=breakdance` and the whole document, head
+and `<style>` blocks included.
+
+**A document with a stylesheet converts in fidelity mode** (plugin 9.0.19+): the converter
+creates the page itself as a new draft, writes the file's structure one to one as Breakdance
+elements, keeps every class and id, and carries the stylesheet verbatim, scoped to the page, so
+the page looks like the file (hover states, transitions and keyframe animations included). The
+report says `mode: "fidelity"`. Read it, then go to Step 8. The html-to-page skill covers the
+input checklist and the report in full.
+
+The rest of this step and Step 6 describe **restyle mode**: a document with no stylesheet, or
+`options.mode: "restyle"` when the user wants the design re-typed into Breakdance settings and
+Variables.
 
 The tool returns a Breakdance tree. Check the returned `type` on every node before you go
 further: each one must be a fully qualified `EssentialElements\*` class, and it must be one the
@@ -175,7 +186,8 @@ Report the registration, the variable names and the counts, when you report the 
 
 ### Step 7: Convert on a duplicate
 
-For a new page: call `respira_build_page` with the Breakdance tree as the page body.
+For a new page: the conversion already created it as a draft. Do not call
+`respira_build_page` with the result; that writes a second page.
 
 For an existing page: call `respira_create_page_duplicate` first (SafeEdit), then
 `respira_inject_builder_content` against the duplicate.
@@ -217,7 +229,10 @@ Common things to flag:
 - Forms. An HTML `<form>` does not become a Breakdance Form Builder element. It becomes a
   CodeBlock. Flag it and offer to rebuild the fields in Form Builder.
 - Tables. Same story, CodeBlock.
-- CSS keyframe animations. They do not convert. Flag.
+- CSS keyframe animations. In fidelity mode they carry with the stylesheet; in restyle mode
+  they do not convert. Flag them in restyle mode.
+- Scripts. They are not carried in either mode; anything the page does only in JavaScript is
+  lost. Name it.
 
 Finally run `respira_check_design` (pass the converted page's `post_id`) and fix every unwaived
 fail. When the page is published, prefer `rendered: true` so structure and contrast are checked

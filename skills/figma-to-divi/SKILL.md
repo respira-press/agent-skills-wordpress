@@ -71,9 +71,15 @@ Call `respira_get_builder_info` first. On Divi 5 the write mode is native `divi/
 - Top-level frame → `divi/section`; HORIZONTAL auto-layout child → `divi/row` with one `divi/column` per child; VERTICAL → modules stacked in one column
 - IMAGE fill → `divi/image` (sideloaded first); `LINE` → `divi/divider`
 - FAQ stack → `divi/accordion` + `divi/accordion-item`; icon+title+body card → `divi/blurb`; number+label → `divi/number-counter`
-- Buttons: real `divi/button` modules; for pixel-close adjacent button pairs, a `divi/text` module with styled inline links is an accepted fallback (flag it in the report)
+- Buttons: real `divi/button` modules. For a pixel-close pair of adjacent buttons, put two `divi/button` modules in a two-column row. A `divi/text` with styled inline links only when the user accepts inline styling, sent with `allow_inline_styles: true` (flag it in the report)
 - Inset rounded panels: section `background_color` + page-level custom CSS (max-width, margin auto, border-radius) via `respira_update_page` `custom_css`
-- Typography/colors/spacing: simplified settings (`heading_font_size`, `font_color`, `background_color`, `padding`, ...) per the inline schemas
+- Typography/colors/spacing: simplified settings (`heading_font_size`, `font_color`, `background_color`, `padding`, `text_transform`, `border_width`, `opacity`, ...) per the inline schemas
+
+**Native attributes are the default on Divi 5.** Every write lands styling as the module's own design attributes, the ones the client edits in the Visual Builder: settings keys, CSS property names (`text-transform`, `border`) and a `style=""` on the element that wraps a module's whole content all become native attributes. Two things are not written:
+- A style Divi 5 has no setting for, or a style on part of a text (a `<span>` inside a sentence), comes back in the write result's `unmapped_styles`, one entry per style with the element, the property and the reason. The rest of the write landed. Read the list, give that text its own module or leave the style out, and tell the user what did not carry over. Do not retry the same write.
+- A `divi/code` module is refused (`respira_divi5_code_module_refused`, nothing written); the error names the native module to use. Use a code module only when the user explicitly asks for one, for example a third-party embed or a script, and then send `allow_code_modules: true`.
+
+`allow_inline_styles: true` keeps inline styles exactly as sent. Use it only when the user asks for that; the result is styling the client cannot edit in the Visual Builder.
 
 ## Execution Workflow
 

@@ -117,7 +117,7 @@ Output a short briefing in this exact shape:
 **Active builder:** {builder_name} {builder_version}
 **Content surface:** {page_count} pages · {custom_post_count} custom posts · {plugin_count} plugins
 **Multisite:** {yes/no}
-**From memory:** {one-line gist of the site_memory block, or "nothing stored yet, i'll start a brief at the end"}
+**From memory:** {one-line gist of the site_memory block, or "nothing stored yet, I'll start a brief at the end"}
 
 **Working rules I'll follow on this site:**
 - Every page edit goes through {builder_name}'s native modules. No raw HTML.
@@ -188,9 +188,9 @@ For the active builder, use this tool stack (in order of preference for each ope
 **Never use:**
 - `respira_update_page` with raw HTML for content changes. This replaces the entire page body and bypasses the builder — the result is a "code page" with no editable widgets. `respira_update_page` is only for page title, slug, status, or custom CSS.
 
-### 3. Always duplicate-before-edit on live pages
+### 3. Live pages go through a duplicate
 
-Before changing any page that is published and indexed, call `respira_create_page_duplicate`. Edit the duplicate. Show the user the duplicate URL. Let them review before promoting the duplicate to the live page. This is SafeEdit, and it has saved more than one customer site from a regret.
+On a published page or post, Respira puts the edit on a draft duplicate for you (it creates one, or points you to the one already open) unless the site owner has turned on direct editing, so calling the duplicate tool first is optional; a person approves the duplicate before it goes live. Show the user the duplicate's preview link and let them approve it before it goes live. Call `respira_create_page_duplicate` yourself only when you want the copy before the first edit, for example to share a preview or stage several changes. This is SafeEdit, and it has saved more than one customer site from a regret.
 
 ### 4. Load inline schemas before any write
 
