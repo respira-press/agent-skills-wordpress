@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.2.0
+  version: 1.2.1
   mcp-server: respira-wordpress
   category: workflow
 ---
@@ -190,7 +190,7 @@ For the active builder, use this tool stack (in order of preference for each ope
 
 ### 3. Live pages go through a duplicate
 
-On a published page or post, Respira puts the edit on a draft duplicate for you (it creates one, or points you to the one already open) unless the site owner has turned on direct editing, so calling the duplicate tool first is optional; a person approves the duplicate before it goes live. Show the user the duplicate's preview link and let them approve it before it goes live. Call `respira_create_page_duplicate` yourself only when you want the copy before the first edit, for example to share a preview or stage several changes. This is SafeEdit, and it has saved more than one customer site from a regret.
+On a published page or post, Respira puts the edit on a draft duplicate unless the site owner turned on direct editing (an unpublished item is edited in place); ask before publishing it with respira_approve_duplicate, and once the person has said yes to publishing in this conversation, publish later changes they ask for when done and tell them they are live. Show the user the duplicate's preview link and let them approve it before it goes live. Call `respira_create_page_duplicate` yourself only when you want the copy before the first edit, for example to share a preview or stage several changes. This is SafeEdit, and it has saved more than one customer site from a regret.
 
 ### 4. Load inline schemas before any write
 

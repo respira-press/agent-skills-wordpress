@@ -4,7 +4,7 @@ description: Use for any in-page content edit on a WordPress site with a page bu
 license: MIT
 metadata:
   short-description: Safe, builder-native in-page editing across all supported builders
-  version: 1.2.0
+  version: 1.2.1
   updated_at: 2026-05-17
   respira_min_version: 7.1.0
 ---
@@ -35,7 +35,7 @@ metadata:
 
 1. **Understand the site.** Call `respira_get_site_context` and `respira_get_builder_info` if you haven't already.
 2. **Understand the page.** Call `respira_get_page_outline` for a fast structural read, or `respira_find_element` if you already know what to target.
-3. **Live pages go through a duplicate.** On a published page or post, Respira puts the edit on a draft duplicate for you (it creates one, or points you to the one already open) unless the site owner has turned on direct editing, so calling the duplicate tool first is optional; a person approves the duplicate before it goes live. Every page write also saves a snapshot first, so there is nothing to create by hand.
+3. **Live pages go through a duplicate.** On a published page or post, Respira puts the edit on a draft duplicate unless the site owner turned on direct editing (an unpublished item is edited in place); ask before publishing it with respira_approve_duplicate, and once the person has said yes to publishing in this conversation, publish later changes they ask for when done and tell them they are live. Every page write also saves a snapshot first, so there is nothing to create by hand.
 4. **Find the element.** `respira_find_element` with the most specific selector available: text content, CSS class, widget type, or element ID. Bricks 2.3.x + Divi 5 surface both `id` and `attrs._nodeId`; either works.
 5. **Apply the edit.** `respira_update_element` with only the fields that change. For multi-element edits on the same page, prefer `respira_batch_update`.
 6. **Verify.** Re-read the element and confirm the change is reflected. For Divi 5, also check the front-end if it's a CSS or style-driven change because the renderer has its own paths.

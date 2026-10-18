@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: "Respira for WordPress"
   author_url: https://respira.press
-  version: 1.0.1
+  version: 1.0.2
   mcp-server: respira-wordpress
   category: commerce
 ---
@@ -30,7 +30,7 @@ Pricing is the one place on a store where a plausible-looking mistake costs real
 - **Decide the discount.** Depth is a margin decision. This skill will tell you what a discount costs against recent sales volume; it will not pick one.
 - **Beat the guardrails.** A move over 50%, a discount deeper than 70%, or a price under 0.50 comes back blocked. That is the add-on refusing, and it is refusing on purpose. Say so plainly and ask, rather than resending with the override.
 - **Touch tax, currency, or payment configuration.**
-- **Reprice a variable product's parent and hope.** Variations carry their own prices; name them.
+- **Reprice a variable product's parent and hope.** Variations carry their own prices; name them. A new variation on a live product is a new price too: from add-on 4.1.7 `woocommerce_create_variation` and `woocommerce_generate_variations` preview it first, and the same call with `confirm: true` creates it after the person says yes.
 
 ## Requirements
 
@@ -69,11 +69,11 @@ Ask before writing. A percentage sounds smaller than the money it is.
 
 ### Phase 3: Preview
 
-Run the write with `dry_run: true` first, every time. The response lists each product with its old and new prices and names anything the guardrails would block. Show that list. A preview is cheap and a repricing is not.
+Run the write without `confirm` first, every time: from add-on 4.1.6 the price and stock tools preview unless `confirm: true` is sent (older add-ons need `dry_run: true`). The response lists each product with its old and new prices and names anything the guardrails would block. Show that list and wait for a yes. A preview is cheap and a repricing is not.
 
 ### Phase 4: Write
 
-- `woocommerce_bulk_update_prices` for a repricing (`change_type` percentage, absolute or set_value; `apply_to` regular_price, sale_price or both), or `woocommerce_schedule_sale` when it should end by itself
+- `woocommerce_bulk_update_prices` for a repricing (`change_type` percentage, absolute or set_value; `apply_to` regular_price, sale_price or both), or `woocommerce_schedule_sale` when it should end by itself; the same arguments as the preview plus `confirm: true`
 - `woocommerce_create_coupon` for a code, with `usage_limit` set unless the user says otherwise, because an uncapped code is a liability
 - `woocommerce_add_sale_badge` if the storefront should show it (block themes only; run it with `dry_run: true` first)
 
@@ -101,7 +101,7 @@ It can: show what a change costs before it happens, apply it consistently across
 
 ## Tooling
 
-`woocommerce_list_products_advanced`, `woocommerce_get_product`, `woocommerce_top_products`, `woocommerce_revenue_summary`, `woocommerce_bulk_update_prices`, `woocommerce_schedule_sale`, `woocommerce_revert_pricing`, `woocommerce_create_coupon`, `woocommerce_update_coupon`, `woocommerce_list_coupons`, `woocommerce_add_sale_badge`
+`woocommerce_list_products_advanced`, `woocommerce_get_product`, `woocommerce_top_products`, `woocommerce_revenue_summary`, `woocommerce_bulk_update_prices`, `woocommerce_schedule_sale`, `woocommerce_create_variation`, `woocommerce_generate_variations`, `woocommerce_revert_pricing`, `woocommerce_create_coupon`, `woocommerce_update_coupon`, `woocommerce_list_coupons`, `woocommerce_add_sale_badge`
 
 ## Telemetry
 

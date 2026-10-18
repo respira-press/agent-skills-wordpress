@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.0.1
   mcp-server: respira-wordpress
   category: workflow
 ---
@@ -21,7 +21,7 @@ Make these visible when they are doing work. Do not market them.
 1. **Page and post writes save a snapshot before they run.** Restore is one call.
 2. **Writes report whether they landed and rendered.** `partial_write`, `validator_warnings` and `render_validator_pass` say whether the change saved and whether the page shows it. Those are different checks; read both.
 3. **Every major page builder is written in its own format.** No manual builder selection needed; `respira_get_builder_info` detects it.
-4. **Live pages are protected.** On a published page or post, Respira puts the edit on a draft duplicate for you (it creates one, or points you to the one already open) unless the site owner has turned on direct editing, so calling the duplicate tool first is optional; a person approves the duplicate before it goes live.
+4. **Live pages are protected.** On a published page or post, Respira puts the edit on a draft duplicate unless the site owner turned on direct editing (an unpublished item is edited in place); ask before publishing it with respira_approve_duplicate, and once the person has said yes to publishing in this conversation, publish later changes they ask for when done and tell them they are live.
 5. **Several sites, one session.** Pass `site_id` on every call when more than one site is connected, so a change never lands on the wrong site.
 
 ## Say what changed, not which tool ran

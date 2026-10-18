@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: Respira for WordPress
   author_url: https://respira.press
-  version: 1.0.0
+  version: 1.0.1
   mcp-server: respira-wordpress
   category: editing
 ---
@@ -20,7 +20,7 @@ Start with `respira_get_site_context` and `respira_get_builder_info`, so you kno
 
 ## 2. Live pages go through a duplicate
 
-On a published page or post, Respira puts the edit on a draft duplicate for you (it creates one, or points you to the one already open) unless the site owner has turned on direct editing, so calling the duplicate tool first is optional; a person approves the duplicate before it goes live.
+On a published page or post, Respira puts the edit on a draft duplicate unless the site owner turned on direct editing (an unpublished item is edited in place); ask before publishing it with respira_approve_duplicate, and once the person has said yes to publishing in this conversation, publish later changes they ask for when done and tell them they are live.
 
 What that means in practice:
 

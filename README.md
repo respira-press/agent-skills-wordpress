@@ -59,7 +59,7 @@ cp -r agent-skills-wordpress/skills/* ~/.claude/skills/
 
 ## Available Skills
 
-55 skills, catalog version 1.16.0. The list below is generated from `skills.json`.
+55 skills, catalog version 1.16.1. The list below is generated from `skills.json`.
 
 ### Onboarding
 
